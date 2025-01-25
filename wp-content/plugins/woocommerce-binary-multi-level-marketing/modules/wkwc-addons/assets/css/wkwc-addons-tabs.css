@@ -1,0 +1,20 @@
+/**
+* WKWC Addons Tabs CSS.
+*/
+
+/* Style the settings tabs */
+.wkwc-addons-tabs-wrap .wkwc-addons-page-header {
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.wkwc-addons-tabs-wrap .page-title {
+    font-size: 20px;
+    line-height: 1.6em;
+    font-weight: 700;
+    margin: 0;
+    padding: 0px 10px;
+}
+/* Style the settings tabs ends.*/
+

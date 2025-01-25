@@ -1,0 +1,159 @@
+<?php
+/**
+ * Sponsor Template Controller Class.
+ *
+ * @package WooCommerce Binary Multi Level Marketing
+ */
+
+namespace WCBMLMARKETING\Includes\Sponsor;
+
+use WCBMLMARKETING\Templates\Front;
+use WCBMLMARKETING\Includes\Sponsor\Dashboard;
+use WCBMLMARKETING\Templates\Front\Signup\BMLM_Signup_Fields;
+
+defined( 'ABSPATH' ) || exit(); // Exit if access directly.
+
+if ( ! class_exists( 'BMLM_Template_Controller' ) ) {
+
+	/**
+	 * Sponsor template functions class
+	 */
+	class BMLM_Template_Controller {
+
+		/**
+		 * Dashboard object
+		 *
+		 * @var object
+		 */
+		protected $dashboard;
+
+		/**
+		 * Sponsor class object
+		 *
+		 * @var object
+		 */
+		protected $sponsor;
+
+		/**
+		 * Constructor of the class
+		 *
+		 * @param object $sponsor Sponsor class object.
+		 */
+		public function __construct( $sponsor ) {
+			$this->sponsor   = $sponsor;
+			$this->dashboard = new Dashboard\BMLM_Dashboard();
+			add_action( 'bmlm_wc_account_menu', array( $this, 'bmlm_sponsor_account_menu' ) );
+		}
+
+		/**
+		 * Callback method for sponsor account menu
+		 *
+		 * @return void
+		 */
+		public function bmlm_sponsor_account_menu() {
+			wc_print_notices();
+			?>
+			<nav class="woocommerce-MyAccount-navigation">
+				<ul>
+					<li><a href="/" class="d-flex align-items-center text-dark text-decoration-none"><img id="logo" src="<?php echo bloginfo('template_url');?>/assets/images/logo.png"></a></li>
+					<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
+						<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
+							<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?></a>
+						</li>
+					<?php endforeach; ?>
+				
+				</ul>
+			</nav>
+			<?php
+		}
+
+		/**
+		 * Callback method for sponsor registration and login
+		 *
+		 * @return void
+		 */
+		public function bmlm_sponsor_registration() {
+			wp_enqueue_script( 'wc-password-strength-meter' );
+			echo do_shortcode( '[woocommerce_my_account]' );
+		}
+
+		/**
+		 * Callback method for sponsor custom registration form fields
+		 *
+		 * @return void
+		 */
+		public function bmlm_sponsor_custom_registration_form() {
+			$signup = new BMLM_Signup_Fields();
+			$signup->get_template();
+		}
+
+		/**
+		 * Callback method for sponsor dahsboard
+		 *
+		 * @return void
+		 */
+		public function bmlm_sponsor_dashboard() {
+			$this->dashboard->bmlm_get_dashboard();
+		}
+
+		/**
+		 * Callback method for sponsor ads
+		 *
+		 * @return void
+		 */
+		public function bmlm_sponsor_ads() {
+			$action = get_query_var( 'action' );
+			if ( empty( $action ) || ( ! empty( $action ) && 'page' === $action ) ) {
+				$ads = new Front\Sponsor\Ads\BMLM_Sponsor_Ads( $this->sponsor );
+				$ads->get_template();
+			}
+		}
+
+		/**
+		 * Callback method for sponsor genealogy tree
+		 *
+		 * @return void
+		 */
+		public function bmlm_sponsor_genealogy_tree() {
+			$gtree = new Front\Sponsor\Genealogy\BMLM_Genealogy_Tree();
+			$gtree->get_template();
+		}
+
+		/**
+		 * Callback method for sponsor referral links
+		 *
+		 * @return void
+		 */
+		public function bmlm_sponsor_refferal_links() {
+			$referral = new Front\Sponsor\Refferal\BMLM_Refferal( $this->sponsor );
+			$referral->get_template();
+		}
+
+		/**
+		 * Callback method for sponsor commissions
+		 *
+		 * @return void
+		 */
+		public function bmlm_sponsor_commissions() {
+			$commission = new Front\Sponsor\Commission\BMLM_Commission_Table( $this->sponsor );
+			$commission->get_template();
+		}
+
+
+		public function bmlm_sponsor_marketing_crm_link(){
+			$marketing = new Front\Sponsor\Marketing\BMLM_Marketing( $this->sponsor );
+			$marketing->get_template();
+		}
+
+		public function bmlm_sponsor_social_media_kit(){
+			$marketing = new Front\Sponsor\Social\BMLM_Social( $this->sponsor );
+			$marketing->get_template();
+		}
+		
+		public function bmlm_sponsor_training_resources(){
+			$marketing = new Front\Sponsor\training\BMLM_Training( $this->sponsor );
+			$marketing->get_template();
+		}
+
+	}
+}

@@ -1,0 +1,12 @@
+/**
+ * Graph side css
+ */
+.bmlm-wrapper,
+.bmlm-dashboard-wrapper {
+   width: 100%;
+   display: inline-block;
+   background-color: #fff;
+}
+.bmlm-pending-balance {
+   background-color: #ffe6e6;
+}

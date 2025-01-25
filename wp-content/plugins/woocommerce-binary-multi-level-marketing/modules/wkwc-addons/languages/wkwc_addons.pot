@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-01-11T07:56:14+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: wkwc_addons\n"
+
+#: class-wkwc-addons.php:111
+#: class-wkwc-addons.php:112
+msgid "Webkul WC Addons"
+msgstr ""
+
+#: class-wkwc-addons.php:161
+msgid "Webkul Addons"
+msgstr ""
+
+#: class-wkwc-addons.php:162
+msgid "Showing the list of all installed Webkul WooCommerce Addons."
+msgstr ""
+
+#: class-wkwc-addons.php:179
+msgid "Settings"
+msgstr ""
+
+#: class-wkwc-addons.php:180
+msgid "Open Settings"
+msgstr ""
+
+#: class-wkwc-addons.php:187
+msgid "Activate"
+msgstr ""
+
+#: class-wkwc-addons.php:188
+msgid "Click to activate and use."
+msgstr ""
+
+#: class-wkwc-addons.php:206
+msgid "Click to see the Blog"
+msgstr ""
+
+#: class-wkwc-addons.php:279
+#: class-wkwc-addons.php:280
+msgid "Extensions"
+msgstr ""
+
+#: class-wkwc-addons.php:291
+#: class-wkwc-addons.php:292
+msgid "Support & Services"
+msgstr ""
+
+#: class-wkwc-addons.php:291
+msgid "Webkul"
+msgstr ""

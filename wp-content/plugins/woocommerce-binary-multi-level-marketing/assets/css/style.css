@@ -1,0 +1,518 @@
+/**
+ * Front side css
+ */
+.bmlm-tooltip {
+	position: relative;
+	display: inline-block;
+}
+.bmlm-membership-image img{
+	height: -webkit-fill-available;
+	width: -webkit-fill-available;
+}
+.bmlm-front-action-container {
+	position: relative;
+	padding: 0px 0px 10px 0px;
+}
+.bmlm-user-search-box {
+height: auto!important;
+
+}
+.bmlm_front_share_btn{
+    padding: 5px 5px 5px 5px!important;
+    border: 1px solid!important;
+    font-size: 13px!important;
+    margin-top: 1px!important;
+}
+.bmlm_button_color{
+    background: #135e96;
+    border-color: #135e96;
+    color: #fff;
+}
+.bmlm-tooltip .bmlm-tooltiptext {
+	visibility: hidden;
+	width: 140px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px;
+	position: absolute;
+	z-index: 1;
+	bottom: 150%;
+	left: 50%;
+	margin-left: -75px;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+.bmlm-tooltip .bmlm-tooltiptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #555 transparent transparent transparent;
+}
+
+.bmlm-tooltip:hover .bmlm-tooltiptext {
+	visibility: visible;
+	opacity: 1;
+}
+.bmlm-share-btn i {
+	margin-top: 2px;
+}
+.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--seperate-dashboard {
+	margin-bottom: 40px;
+}
+.woocommerce-sponsor-terms-text {
+	margin-bottom: 10px;
+}
+.sponsor-ads-table td input[type="text"] {
+	width: 100%;
+	display: inline-block;
+	margin-bottom: 5px;
+}
+.bmlm-table-responsive {
+	margin-top: 10px;
+	display: inline-block;
+	width: 100%;
+}
+.bmlm-membership-card {
+	display: inline-block;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+	margin: 20px;
+	position: relative;
+	margin-bottom: 50px;
+	transition: all 0.2s ease-in-out;
+	width: 50%;
+}
+
+.bmlm-membership-card:hover {
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	margin-bottom: 54px;
+}
+
+.bmlm-membership-image {
+	height: 300px;
+	opacity: 0.7;
+	overflow: hidden;
+	transition: all 0.2s ease-in-out;
+}
+
+.bmlm-membership-image:hover,
+.bmlm-membership-card:hover .bmlm-membership-image {
+	height: 300px;
+	opacity: 1;
+}
+.bmlm-membership-text {
+	background: #fff;
+	padding: 15px;
+}
+.bmlm-membership-text p {
+	margin-bottom: 0px;
+	line-height: normal;
+}
+.bmlm-membership-text p.price {
+	font-size: 1.41575em;
+	margin-bottom: 10px;
+}
+.bmlm-membership-fab {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	position: absolute;
+	margin-top: -50px;
+	right: 20px;
+	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+	background: #17379e;
+	padding: 0px !important;
+	text-align: left;
+	opacity: 1;
+}
+.bmlm-membership-fab svg {
+	fill: #fff;
+	width: 28px;
+	height: 28px;
+	text-align: center;
+	margin-left: 10px;
+	margin-top: 7px;
+}
+.bmlm-membership-fab:hover {
+	background: #17379e;
+}
+
+/* // share template */
+
+.bmlm-share-brick {
+	display: none;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background: #fff;
+	box-shadow: 0 10px 32.98px 1.02px rgba(0, 0, 0, 0.15), 0 0 3px 0 rgba(0, 0, 0, 0.05), 0 0 0 0 rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+	width: 450px;
+	padding: 20px;
+	z-index: 11;
+	animation-name: menu-slide-up;
+	animation-duration: 0.3s;
+}
+.right-spec .bmlm-share-brick {
+	left: auto;
+	right: 0px;
+	top: -140px;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn {
+	display: inline-block;
+	min-width: 125px;
+	padding: 6px 10px 7px 42px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 700;
+	border-radius: 4px;
+	margin: 0 8px 8px 0;
+	position: relative;
+	overflow: hidden;
+	text-decoration: none;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn:before {
+	position: absolute;
+	width: 32px;
+	height: 100%;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	background-image: url(../images/sprite.svg);
+	background-color: rgba(0, 0, 0, 0.15);
+	content: "";
+}
+.bmlm-share-brick .copy-wrap .copy-code {
+	display: block;
+	font-family: monospace;
+	font-weight: 700;
+	font-size: 15px;
+	color: #64687a;
+	background-color: #ececec;
+	border: none;
+	border-radius: 4px;
+	white-space: nowrap;
+	padding: 11px 10px 15px;
+	overflow: auto;
+	margin: 0;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn.bmlm-social-btn-fb {
+	background-color: #3b5998;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn.bmlm-social-btn-tw {
+	background-color: #1da1f2;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn.bmlm-social-btn-in {
+	background-color: #0077b5;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn.bmlm-social-btn-gp {
+	background-color: #dd4b39;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn.bmlm-social-btn-em {
+	background-color: #5d5d5d;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn.bmlm-social-btn-fb:before {
+	background-position: -132px -485px;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn.bmlm-social-btn-tw:before {
+	background-position: -165px -485px;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn.bmlm-social-btn-in:before {
+	background-position: -231px -486px;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn.bmlm-social-btn-gp:before {
+	background-position: -198px -484px;
+}
+.bmlm-share-brick .bmlm-share-section .bmlm-social-btns-sm .bmlm-social-btn.bmlm-social-btn-em:before {
+	background-position: -264px -484px;
+}
+.bmlm-share-box {
+	position: relative;
+}
+.bmlm-share-box.active .bmlm-share-brick {
+	display: block !important;
+	width: 325px;
+	margin-top: 8px;
+}
+.bmlm-share-brick::after {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 70%;
+	margin-left: 0px;
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent transparent #fff transparent;
+}
+.bmlm-share-brick .close-share {
+	display: none;
+	margin: 23px 15px 22px 15px;
+	transition: transform 0.2s ease;
+	width: 50px;
+	height: 50px;
+	background-color: #fff;
+	top: 10px;
+	right: 20px;
+	border-radius: 50%;
+	position: absolute;
+	cursor: pointer;
+	box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.15), 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* // graph card view */
+
+.bmlm-graph-card {
+	box-shadow: 0 0 0 0 rgb(90 113 208 / 11%), 0 4px 16px 0 rgb(167 175 183 / 33%);
+	border: solid 1px #dde4eb;
+	border-radius: 0px;
+	background-color: #fff;
+	margin-bottom: 20px;
+}
+.bmlm-graph-card-header {
+	background-color: #fbfbfb !important;
+	border-bottom: 1px solid #dee2e6 !important;
+	padding: 5px 15px !important;
+}
+select.bmlm_search_drop {
+    height: 44px;
+    width: 100px;
+	text-align: center;
+}
+input.bmlm-date {
+    width: 150px;
+    height: 45px;
+    text-align: center;
+}
+
+.bmlm-graph-card-header h3 {
+	margin: 0px;
+	font-size: 20px;
+	font-weight: 500;
+}
+.bmlm-graph-card-body {
+	flex: 1 1 auto;
+	min-height: 1px;
+	padding: 1.25rem;
+}
+.bmlm-no-padding {
+	padding: 0px !important;
+}
+.bmlm-no-padding table {
+	margin-bottom: 0px;
+}
+.bmlm-no-padding table label {
+	font-weight: 600;
+}
+.bmlm-info {
+	color: #f16969;
+	font-size: 14px;
+}
+.bmlm-sponsor-refferal th,
+.bmlm-sponsor-refferal td {
+	background-color: transparent !important;
+}
+.bmlm-refferal .bmlm-graph-card {
+	box-shadow: none;
+}
+.bmlm-sponsor-refferal th label {
+	margin-top: 5px;
+	display: block;
+}
+
+/* // statistics  */
+.bmlm-card {
+	box-shadow: 0 0 0 0 rgb(90 113 208 / 11%), 0 4px 16px 0 rgb(167 175 183 / 33%);
+	border: solid 1px #dde4eb;
+	position: relative;
+	display: inline-block;
+	width: 32%;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: initial;
+	border-radius: 0.25rem;
+	margin: 10px 4px 25px;
+}
+.bmlm-card-wrapper {
+	flex: 1 1 auto;
+	padding: 10px;
+}
+.bmlm-card-header h3 {
+	font-size: 20px;
+	font-weight: 500;
+}
+.bmlm-row {
+	--bs-gutter-x: 24px;
+	--bs-gutter-y: 0;
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: calc(var(--bs-gutter-y) * -1);
+	margin-right: calc(var(--bs-gutter-x) / -2);
+	margin-left: calc(var(--bs-gutter-x) / -2);
+}
+.bmlm-row > * {
+	flex-shrink: 0;
+	width: 100%;
+	max-width: 100%;
+	padding-right: calc(var(--bs-gutter-x) / 2);
+	padding-left: calc(var(--bs-gutter-x) / 2);
+	margin-top: var(--bs-gutter-y);
+}
+.bmlm-col {
+	flex: 1 0 0%;
+	margin-top: 0 !important;
+}
+.bmlm-col-auto {
+	flex: 0 0 auto;
+	width: auto;
+}
+.bmlm-earning-avatar {
+	width: 40px;
+	height: 40px;
+}
+.bmlm-earning-avatar svg {
+	display: block;
+	width: auto;
+	height: auto;
+	color: #3b7ddd;
+	margin: 0 auto;
+	padding-top: 8px;
+}
+.bmlm-customized-box .bmlm-graph-card {
+	display: inline-block;
+}
+.bmlm-customized-box .bmlm-card {
+	box-shadow: none;
+	border: none;
+	width: 100%;
+	margin: 0px;
+}
+.bmlm-customized-box .bmlm-graph-card table {
+	margin-bottom: 0px;
+}
+div.bmlm-customized-box div.bmlm-graph-card table tr td,
+.bmlm-customized-box .bmlm-graph-card table tr th {
+	padding: 0px;
+}
+.bmlm-customized-box .bmlm-graph-card-body,
+.bmlm-customized-box .bmlm-card {
+	background-color: #92a6ff;
+}
+.bmlm-customized-box .bmlm-card-header h3,
+.bmlm-customized-box .bmlm-col-auto svg,
+.bmlm-customized-box .bmlm-card-body h3 {
+	color: #fff;
+}
+.bmlm-customized-box input:focus,
+.bmlm-customized-box button:focus {
+	outline: none;
+}
+.bmlm-table-header {
+	background-color: #fbfbfb !important;
+	border-bottom: 1px solid #dee2e6 !important;
+	padding: 5px 15px !important;
+}
+.bmlm-wallet-transactions-wrapper {
+	border: solid 1px #dde4eb;
+	border-radius: 0px;
+	background-color: #fff;
+	margin-bottom: 20px;
+	margin-top: 30px;
+}
+.bmlm-table-header h3 {
+	font-size: 20px;
+	margin: 0px;
+	font-weight: 500;
+}
+.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--sponsorrefferal {
+	margin-bottom: 0!important;
+}
+
+/* // dashboard icons */
+.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--sponsordashboard a:before {
+	content: "\f513";
+	font-family: "Dashicons";
+	font-size: 20px;
+	font-weight: normal;
+	text-align: center;
+}
+.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--sponsorads a:before {
+	content: "\f488";
+	font-family: "Dashicons";
+	font-size: 20px;
+	font-weight: normal;
+	text-align: center;
+}
+.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--sponsorgenealogy a:before {
+	content: "\f307";
+	font-family: "Dashicons";
+	font-size: 20px;
+	font-weight: normal;
+	text-align: center;
+}
+.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--sponsorwallet a:before {
+	content: "\f18e";
+	font-family: "Dashicons";
+	font-size: 20px;
+	font-weight: normal;
+	text-align: center;
+}
+.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--sponsorrefferal a:before {
+	font-family: "Dashicons";
+	content: "\f448";
+	font-size: 20px;
+	font-weight: normal;
+	text-align: center;
+}
+.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--sponsorcommission a:before {
+	font-family: "Dashicons";
+	content: "\f18e";
+	font-size: 20px;
+	font-weight: normal;
+	text-align: center;
+}
+.woocommerce-MyAccount-navigation {
+	float:left !important;
+}
+
+/* On screens that are 1208px or less */
+@media screen and (max-width: 1208px) {
+	.bmlm-card {
+		width: 31%;
+	}
+}
+.bmlm-account-content {
+	position: relative;
+}
+
+.bmlm-membership-btn-container {
+    display: flex;
+    align-items: baseline;
+    gap: 82px;
+    flex-wrap: wrap;
+}
+
+.bmlm-membership-card .bmlm-membership-btn {
+	font-size: 16px;
+	position: relative;
+	right: 0%;
+	border-radius: 10px;
+	color: #fff;
+	background: #00409a;
+}
+
+.bmlm-content-sponsor-earning {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.page-template-template-fullwidth-php .woocommerce-MyAccount-content {
+    width: 73.9130434783% !important;
+    float: left !important;
+    margin-left: 4.347826087% !important;
+	margin-right: 0% !important;
+}

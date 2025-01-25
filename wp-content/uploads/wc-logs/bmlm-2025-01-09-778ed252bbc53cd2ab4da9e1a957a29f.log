@@ -1,0 +1,10 @@
+2025-01-09T10:08:07+00:00 INFO User in action: 1: Order id: 24, Customer id: 0, Is membership: , Is wallet: 1, Wallet id: 13, Membership id: 11
+2025-01-09T10:14:34+00:00 INFO User in action: 1: Order id: 25, Customer id: 2, Is membership: 1, Is wallet: , Wallet id: 13, Membership id: 11
+2025-01-09T10:57:41+00:00 INFO User in action: 1: Order id: 38, Customer id: 0, Is membership: , Is wallet: 1, Wallet id: 13, Membership id: 11
+2025-01-09T11:02:25+00:00 INFO User in action: 1: Order id: 39, Customer id: 1, Is membership: 1, Is wallet: , Wallet id: 13, Membership id: 11
+2025-01-09T11:08:37+00:00 INFO User in action: 1: Order id: 40, Customer id: 3, Is membership: 1, Is wallet: , Wallet id: 13, Membership id: 11
+2025-01-09T11:15:17+00:00 INFO User in action: 1: Order id: 41, Customer id: 4, Is membership: 1, Is wallet: , Wallet id: 13, Membership id: 11
+2025-01-09T11:22:32+00:00 INFO User in action: 1: Order id: 42, Customer id: 5, Is membership: 1, Is wallet: , Wallet id: 13, Membership id: 11
+2025-01-09T11:22:34+00:00 INFO User in action: 1: User comm: 1, Customer id: 3, Is membership: 1
+2025-01-09T22:15:42+00:00 INFO User in action: 1: Order id: 43, Customer id: 3, Is membership: , Is wallet: 1, Wallet id: 13, Membership id: 11
+2025-01-09T22:27:09+00:00 INFO User in action: 1: Order id: 98, Customer id: 6, Is membership: 1, Is wallet: , Wallet id: 13, Membership id: 11

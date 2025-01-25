@@ -1,0 +1,4 @@
+2025-01-15T07:36:36+00:00 INFO User in action: 1: Order id: 116, Customer id: 1, Is membership: 1, Is wallet: , Wallet id: 13, Membership id: 11
+2025-01-15T10:19:41+00:00 INFO User in action: 1: Order id: 117, Customer id: 7, Is membership: 1, Is wallet: , Wallet id: 13, Membership id: 11
+2025-01-15T10:19:43+00:00 INFO User in action: 1: User comm: 10, Customer id: 5, Is membership: 1
+2025-01-15T10:39:20+00:00 INFO User in action: 8: Order id: 119, Customer id: 8, Is membership: 1, Is wallet: , Wallet id: 13, Membership id: 11

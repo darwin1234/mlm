@@ -1,0 +1,62 @@
+/**
+* WKWC Addons CSS.
+*/
+/* Card styling */
+.wkwc-addons-wrap .wkwc-addons-list {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.wkwc-addons-wrap .wkwc-addon-container {
+	max-width: 345px;
+	box-shadow: 0px 2px 11px 1px rgba(0, 0, 0, 0.12);
+	background-color: #F1F1F1;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+}
+
+.wkwc-addons-wrap .wkwc-addon-container:hover {
+	background-color: #fff;
+	transition: .5s;
+}
+
+.wkwc-addons-wrap .wkwc-addon-container .wkwc-addon-sub-cont {
+	display: flex;
+	gap: 16px;
+	align-items: center;
+}
+
+.wkwc-addons-wrap .wkwc-addon-container .wkwc-addon-sub-cont .wkwc-addon-cont-heading {
+	font-size: 20px;
+	font-weight: 700;
+	margin: 0;
+	color: #000;
+}
+.wkwc-addons-wrap .wkwc-addon-container .wkwc-addon-sub-cont .wkwc-addon-img {
+	max-width: 68px;
+	max-height: 68px;
+	border-radius: 2px;
+	filter: grayscale(0);
+}
+.wkwc-addons-wrap .wkwc-addon-container.disable .wkwc-addon-sub-cont .wkwc-addon-img {
+	filter: grayscale(1);
+}
+
+.wkwc-addons-wrap .wkwc-addon-container .wkwc-addon-cont-content {
+	font-size: 14px;
+	line-height: 17px;
+	margin: 16px 0 8px;
+}
+.wkwc-addons-wrap .wkwc-addon-btn-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: auto;
+}
+
+.wkwc-addons-wrap .wkwc-addon-btn-container .wkwc-addon-info-btn {
+	cursor: pointer;
+  text-decoration: none;
+}

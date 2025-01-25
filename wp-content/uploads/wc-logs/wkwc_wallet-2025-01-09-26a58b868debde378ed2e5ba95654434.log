@@ -1,0 +1,683 @@
+2025-01-09T10:06:52+00:00 INFO User in action: 0: Order id: 24, Checkout order processing, transaction data: Array
+(
+    [order_id] => 24
+    [sender] => 1
+    [customer] => 0
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 10:06:52
+    [transaction_status] => used
+)
+
+2025-01-09T10:06:52+00:00 INFO User in action: 0: Order id: 24, Checkout order processing, transaction data: Array
+(
+    [order_id] => 24
+    [sender] => 1
+    [customer] => 0
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 10:06:52
+    [transaction_status] => used
+)
+
+2025-01-09T10:08:07+00:00 INFO User in action: 1: Order id: 24, Wallet updated: 
+2025-01-09T10:08:07+00:00 INFO User in action: 1: Wallet id: 13
+2025-01-09T10:08:07+00:00 INFO User in action: 1: Sender User Id: 1, Receiver id: 0, Wallet amount: 100, type: credit 
+2025-01-09T10:08:07+00:00 INFO User in action: 1: Mail data for wallet amount updated: Array
+(
+    [order_id] => 24
+    [reference] => 
+    [sender] => 1
+    [customer] => 0
+    [amount] => 100
+    [transaction_type] => credit
+    [transaction_date] => 2025-01-09 10:08:07
+    [transaction_status] => recharged
+    [transaction_note] => Order No. : 24
+Wallet Transaction : £100.00
+
+)
+
+2025-01-09T10:08:07+00:00 INFO User in action: 1: trigger: 49 Enabled: 1, Recipient:  Transaction data: Array
+(
+    [order_id] => 24
+    [reference] => 
+    [sender] => 1
+    [customer] => 0
+    [amount] => 100
+    [transaction_type] => credit
+    [transaction_date] => 2025-01-09 10:08:07
+    [transaction_status] => recharged
+    [transaction_note] => Order No. : 24
+Wallet Transaction : £100.00
+
+)
+
+2025-01-09T10:08:07+00:00 INFO User in action: 1: maybe_reset_cache Reseting cache data for transaction data: Array
+(
+    [order_id] => 24
+    [reference] => 
+    [sender] => 1
+    [customer] => 0
+    [amount] => 100
+    [transaction_type] => credit
+    [transaction_date] => 2025-01-09 10:08:07
+    [transaction_status] => recharged
+    [transaction_note] => Order No. : 24
+Wallet Transaction : £100.00
+
+)
+
+2025-01-09T10:08:07+00:00 INFO User in action: 1: create_transaction cache reset has been done for these keys: Array
+(
+    [wkwc_wallet_transaction_customer_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_customer_id_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_id_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_transaction_id_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_transaction_id_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+)
+
+2025-01-09T10:08:50+00:00 INFO User in action: 1: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_1
+2025-01-09T10:08:50+00:00 INFO User in action: 1: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_1_10_0
+2025-01-09T10:13:44+00:00 INFO User in action: 2: Order id: 25, Checkout order processing, transaction data: Array
+(
+    [order_id] => 25
+    [sender] => 1
+    [customer] => 2
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 10:13:44
+    [transaction_status] => used
+)
+
+2025-01-09T10:13:44+00:00 INFO User in action: 2: Order id: 25, Checkout order processing, transaction data: Array
+(
+    [order_id] => 25
+    [sender] => 1
+    [customer] => 2
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 10:13:44
+    [transaction_status] => used
+)
+
+2025-01-09T10:14:43+00:00 INFO User in action: 1: Order id: 25, Wallet updated: 
+2025-01-09T10:14:43+00:00 INFO User in action: 1: Wallet id: 13
+2025-01-09T10:42:52+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_2
+2025-01-09T10:42:52+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_2_10_0
+2025-01-09T10:43:01+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_2
+2025-01-09T10:43:01+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_2_10_0
+2025-01-09T10:43:08+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_2
+2025-01-09T10:43:08+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_2_10_0
+2025-01-09T10:43:14+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_2
+2025-01-09T10:43:14+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_2_10_0
+2025-01-09T10:50:03+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_2
+2025-01-09T10:50:03+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_2_10_0
+2025-01-09T10:54:47+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_2
+2025-01-09T10:54:47+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_2_10_0
+2025-01-09T10:54:58+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_2
+2025-01-09T10:54:58+00:00 INFO User in action: 2: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_2_10_0
+2025-01-09T10:56:41+00:00 INFO User in action: 0: Order id: 38, Checkout order processing, transaction data: Array
+(
+    [order_id] => 38
+    [sender] => 1
+    [customer] => 0
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 10:56:41
+    [transaction_status] => used
+)
+
+2025-01-09T10:56:41+00:00 INFO User in action: 0: Order id: 38, Checkout order processing, transaction data: Array
+(
+    [order_id] => 38
+    [sender] => 1
+    [customer] => 0
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 10:56:41
+    [transaction_status] => used
+)
+
+2025-01-09T10:57:41+00:00 INFO User in action: 1: Order id: 38, Wallet updated: 
+2025-01-09T10:57:41+00:00 INFO User in action: 1: Wallet id: 13
+2025-01-09T10:57:41+00:00 INFO User in action: 1: Sender User Id: 1, Receiver id: 0, Wallet amount: 100, type: credit 
+2025-01-09T10:57:41+00:00 INFO User in action: 1: Mail data for wallet amount updated: Array
+(
+    [order_id] => 38
+    [reference] => 
+    [sender] => 1
+    [customer] => 0
+    [amount] => 100
+    [transaction_type] => credit
+    [transaction_date] => 2025-01-09 10:57:41
+    [transaction_status] => recharged
+    [transaction_note] => Order No. : 38
+Wallet Transaction : £100.00
+
+)
+
+2025-01-09T10:57:41+00:00 INFO User in action: 1: trigger: 49 Enabled: 1, Recipient:  Transaction data: Array
+(
+    [order_id] => 38
+    [reference] => 
+    [sender] => 1
+    [customer] => 0
+    [amount] => 100
+    [transaction_type] => credit
+    [transaction_date] => 2025-01-09 10:57:41
+    [transaction_status] => recharged
+    [transaction_note] => Order No. : 38
+Wallet Transaction : £100.00
+
+)
+
+2025-01-09T10:57:41+00:00 INFO User in action: 1: maybe_reset_cache Reseting cache data for transaction data: Array
+(
+    [order_id] => 38
+    [reference] => 
+    [sender] => 1
+    [customer] => 0
+    [amount] => 100
+    [transaction_type] => credit
+    [transaction_date] => 2025-01-09 10:57:41
+    [transaction_status] => recharged
+    [transaction_note] => Order No. : 38
+Wallet Transaction : £100.00
+
+)
+
+2025-01-09T10:57:41+00:00 INFO User in action: 1: create_transaction cache reset has been done for these keys: Array
+(
+    [wkwc_wallet_transaction_customer_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_customer_id_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_id_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_transaction_id_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_transaction_id_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+)
+
+2025-01-09T11:01:56+00:00 INFO User in action: 1: Order id: 39, Checkout order processing, transaction data: Array
+(
+    [order_id] => 39
+    [sender] => 1
+    [customer] => 1
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 11:01:56
+    [transaction_status] => used
+)
+
+2025-01-09T11:01:56+00:00 INFO User in action: 1: Order id: 39, Checkout order processing, transaction data: Array
+(
+    [order_id] => 39
+    [sender] => 1
+    [customer] => 1
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 11:01:56
+    [transaction_status] => used
+)
+
+2025-01-09T11:02:33+00:00 INFO User in action: 1: Order id: 39, Wallet updated: 
+2025-01-09T11:02:33+00:00 INFO User in action: 1: Wallet id: 13
+2025-01-09T11:02:44+00:00 INFO User in action: 1: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_1
+2025-01-09T11:02:44+00:00 INFO User in action: 1: Get get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_1_10_0
+2025-01-09T11:08:08+00:00 INFO User in action: 3: Order id: 40, Checkout order processing, transaction data: Array
+(
+    [order_id] => 40
+    [sender] => 1
+    [customer] => 3
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 11:08:08
+    [transaction_status] => used
+)
+
+2025-01-09T11:08:08+00:00 INFO User in action: 3: Order id: 40, Checkout order processing, transaction data: Array
+(
+    [order_id] => 40
+    [sender] => 1
+    [customer] => 3
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 11:08:08
+    [transaction_status] => used
+)
+
+2025-01-09T11:08:46+00:00 INFO User in action: 1: Order id: 40, Wallet updated: 
+2025-01-09T11:08:46+00:00 INFO User in action: 1: Wallet id: 13
+2025-01-09T11:14:48+00:00 INFO User in action: 4: Order id: 41, Checkout order processing, transaction data: Array
+(
+    [order_id] => 41
+    [sender] => 1
+    [customer] => 4
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 11:14:48
+    [transaction_status] => used
+)
+
+2025-01-09T11:14:48+00:00 INFO User in action: 4: Order id: 41, Checkout order processing, transaction data: Array
+(
+    [order_id] => 41
+    [sender] => 1
+    [customer] => 4
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 11:14:48
+    [transaction_status] => used
+)
+
+2025-01-09T11:15:25+00:00 INFO User in action: 1: Order id: 41, Wallet updated: 
+2025-01-09T11:15:25+00:00 INFO User in action: 1: Wallet id: 13
+2025-01-09T11:17:46+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_3
+2025-01-09T11:17:46+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_3_10_0
+2025-01-09T11:22:00+00:00 INFO User in action: 5: Order id: 42, Checkout order processing, transaction data: Array
+(
+    [order_id] => 42
+    [sender] => 1
+    [customer] => 5
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 11:22:00
+    [transaction_status] => used
+)
+
+2025-01-09T11:22:00+00:00 INFO User in action: 5: Order id: 42, Checkout order processing, transaction data: Array
+(
+    [order_id] => 42
+    [sender] => 1
+    [customer] => 5
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 11:22:00
+    [transaction_status] => used
+)
+
+2025-01-09T11:22:40+00:00 INFO User in action: 1: Order id: 42, Wallet updated: 
+2025-01-09T11:22:40+00:00 INFO User in action: 1: Wallet id: 13
+2025-01-09T20:06:47+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_3
+2025-01-09T20:06:47+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_3_10_0
+2025-01-09T20:06:57+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_3
+2025-01-09T20:06:57+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_3_10_0
+2025-01-09T20:07:03+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_3
+2025-01-09T20:07:03+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_3_10_0
+2025-01-09T22:06:43+00:00 INFO User in action: 3: Order id: 43, Checkout order processing, transaction data: Array
+(
+    [order_id] => 43
+    [sender] => 1
+    [customer] => 3
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 22:06:43
+    [transaction_status] => used
+)
+
+2025-01-09T22:06:43+00:00 INFO User in action: 3: Order id: 43, Checkout order processing, transaction data: Array
+(
+    [order_id] => 43
+    [sender] => 1
+    [customer] => 3
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 22:06:43
+    [transaction_status] => used
+)
+
+2025-01-09T22:07:02+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_3
+2025-01-09T22:07:02+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_3_10_0
+2025-01-09T22:07:39+00:00 INFO User in action: 3: wkwc_wallet_send_transfer_money_otp: 55 Verify OTP result: Array
+(
+    [success] => 
+    [message] => You have insufficient wallet balance.
+)
+
+2025-01-09T22:08:17+00:00 INFO User in action: 1: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_1
+2025-01-09T22:08:17+00:00 INFO User in action: 1: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_1_10_0
+2025-01-09T22:08:46+00:00 INFO User in action: 1: Sender User Id: 1, Receiver id: 3, Wallet amount: 1, type: transfer 
+2025-01-09T22:08:46+00:00 INFO User in action: 1: Mail data for wallet amount updated: Array
+(
+    [order_id] => 
+    [reference] => 
+    [sender] => 1
+    [customer] => 3
+    [amount] => 1
+    [transaction_type] => transfer
+    [transaction_date] => 2025-01-09 22:08:46
+    [transaction_status] => transfered
+    [transaction_note] => Test test test
+    [name] => Darwin Sese
+    [email] => darwinsesemusicman@gmail.com
+)
+
+2025-01-09T22:08:46+00:00 INFO User in action: 1: trigger: 49 Enabled: 1, Recipient: darwinsesemusicman@gmail.com Transaction data: Array
+(
+    [order_id] => 
+    [reference] => 
+    [sender] => 1
+    [customer] => 3
+    [amount] => 1
+    [transaction_type] => transfer
+    [transaction_date] => 2025-01-09 22:08:46
+    [transaction_status] => transfered
+    [transaction_note] => Test test test
+    [name] => Darwin Sese
+    [email] => darwinsesemusicman@gmail.com
+)
+
+2025-01-09T22:08:48+00:00 INFO User in action: 1: trigger: 49 Enabled: 1, Recipient: darwinsese@gmail.com Transaction data: Array
+(
+    [order_id] => 
+    [reference] => 
+    [sender] => 1
+    [customer] => 3
+    [amount] => 1
+    [transaction_type] => transfer
+    [transaction_date] => 2025-01-09 22:08:46
+    [transaction_status] => sent
+    [transaction_note] => Test test test
+    [name] => Darwin Sese
+    [email] => darwinsese@gmail.com
+)
+
+2025-01-09T22:08:50+00:00 INFO User in action: 1: maybe_reset_cache Reseting cache data for transaction data: Array
+(
+    [order_id] => 
+    [reference] => 
+    [sender] => 1
+    [customer] => 3
+    [amount] => 1
+    [transaction_type] => transfer
+    [transaction_date] => 2025-01-09 22:08:46
+    [transaction_status] => transfered
+    [transaction_note] => Test test test
+)
+
+2025-01-09T22:08:50+00:00 INFO User in action: 1: create_transaction cache reset has been done for these keys: Array
+(
+    [wkwc_wallet_transaction_customer_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_customer_id_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_id_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_transaction_id_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_transaction_id_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_customer_3] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_3] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_customer_id_3] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_id_3] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_transaction_id_3] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_transaction_id_3] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+)
+
+2025-01-09T22:08:50+00:00 INFO User in action: 1: wkwc_wallet_send_transfer_money_otp: 55 Verify OTP result: Array
+(
+    [success] => transfered
+    [message] => Amount has been successfully transfered.
+)
+
+2025-01-09T22:09:06+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_3
+2025-01-09T22:09:06+00:00 INFO User in action: 3: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_3_10_0
+2025-01-09T22:09:25+00:00 INFO User in action: 3: Get get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_3
+2025-01-09T22:09:25+00:00 INFO User in action: 3: Get get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_3_10_0
+2025-01-09T22:11:00+00:00 INFO User in action: 1: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_1
+2025-01-09T22:11:00+00:00 INFO User in action: 1: Get get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_1_10_0
+2025-01-09T22:15:42+00:00 INFO User in action: 1: Order id: 43, Wallet updated: 
+2025-01-09T22:15:42+00:00 INFO User in action: 1: Wallet id: 13
+2025-01-09T22:15:42+00:00 INFO User in action: 1: Sender User Id: 1, Receiver id: 3, Wallet amount: 100, type: credit 
+2025-01-09T22:15:42+00:00 INFO User in action: 1: Mail data for wallet amount updated: Array
+(
+    [order_id] => 43
+    [reference] => 
+    [sender] => 1
+    [customer] => 3
+    [amount] => 100
+    [transaction_type] => credit
+    [transaction_date] => 2025-01-09 22:15:42
+    [transaction_status] => recharged
+    [transaction_note] => Order No. : 43
+Wallet Transaction : £100.00
+
+    [name] => Darwin Sese
+    [email] => darwinsesemusicman@gmail.com
+)
+
+2025-01-09T22:15:42+00:00 INFO User in action: 1: trigger: 49 Enabled: 1, Recipient: darwinsesemusicman@gmail.com Transaction data: Array
+(
+    [order_id] => 43
+    [reference] => 
+    [sender] => 1
+    [customer] => 3
+    [amount] => 100
+    [transaction_type] => credit
+    [transaction_date] => 2025-01-09 22:15:42
+    [transaction_status] => recharged
+    [transaction_note] => Order No. : 43
+Wallet Transaction : £100.00
+
+    [name] => Darwin Sese
+    [email] => darwinsesemusicman@gmail.com
+)
+
+2025-01-09T22:15:44+00:00 INFO User in action: 1: maybe_reset_cache Reseting cache data for transaction data: Array
+(
+    [order_id] => 43
+    [reference] => 
+    [sender] => 1
+    [customer] => 3
+    [amount] => 100
+    [transaction_type] => credit
+    [transaction_date] => 2025-01-09 22:15:42
+    [transaction_status] => recharged
+    [transaction_note] => Order No. : 43
+Wallet Transaction : £100.00
+
+)
+
+2025-01-09T22:15:44+00:00 INFO User in action: 1: create_transaction cache reset has been done for these keys: Array
+(
+    [wkwc_wallet_transaction_customer_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_customer_id_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_id_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_transaction_id_1] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_transaction_id_1] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_customer_3] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_3] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_customer_id_3] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_customer_id_3] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+    [wkwc_wallet_transaction_transaction_id_3] => Array
+        (
+            [0] => wkwc_wallet_transaction
+            [1] => 1
+        )
+
+    [wkwc_wallet_transactions_transaction_id_3] => Array
+        (
+            [0] => wkwc_wallet_transactions
+            [1] => 1
+        )
+
+)
+
+2025-01-09T22:21:51+00:00 INFO User in action: 1: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_1
+2025-01-09T22:21:51+00:00 INFO User in action: 1: Get get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_1_10_0
+2025-01-09T22:25:57+00:00 INFO User in action: 6: Order id: 98, Checkout order processing, transaction data: Array
+(
+    [order_id] => 98
+    [sender] => 1
+    [customer] => 6
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 22:25:57
+    [transaction_status] => used
+)
+
+2025-01-09T22:25:57+00:00 INFO User in action: 6: Order id: 98, Checkout order processing, transaction data: Array
+(
+    [order_id] => 98
+    [sender] => 1
+    [customer] => 6
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-09 22:25:57
+    [transaction_status] => used
+)
+
+2025-01-09T22:26:22+00:00 INFO User in action: 6: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_6
+2025-01-09T22:26:22+00:00 INFO User in action: 6: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_6_10_0
+2025-01-09T22:27:17+00:00 INFO User in action: 1: Order id: 98, Wallet updated: 
+2025-01-09T22:27:17+00:00 INFO User in action: 1: Wallet id: 13

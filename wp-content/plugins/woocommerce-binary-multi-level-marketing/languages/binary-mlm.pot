@@ -1,0 +1,1708 @@
+# Copyright (C) 2024 Webkul
+# This file is distributed under the license.txt included with plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Binary Multi Level Marketing 1.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/binary-mlm\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-01-16T06:16:49+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: binary-mlm\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Binary Multi Level Marketing"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://codecanyon.net/item/woocommerce-binary-multi-level-marketing-mlm/32605042"
+msgstr ""
+
+#. Description of the plugin
+msgid "Allows store owners to add Binary MLM system into WooCommerce Store."
+msgstr ""
+
+#. Author of the plugin
+msgid "Webkul"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://webkul.com"
+msgstr ""
+
+#: class-wk-caching-core-loader.php:133
+msgid "WK Caching Core should be present in folder 'wk_caching\\includes' in order to run this properly."
+msgstr ""
+
+#: class-wk-caching-core-loader.php:148
+msgid "WK Caching Core should be at the same version as declared in your \"class-wk-caching-core-loader.php\""
+msgstr ""
+
+#: class-wk-wallet-core-loader.php:136
+msgid "WKWC Wallet should be present in folder 'wkwc_wallet\\includes' in order to run this properly."
+msgstr ""
+
+#: class-wk-wallet-core-loader.php:151
+msgid "WK Wallet Core should be at the same version as declared in your \"class-wk-wallet-core-loader.php\""
+msgstr ""
+
+#: helper/badges/class-bmlm-badges.php:354
+msgid "Disabled"
+msgstr ""
+
+#: helper/badges/class-bmlm-badges.php:357
+msgid "Enabled"
+msgstr ""
+
+#: helper/commission/class-bmlm-commission-helper.php:307
+msgid "Bonus commission received"
+msgstr ""
+
+#. translators: %1$s: user email
+#: helper/commission/class-bmlm-commission-helper.php:310
+msgid "Commission received from %1$s for level %2$s"
+msgstr ""
+
+#. translators: %1$s: user email
+#: helper/commission/class-bmlm-commission-helper.php:314
+msgid "Company Commission received from %1$s"
+msgstr ""
+
+#: helper/sponsor/class-bmlm-sponsor.php:480
+msgid "An sponsor with this email id already exist, please try a different email address.."
+msgstr ""
+
+#: helper/sponsor/class-bmlm-sponsor.php:484
+#: helper/sponsor/class-bmlm-sponsor.php:688
+#: includes/admin/class-bmlm-admin-functions.php:586
+msgid "Please enter your referral id."
+msgstr ""
+
+#: helper/sponsor/class-bmlm-sponsor.php:488
+#: helper/sponsor/class-bmlm-sponsor.php:692
+#: includes/admin/class-bmlm-admin-functions.php:590
+msgid "Entered referral id does not exists."
+msgstr ""
+
+#: helper/sponsor/class-bmlm-sponsor.php:494
+#: helper/sponsor/class-bmlm-sponsor.php:697
+msgid "Referral id usage limit reached, A referral id can be used by only two users"
+msgstr ""
+
+#: helper/sponsor/class-bmlm-sponsor.php:498
+msgid "Please read and accept the terms and conditions to become a sponsor."
+msgstr ""
+
+#: helper/sponsor/class-bmlm-sponsor.php:551
+msgid "Registration complete check your mail for password!"
+msgstr ""
+
+#: helper/sponsor/class-bmlm-sponsor.php:929
+msgid "Pending"
+msgstr ""
+
+#: helper/sponsor/class-bmlm-sponsor.php:932
+msgid "Approved"
+msgstr ""
+
+#: helper/transaction/class-bmlm-transaction.php:282
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:220
+msgid "Wallet Credit"
+msgstr ""
+
+#: helper/transaction/class-bmlm-transaction.php:283
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:252
+msgid "credited to"
+msgstr ""
+
+#. Translators: %s: Credit text.
+#. translators: %s is amount string
+#: helper/transaction/class-bmlm-transaction.php:306
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:306
+msgid "Wallet amount %s account successfully"
+msgstr ""
+
+#: helper/wallet/class-bmlm-wallet.php:109
+msgid "Wallet Credited"
+msgstr ""
+
+#. Translators: %d: order id.
+#: helper/wallet/class-bmlm-wallet.php:110
+msgid "Wallet product purchase order %d has been completed."
+msgstr ""
+
+#. translators:%s is file path
+#: inc/class-bmlm-autoload.php:66
+msgid "The file attempting to be loaded at %s does not exist."
+msgstr ""
+
+#: includes/account/class-bmlm-account.php:195
+#: includes/account/class-bmlm-account.php:238
+msgid "Dashboard"
+msgstr ""
+
+#: includes/account/class-bmlm-account.php:198
+msgid "Sponsor ads"
+msgstr ""
+
+#: includes/account/class-bmlm-account.php:201
+msgid "Genealogy tree"
+msgstr ""
+
+#: includes/account/class-bmlm-account.php:204
+msgid "Referral links"
+msgstr ""
+
+#: includes/account/class-bmlm-account.php:207
+#: includes/admin/class-bmlm-admin-functions.php:222
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-wallet-metabox.php:85
+msgid "Wallet"
+msgstr ""
+
+#: includes/account/class-bmlm-account.php:210
+#: includes/account/class-bmlm-account.php:241
+#: includes/admin/class-bmlm-admin-functions.php:220
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:59
+msgid "Commissions"
+msgstr ""
+
+#: includes/account/class-bmlm-account.php:239
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:145
+msgid "Sponsor Ads"
+msgstr ""
+
+#: includes/account/class-bmlm-account.php:240
+msgid "Genealogy Tree"
+msgstr ""
+
+#: includes/account/class-bmlm-account.php:242
+msgid "Referral Link"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:141
+msgid "Please enter the valid commission value in level "
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:160
+#: includes/admin/class-bmlm-admin-functions.php:161
+msgid "Binary MLM"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:187
+msgid "Per Page"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:219
+#: includes/admin/class-bmlm-admin-functions.php:383
+msgid "Sponsors"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:221
+msgid "Genealogy"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:223
+msgid "Badges"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:224
+#: includes/emails/class-bmlm-transaction-mail.php:31
+msgid "Transaction"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:225
+#: includes/admin/class-bmlm-admin-functions.php:815
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:318
+#: includes/emails/class-bmlm-commission-mail.php:33
+#: templates/admin/class-bmlm-tabs-controller.php:47
+#: templates/admin/class-bmlm-tabs-controller.php:131
+#: templates/admin/commission/class-bmlm-commission-list.php:245
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:199
+msgid "Commission"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:325
+#: includes/admin/class-bmlm-admin-functions.php:465
+msgid "All"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:326
+msgid "Sale"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:327
+#: templates/admin/class-bmlm-tabs-controller.php:84
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:259
+msgid "Joining"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:328
+msgid "LevelUp"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:329
+msgid "Bonus"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:351
+msgid "Search By Sponsor Email"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:374
+msgid "Manage Sponsor"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:375
+#: includes/admin/class-bmlm-admin-functions.php:449
+#: includes/admin/class-bmlm-admin-functions.php:510
+msgid "Back"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:384
+#: includes/admin/class-bmlm-admin-functions.php:521
+msgid "Create"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:391
+msgid "Search By Sponsor Name"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:448
+#: woocommerce/templates/emails/bmlm-transaction.php:32
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:26
+msgid "Transaction Details"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:456
+msgid "Transactions"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:466
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:179
+msgid "Debit"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:467
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:178
+msgid "Credit"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:485
+msgid "Search By Transaction ID"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:508
+msgid "Add New Badge"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:508
+msgid "Edit Badge"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:520
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-manifesto.php:188
+msgid "Sponsor Badges"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:529
+msgid "Search By Badge Name"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:596
+msgid "referral id usage limit reached, A referral id can be used by only two users"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:611
+msgid "Referral ID (*)"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:653
+msgid "No matches found"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:654
+msgid "Loading failed"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:655
+msgid "Please enter 1 or more characters"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:656
+msgid "Please enter %qty% or more characters"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:657
+msgid "Please delete 1 character"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:658
+msgid "Please delete %qty% characters"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:659
+msgid "You can only select 1 item"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:660
+msgid "You can only select %qty% items"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:661
+msgid "Loading more results&hellip;"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:662
+msgid "Searching&hellip;"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:738
+msgid "Data Label "
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:739
+msgid "Value "
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:745
+msgid "Order ID:"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:750
+#: templates/admin/transaction/class-bmlm-transactions-list.php:119
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:164
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:86
+msgid "Amount"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:754
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:87
+msgid "Type"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:758
+#: templates/admin/commission/class-bmlm-commission-list.php:246
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:127
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:97
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:86
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:200
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:173
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:166
+msgid "Action"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:762
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:146
+msgid "Customer"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:766
+msgid "Payee"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:770
+#: templates/admin/commission/class-bmlm-commission-list.php:244
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:198
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-badge-history-metabox.php:68
+#: templates/admin/transaction/class-bmlm-transactions-list.php:121
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:90
+#: templates/front/sponsor/dashboard/badge/class-bmlm-badge-history.php:54
+msgid "Date"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:774
+#: woocommerce/templates/emails/bmlm-transaction.php:84
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:43
+msgid "Note"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:794
+msgid "View MLM documentation"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:794
+msgid "Docs"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:795
+msgid "Visit customer support"
+msgstr ""
+
+#: includes/admin/class-bmlm-admin-functions.php:795
+msgid "Support"
+msgstr ""
+
+#: includes/ajax/class-bmlm-ajax-functions.php:63
+#: includes/ajax/class-bmlm-ajax-functions.php:114
+msgid "Invalid data provided"
+msgstr ""
+
+#: includes/ajax/class-bmlm-ajax-functions.php:71
+#: includes/ajax/class-bmlm-ajax-functions.php:121
+msgid "Invalid data provided!"
+msgstr ""
+
+#: includes/ajax/class-bmlm-ajax-functions.php:78
+#: includes/ajax/class-bmlm-ajax-functions.php:128
+msgid "Security check failed!"
+msgstr ""
+
+#: includes/cart/class-bmlm-cart.php:107
+msgid "Referral id does not exist ."
+msgstr ""
+
+#: includes/cart/class-bmlm-cart.php:185
+msgid "Cannot add new product now. Either empty cart or process it first."
+msgstr ""
+
+#: includes/class-bmlm-emails.php:123
+msgid "JOIN COMMISSION"
+msgstr ""
+
+#: includes/class-bmlm-emails.php:127
+msgid "SALE COMMISSION"
+msgstr ""
+
+#: includes/class-bmlm-emails.php:131
+msgid "LEVEL UP COMMISSION"
+msgstr ""
+
+#: includes/class-bmlm-install.php:88
+#: templates/admin/commission/class-bmlm-commission-list.php:241
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-general-metabox.php:82
+#: templates/admin/transaction/class-bmlm-transactions-list.php:118
+#: templates/front/sponsor/dashboard/sponsor/class-bmlm-sponsor-ingredients.php:54
+msgid "Sponsor"
+msgstr ""
+
+#. translators: %s: plugin check
+#: includes/class-bmlm.php:146
+msgid "WooCommerce Binary Multi Level Marketing depends on the latest version of %s or later to work!"
+msgstr ""
+
+#. translators: %s: plugin check
+#: includes/class-bmlm.php:146
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/emails/class-bmlm-badge-achievement-mail.php:31
+#: includes/emails/class-bmlm-badge-achievement-mail.php:34
+msgid "Badge Achievement Bonus"
+msgstr ""
+
+#: includes/emails/class-bmlm-badge-achievement-mail.php:32
+msgid "Badge Achievement mail trigger when any user achieve a new badge bonus"
+msgstr ""
+
+#: includes/emails/class-bmlm-badge-achievement-mail.php:33
+msgid "Badge Achievement Mail"
+msgstr ""
+
+#: includes/emails/class-bmlm-badge-achievement-mail.php:37
+#: includes/emails/class-bmlm-commission-mail.php:39
+#: includes/emails/class-bmlm-sponsor-approval-mail.php:37
+#: includes/emails/class-bmlm-transaction-mail.php:37
+msgid "Thanks for choosing Binary MLM."
+msgstr ""
+
+#: includes/emails/class-bmlm-commission-mail.php:34
+msgid "Commission mail sent to user when user will get any commission"
+msgstr ""
+
+#: includes/emails/class-bmlm-commission-mail.php:35
+msgid "Commission Mail"
+msgstr ""
+
+#: includes/emails/class-bmlm-commission-mail.php:36
+msgid "Commssion Received"
+msgstr ""
+
+#: includes/emails/class-bmlm-sponsor-approval-mail.php:31
+msgid "Sponsor Approval"
+msgstr ""
+
+#: includes/emails/class-bmlm-sponsor-approval-mail.php:32
+msgid "Sponsor Approval mail trigger when any Sponsor will approve"
+msgstr ""
+
+#: includes/emails/class-bmlm-sponsor-approval-mail.php:33
+msgid "Sponsor Approval Mail"
+msgstr ""
+
+#: includes/emails/class-bmlm-sponsor-approval-mail.php:34
+msgid "Sponsor Account Approved"
+msgstr ""
+
+#: includes/emails/class-bmlm-transaction-mail.php:32
+msgid "Transaction mail sent to user when any amount credit or debit"
+msgstr ""
+
+#: includes/emails/class-bmlm-transaction-mail.php:33
+msgid "Transaction Mail"
+msgstr ""
+
+#: includes/emails/class-bmlm-transaction-mail.php:34
+msgid "Transaction success"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:44
+#: templates/admin/badge/class-bmlm-badge-list.php:45
+msgid "Sponsor Badge List"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:106
+#: templates/admin/commission/class-bmlm-commission-list.php:128
+msgid "Invalid nonce. Security check failed!!!"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:118
+msgid "Sponsor badge(s) deleted successfully."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:122
+msgid "Sponsor badge deleted successfully."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:125
+msgid "Select sponsor badge(s) to delete."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:138
+msgid "Sponsor badge(s) enable successfully."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:141
+msgid "Select sponsor badge(s) to enable."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:154
+msgid "Sponsor badge(s) disable successfully."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:157
+msgid "Select sponsor badge(s) to disable."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:218
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-badge-history-metabox.php:65
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-badge-metabox.php:73
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-badge-metabox.php:79
+#: templates/front/sponsor/dashboard/badge/class-bmlm-badge-history.php:51
+#: woocommerce/templates/emails/bmlm-badge-achievement.php:37
+msgid "Badge"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:219
+#: woocommerce/templates/emails/plain/bmlm-badge-achievement.php:16
+msgid "Badge Name"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:220
+msgid "Max Business"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:221
+#: templates/admin/badge/class-bmlm-manage-badge.php:131
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-badge-history-metabox.php:67
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-badge-metabox.php:85
+#: templates/front/sponsor/dashboard/badge/class-bmlm-badge-history.php:53
+#: woocommerce/templates/emails/bmlm-badge-achievement.php:46
+#: woocommerce/templates/emails/plain/bmlm-badge-achievement.php:18
+msgid "Bonus Amount"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:222
+msgid "Member Count"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:223
+msgid "Date Created"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:224
+#: templates/admin/badge/class-bmlm-manage-badge.php:146
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:189
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-account-metabox.php:104
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:89
+msgid "Status"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:271
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:229
+msgid "Edit"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:272
+#: templates/admin/badge/class-bmlm-badge-list.php:296
+#: templates/admin/commission/class-bmlm-commission-list.php:293
+#: templates/admin/commission/class-bmlm-commission-list.php:319
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:153
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:174
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:127
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:157
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:113
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:141
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:231
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:256
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:297
+msgid "Enable"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-badge-list.php:298
+msgid "Disable"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:63
+msgid "Invalid sponsor badge."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:115
+msgid "Badge name"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:119
+msgid "Add Badge Name Like: Gold"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:124
+msgid "Maximum Business"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:126
+msgid "Add Maximum Business Amount"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:133
+msgid "Add Bonus Amount"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:138
+msgid "Priority"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:140
+msgid "Add Priority to which badge apply first"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:149
+msgid "Select the status"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:163
+msgid "Badge Image"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:165
+msgid "Select the Badge Image"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:166
+msgid "Upload"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:182
+msgid "update"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:182
+msgid "save"
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:224
+#: templates/admin/badge/class-bmlm-manage-badge.php:232
+msgid "Badge name is already in use, try different name."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:239
+msgid "Badge name is mandatory."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:244
+msgid "Enter a Valid Badge name."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:250
+msgid "Max business amount is mandatory."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:255
+msgid "Max business amount is invalid."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:260
+msgid "Bonus amount is mandatory."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:265
+msgid "Bonus amount is invalid."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:270
+msgid "Priority is mandatory."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:275
+msgid "Priority is invalid."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:280
+msgid "Badge image is mandatory."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:285
+msgid "Badge status is invalid."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:294
+msgid "Sponsor badge created successfully."
+msgstr ""
+
+#: templates/admin/badge/class-bmlm-manage-badge.php:300
+msgid "Sponsor badge updated successfully."
+msgstr ""
+
+#: templates/admin/class-bmlm-tabs-controller.php:46
+#: templates/admin/class-bmlm-tabs-controller.php:130
+msgid "General"
+msgstr ""
+
+#: templates/admin/class-bmlm-tabs-controller.php:48
+msgid "Referral Code"
+msgstr ""
+
+#: templates/admin/class-bmlm-tabs-controller.php:83
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:258
+msgid "Sales"
+msgstr ""
+
+#: templates/admin/class-bmlm-tabs-controller.php:85
+msgid "Level UP"
+msgstr ""
+
+#: templates/admin/class-bmlm-tabs-controller.php:132
+#: templates/front/sponsor/dashboard/statistics/class-bmlm-statistics.php:131
+msgid "Downline Members"
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:55
+msgid "Commission List"
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:56
+msgid "commission List"
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:144
+msgid "Commission(s) deleted successfully."
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:161
+msgid "Commission(s) paid successfully."
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:165
+msgid "Select commission(s) to pay."
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:193
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:150
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:102
+msgid "Paid"
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:195
+#: templates/admin/commission/class-bmlm-commission-list.php:318
+msgid "Pay"
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:221
+msgid "No commission available."
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:242
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:196
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:257
+msgid "Commission Type"
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:243
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:197
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:88
+#: woocommerce/templates/emails/bmlm-badge-achievement.php:31
+#: woocommerce/templates/emails/bmlm-badge-achievement.php:55
+#: woocommerce/templates/emails/bmlm-commission.php:31
+#: woocommerce/templates/emails/bmlm-commission.php:55
+#: woocommerce/templates/emails/plain/bmlm-badge-achievement.php:20
+#: woocommerce/templates/emails/plain/bmlm-commission.php:21
+msgid "Description"
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:292
+msgid "View"
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:335
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:284
+#: templates/admin/transaction/class-bmlm-transactions-list.php:238
+msgid "From:"
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:338
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:287
+#: templates/admin/transaction/class-bmlm-transactions-list.php:241
+msgid "To:"
+msgstr ""
+
+#: templates/admin/commission/class-bmlm-commission-list.php:341
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:289
+#: templates/admin/transaction/class-bmlm-transactions-list.php:244
+msgid "Filter"
+msgstr ""
+
+#: templates/admin/genealogy/class-bmlm-genealogy-tree.php:37
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-genealogy-tree.php:35
+#: templates/front/sponsor/genealogy/class-bmlm-genealogy-tree.php:35
+msgid "Fullscreen"
+msgstr ""
+
+#: templates/admin/genealogy/class-bmlm-genealogy-tree.php:41
+#: templates/admin/genealogy/class-bmlm-genealogy-tree.php:64
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-genealogy-tree.php:38
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-genealogy-tree.php:48
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:150
+#: templates/front/sponsor/genealogy/class-bmlm-genealogy-tree.php:57
+msgid "Search"
+msgstr ""
+
+#: templates/admin/genealogy/class-bmlm-genealogy-tree.php:47
+#: templates/front/sponsor/genealogy/class-bmlm-genealogy-tree.php:39
+msgid "Expand All"
+msgstr ""
+
+#: templates/admin/genealogy/class-bmlm-genealogy-tree.php:53
+#: templates/front/sponsor/genealogy/class-bmlm-genealogy-tree.php:43
+msgid "Collapse All"
+msgstr ""
+
+#: templates/admin/genealogy/class-bmlm-genealogy-tree.php:65
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-genealogy-tree.php:49
+#: templates/front/sponsor/genealogy/class-bmlm-genealogy-tree.php:58
+msgid "By Name, Email"
+msgstr ""
+
+#: templates/admin/genealogy/class-bmlm-genealogy-tree.php:71
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-genealogy-tree.php:55
+#: templates/front/sponsor/genealogy/class-bmlm-genealogy-tree.php:64
+msgid "RESULTS "
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-general-settings.php:45
+msgid "Admin Sponsor ID"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-general-settings.php:48
+msgid "Admin Unique Sponsor ID"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-general-settings.php:50
+#: templates/admin/settings/class-bmlm-general-settings.php:60
+msgid "This field is not editable"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-general-settings.php:55
+msgid "Admin Level"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-general-settings.php:58
+msgid "Admin Label"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-general-settings.php:67
+msgid "Are you sure You want to reset all data?"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-general-settings.php:68
+msgid "If you click on Reset data then all information like commission, sponsor, badge, and transactions data will be deleted"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:46
+msgid "Referral Code length"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:49
+msgid "You can set the Referral Code Length between 5 and 30."
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:51
+msgid "Code Length should be between 5 and 30."
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:56
+msgid "Include special characters in Referral Code format"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:59
+msgid "Select status if you want to Include special characters in Referral Code format"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:74
+msgid "Referral Code prefix"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:77
+msgid "You can add Referral Code prefix. EX. MLM-XXXX"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:83
+msgid "Referral Code suffix"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:86
+msgid "You can add Referral Code Suffix. EX. XXXX-MLM"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:92
+msgid "Referral Code separator"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:95
+msgid "You can add Referral Code Separator. EX. MLM-MLM"
+msgstr ""
+
+#: templates/admin/settings/class-bmlm-refferal-settings.php:101
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:167
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:140
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:125
+msgid "Save Changes"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:68
+msgid "Sponsors Joining Amount"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:69
+msgid "Here, commission settings are configured for the event when a new sponsor registered."
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:74
+msgid "Joining Amount Enable"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:91
+msgid "Total Amount on joining Alot (Fixed Amount)"
+msgstr ""
+
+#. translators: %s: Product link.
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:96
+msgid "To change membership amount follow this %s"
+msgstr ""
+
+#. translators: %s: Product link.
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:96
+msgid "link"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:102
+msgid "Commission for Sponsor (Admin) Joining (%)"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:106
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:65
+msgid "Enter a value between 0 and 100"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:111
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:70
+msgid "Commission Remaining (%)"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:119
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:88
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:78
+msgid "Levels"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:125
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:94
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:84
+#: woocommerce/templates/emails/bmlm-sponsor-approval.php:26
+#: woocommerce/templates/emails/plain/bmlm-sponsor-approval.php:22
+msgid "Level"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:126
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:96
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:85
+msgid "Commission (%)"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:135
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:105
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:94
+msgid "Add Values"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-joining-commission-settings.php:162
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:135
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:121
+msgid "If commission allocation for any level is not specified. then it will be treated as 0, and sponsors with that level will receive no commission on referred product sale."
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:58
+msgid "Sponsors Level Commission"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:59
+msgid "Here, commission settings are configured for the event when a sponsor leveled up."
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:63
+msgid "Enable Level Commission"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:80
+msgid "Commission amount on Level Up (Admin Fixed Amount)"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-level-commission-settings.php:95
+msgid "Level Name"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:56
+msgid "Sponsors Sales Commission"
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:57
+msgid "Here, commission settings are configured for the event when a product sale occurs."
+msgstr ""
+
+#: templates/admin/settings/commission/class-bmlm-sales-commission-settings.php:61
+msgid "Commission for MLM (Admin) sales (%)"
+msgstr ""
+
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:48
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:49
+msgid "Sponsor List"
+msgstr ""
+
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:111
+msgid "Sponsor(s) deleted successfully."
+msgstr ""
+
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:164
+msgid "No sponsor available."
+msgstr ""
+
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:184
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-badge-history-metabox.php:66
+#: templates/front/sponsor/dashboard/badge/class-bmlm-badge-history.php:52
+#: templates/front/sponsor/dashboard/member/class-bmlm-member-ingredients.php:68
+#: templates/front/sponsor/dashboard/sponsor/class-bmlm-sponsor-ingredients.php:101
+msgid "Name"
+msgstr ""
+
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:185
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-account-metabox.php:92
+#: templates/front/sponsor/dashboard/member/class-bmlm-member-ingredients.php:69
+#: templates/front/sponsor/dashboard/sponsor/class-bmlm-sponsor-ingredients.php:68
+#: templates/front/sponsor/dashboard/sponsor/class-bmlm-sponsor-ingredients.php:107
+msgid "Email"
+msgstr ""
+
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:186
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-general-metabox.php:108
+msgid "Downline Member"
+msgstr ""
+
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:187
+msgid "Gross Business"
+msgstr ""
+
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:188
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-wallet-metabox.php:93
+#: templates/front/sponsor/dashboard/statistics/class-bmlm-statistics.php:93
+msgid "Wallet Balance"
+msgstr ""
+
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:226
+msgid "Are you sure to delete sponsors? Deleting a sponsor will affect the commission calculation and also, no child can be added below this sponsor as the referral id become invalid."
+msgstr ""
+
+#: templates/admin/sponsors/class-bmlm-sponsor-list.php:230
+msgid "Manage"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:54
+msgid "Sponsor Commission List"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:55
+msgid "Sponsor commission List"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:152
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:102
+msgid "Unpaid"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:176
+msgid "No commission avaliable."
+msgstr ""
+
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-commission.php:260
+msgid "Levelup"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-manifesto.php:103
+msgid "Detail information about sponsor."
+msgstr ""
+
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-manifesto.php:107
+msgid "General Information"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-manifesto.php:131
+msgid "Business Status"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/class-bmlm-sponsor-manifesto.php:155
+msgid "Balance"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-account-metabox.php:74
+msgid "Account"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-account-metabox.php:80
+#: templates/front/sponsor/dashboard/member/class-bmlm-member-ingredients.php:70
+#: templates/front/sponsor/dashboard/sponsor/class-bmlm-sponsor-ingredients.php:74
+msgid "Joining Date"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-account-metabox.php:86
+msgid "Username"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-account-metabox.php:98
+msgid "Display Name"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-badge-history-metabox.php:90
+#: templates/front/sponsor/dashboard/badge/class-bmlm-badge-history.php:76
+msgid "No badges added yet"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-current-month-business-metabox.php:90
+msgid "Current Month"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-current-month-business-metabox.php:98
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-lifetime-business-metabox.php:99
+msgid "Sales Earning"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-current-month-business-metabox.php:104
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-lifetime-business-metabox.php:105
+msgid "Joining Earning"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-current-month-business-metabox.php:110
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-lifetime-business-metabox.php:111
+msgid "LevelUp Earning"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-current-month-business-metabox.php:116
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-lifetime-business-metabox.php:117
+msgid "Bonus Earning"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-general-metabox.php:90
+#: templates/front/sponsor/dashboard/sponsor/class-bmlm-sponsor-ingredients.php:62
+#: templates/front/sponsor/refferal/class-bmlm-refferal.php:61
+msgid "Sponsor ID"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-general-metabox.php:96
+msgid "Referrer"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-general-metabox.php:102
+msgid "Member Level"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-general-metabox.php:114
+msgid "Network Row"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-lifetime-business-metabox.php:91
+msgid "Lifetime"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-transaction-metabox.php:72
+msgid "Latest Transactions"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-transaction-metabox.php:84
+msgid "Amount -"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-transaction-metabox.php:90
+msgid "by"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-transaction-metabox.php:98
+msgid "No transactions generated yet"
+msgstr ""
+
+#: templates/admin/sponsors/tabs/metabox/class-bmlm-wallet-metabox.php:99
+#: templates/front/sponsor/dashboard/statistics/class-bmlm-statistics.php:112
+msgid "Pending Amount"
+msgstr ""
+
+#: templates/admin/transaction/class-bmlm-transactions-list.php:47
+msgid "Wallet Transaction List"
+msgstr ""
+
+#: templates/admin/transaction/class-bmlm-transactions-list.php:48
+msgid "Wallet Transactions List"
+msgstr ""
+
+#: templates/admin/transaction/class-bmlm-transactions-list.php:116
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:85
+msgid "ID"
+msgstr ""
+
+#: templates/admin/transaction/class-bmlm-transactions-list.php:117
+#: woocommerce/templates/emails/bmlm-transaction.php:75
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:41
+msgid "Reference"
+msgstr ""
+
+#: templates/admin/transaction/class-bmlm-transactions-list.php:120
+#: woocommerce/templates/emails/bmlm-transaction.php:46
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:30
+msgid "Transaction Type"
+msgstr ""
+
+#: templates/admin/transaction/class-bmlm-transactions-list.php:156
+msgid "View Transactions"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:136
+msgid "Wallet Transaction"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:137
+msgid "Admin can debit or credit wallet amount manually to different users."
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:142
+msgid "Sponsor name"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:145
+msgid "Search and Select Sponsors name"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:167
+msgid "Add Wallet Amount"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:176
+msgid "Select Wallet Transaction Type"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:185
+msgid "Transaction Note"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:188
+msgid "Add Transaction Note"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:189
+msgid "note"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:197
+msgid "Create transaction"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:199
+msgid "Cancel"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:229
+msgid "Customer must be selected for transaction to be fulfilled"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:234
+msgid "Transaction amount is mandatory"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:239
+msgid "Transaction type must be selected"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:244
+msgid "Transaction note is mandatory"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:252
+msgid "debited from"
+msgstr ""
+
+#. translators: %s: Maximum amount.
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:286
+msgid "You Could not store more than %s"
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:292
+msgid "Insufficient Amount."
+msgstr ""
+
+#: templates/admin/wallet/class-bmlm-admin-wallet-transaction.php:316
+msgid "Please fill up all the required fields "
+msgstr ""
+
+#: templates/front/dashboard/class-bmlm-become-sponsor.php:87
+msgid "Do you want to become a sponsor?"
+msgstr ""
+
+#: templates/front/dashboard/class-bmlm-become-sponsor.php:90
+msgid "Reference Sponsor Id"
+msgstr ""
+
+#: templates/front/dashboard/class-bmlm-become-sponsor.php:93
+msgid "Please enter reference code"
+msgstr ""
+
+#: templates/front/dashboard/class-bmlm-become-sponsor.php:97
+msgid "Submit"
+msgstr ""
+
+#: templates/front/dashboard/class-bmlm-sponsor-membership.php:51
+msgid "Purchase ONE TIME MEMBERSHIP to become a sponsor from below!"
+msgstr ""
+
+#: templates/front/dashboard/class-bmlm-sponsor-membership.php:67
+msgid "Join Now"
+msgstr ""
+
+#: templates/front/signup/class-bmlm-signup-fields.php:34
+msgid "Sponsor Referral ID"
+msgstr ""
+
+#: templates/front/signup/class-bmlm-signup-fields.php:42
+msgid "I accept website"
+msgstr ""
+
+#: templates/front/signup/class-bmlm-signup-fields.php:42
+#: templates/front/sponsor/refferal/class-bmlm-refferal.php:78
+msgid "terms and conditions"
+msgstr ""
+
+#: templates/front/signup/class-bmlm-signup-fields.php:42
+msgid "for becoming a sponsor"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:104
+msgid "Shop whenever in doubt"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:148
+msgid "Search Product"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:163
+msgid "Image"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:164
+msgid "Product"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:165
+msgid "Share URL"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:195
+#: templates/front/sponsor/refferal/class-bmlm-refferal.php:68
+msgid "Copy to clipboard"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:196
+msgid "Copy share link"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:201
+msgid "Share"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:207
+msgid "Open Link"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:215
+msgid "No Data Found"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:248
+msgid "Facebook"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:251
+msgid "Twitter"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:254
+msgid "LinkedIn"
+msgstr ""
+
+#: templates/front/sponsor/ads/class-bmlm-sponsor-ads.php:258
+msgid "Send by Email"
+msgstr ""
+
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:111
+msgid "Go shop"
+msgstr ""
+
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:113
+msgid "No commissions has been made yet."
+msgstr ""
+
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:124
+msgid "Previous"
+msgstr ""
+
+#: templates/front/sponsor/commission/class-bmlm-commission-table.php:127
+msgid "Next"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/badge/class-bmlm-badge-history.php:45
+msgid "Badge History"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/graph/class-bmlm-graph.php:77
+msgid "Filter By Date:"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/graph/class-bmlm-graph.php:79
+msgid "To"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/graph/class-bmlm-graph.php:84
+msgid "Weekly"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/graph/class-bmlm-graph.php:85
+msgid "Monthly"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/graph/class-bmlm-graph.php:86
+msgid "Yearly"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/graph/class-bmlm-graph.php:91
+msgid "Reset"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/graph/class-bmlm-graph.php:100
+msgid "Commission Comparision"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/graph/class-bmlm-graph.php:111
+msgid "Sale Commission"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/graph/class-bmlm-graph.php:121
+msgid "Joining Commission"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/graph/class-bmlm-graph.php:131
+msgid "Level Up Commission"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/graph/class-bmlm-graph.php:141
+msgid "Bonus Commission"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/member/class-bmlm-member-ingredients.php:61
+msgid "Member Activities"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/member/class-bmlm-member-ingredients.php:88
+msgid "No members added yet"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/sponsor/class-bmlm-sponsor-ingredients.php:87
+msgid "Sponsor Referral"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/sponsor/class-bmlm-sponsor-ingredients.php:95
+msgid "Referral Sponsor ID"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/statistics/class-bmlm-statistics.php:74
+msgid "Gross Earnings"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/statistics/class-bmlm-statistics.php:150
+msgid "Sponsor Level"
+msgstr ""
+
+#: templates/front/sponsor/dashboard/statistics/class-bmlm-statistics.php:172
+msgid "Sponsor Badge"
+msgstr ""
+
+#: templates/front/sponsor/refferal/class-bmlm-refferal.php:53
+msgid "Referral"
+msgstr ""
+
+#: templates/front/sponsor/refferal/class-bmlm-refferal.php:70
+msgid "Copy Sponsor ID"
+msgstr ""
+
+#: templates/front/sponsor/refferal/class-bmlm-refferal.php:78
+msgid "You can only add upto 2 sponsors under you, further you can also read "
+msgstr ""
+
+#. translators: %s current user id
+#: woocommerce-binary-multi-level-marketing.php:71
+msgid "User in action: %s: "
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-badge-achievement.php:14
+#: woocommerce/templates/emails/bmlm-commission.php:14
+#: woocommerce/templates/emails/bmlm-sponsor-approval.php:13
+#: woocommerce/templates/emails/bmlm-transaction.php:14
+#: woocommerce/templates/emails/plain/bmlm-badge-achievement.php:12
+#: woocommerce/templates/emails/plain/bmlm-commission.php:12
+#: woocommerce/templates/emails/plain/bmlm-sponsor-approval.php:12
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:14
+msgid "Hi"
+msgstr ""
+
+#. translators: %s is badge name
+#. translators: %s is Badge name
+#: woocommerce/templates/emails/bmlm-badge-achievement.php:19
+#: woocommerce/templates/emails/plain/bmlm-badge-achievement.php:14
+msgid "You received a new %s Badge, your received bonus details are following..."
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-badge-achievement.php:27
+msgid "Bonus Details"
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-badge-achievement.php:30
+#: woocommerce/templates/emails/bmlm-commission.php:30
+msgid "Title"
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-badge-achievement.php:64
+#: woocommerce/templates/emails/bmlm-commission.php:64
+#: woocommerce/templates/emails/bmlm-sponsor-approval.php:44
+#: woocommerce/templates/emails/bmlm-transaction.php:102
+#: woocommerce/templates/emails/plain/bmlm-badge-achievement.php:22
+#: woocommerce/templates/emails/plain/bmlm-commission.php:23
+#: woocommerce/templates/emails/plain/bmlm-sponsor-approval.php:24
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:47
+msgid "If you have any query, please contact us at -"
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-badge-achievement.php:69
+#: woocommerce/templates/emails/bmlm-commission.php:69
+#: woocommerce/templates/emails/bmlm-sponsor-approval.php:49
+#: woocommerce/templates/emails/bmlm-transaction.php:107
+msgid "Additional Content : "
+msgstr ""
+
+#. translators: %s is commission name
+#: woocommerce/templates/emails/bmlm-commission.php:19
+#: woocommerce/templates/emails/plain/bmlm-commission.php:14
+msgid "You received a new %s, your received commission details are following..."
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-commission.php:27
+msgid "Commission Details"
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-commission.php:37
+#: woocommerce/templates/emails/plain/bmlm-commission.php:17
+msgid "Commission Name"
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-commission.php:46
+#: woocommerce/templates/emails/plain/bmlm-commission.php:19
+msgid "Commission Amount"
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-sponsor-approval.php:16
+#: woocommerce/templates/emails/plain/bmlm-sponsor-approval.php:14
+msgid "Your account has been approved by your ordered membership product, you are eligible to earn the commissions and spread the network."
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-sponsor-approval.php:18
+#: woocommerce/templates/emails/plain/bmlm-sponsor-approval.php:16
+msgid "Your membership details are following..."
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-sponsor-approval.php:24
+#: woocommerce/templates/emails/plain/bmlm-sponsor-approval.php:18
+msgid "Referral Id"
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-sponsor-approval.php:25
+#: woocommerce/templates/emails/plain/bmlm-sponsor-approval.php:20
+msgid "Sponsor Id"
+msgstr ""
+
+#. translators: %s is credit amount
+#: woocommerce/templates/emails/bmlm-transaction.php:20
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:18
+msgid "You have received %s in your wallet, transaction details are following..."
+msgstr ""
+
+#. translators: %s is debit amount
+#: woocommerce/templates/emails/bmlm-transaction.php:23
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:22
+msgid "Your wallet debit with %s, transaction details are following..."
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-transaction.php:38
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:28
+msgid "Transaction Id"
+msgstr ""
+
+#. translators: %s is credit/debit type
+#: woocommerce/templates/emails/bmlm-transaction.php:57
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:34
+msgid "%s Amount"
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-transaction.php:66
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:39
+msgid "Transaction Date"
+msgstr ""
+
+#: woocommerce/templates/emails/bmlm-transaction.php:93
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:45
+msgid "Current Wallet Bal."
+msgstr ""
+
+#: woocommerce/templates/emails/plain/bmlm-badge-achievement.php:30
+#: woocommerce/templates/emails/plain/bmlm-commission.php:31
+#: woocommerce/templates/emails/plain/bmlm-sponsor-approval.php:32
+#: woocommerce/templates/emails/plain/bmlm-transaction.php:55
+msgid "Additional Content :"
+msgstr ""

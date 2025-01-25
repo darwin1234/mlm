@@ -1,0 +1,149 @@
+/**
+ * Admin side css
+ */
+.form-table table.bmlm-widefat.sponsor-commission-rule-table {
+	padding: 0px;
+	width: auto;
+	background-color: #f8f8f8;
+}
+div#bmlm-full-container {
+    margin-top: 25px;
+}
+.form-table table.bmlm-widefat th {
+	padding: 8px 10px;
+}
+.form-table table.bmlm-widefat tfoot input {
+	padding: 0 8px;
+}
+.bmlm-badge-img {
+	width: 100px;
+	height: auto;
+}
+.bmlm-image-wrapper {
+	position: relative;
+	width: 100px;
+	height: auto;
+	margin-top: 20px;
+}
+input[name="bmlm_admin_sponsor_id"] {
+	background-color: #a8efc7;
+}
+.bmlm-visiblity.hide {
+	display: none;
+}
+.bmlm-status {
+	display: -webkit-inline-box;
+	display: inline-flex;
+	line-height: 2.5em;
+	color: #777;
+	background: #e5e5e5;
+	border-radius: 4px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+	margin: -0.25em 0;
+	cursor: inherit !important;
+	white-space: nowrap;
+	max-width: 100%;
+}
+.bmlm-status-completed {
+	background: #c6e1c6;
+	color: #5b841b;
+}
+.bmlm-status-pending {
+	color: #777;
+	background: #e5e5e5;
+}
+.bmlm-status-danger {
+	background: #eba3a3;
+	color: #761919;
+}
+.bmlm-status-levelup {
+	background: #f3e5f5;
+	color: #4f4f4f;
+}
+.bmlm-status-bonus {
+	background: #e3f2fd;
+	color: #4f4f4f;
+}
+.bmlm-status-joining {
+	background: #fbe9e7;
+	color: #4f4f4f;
+}
+.bmlm-status-sale {
+	background: #e8eaf6;
+	color: #4f4f4f;
+}
+.bmlm-status > span {
+	margin: 0 1em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+ul.bmlm_transaction_notes li .note_content {
+	padding: 10px;
+	background: #efefef;
+	position: relative;
+}
+ul.bmlm_transaction_notes li .note_content::after {
+	content: "";
+	display: block;
+	position: absolute;
+	bottom: -10px;
+	left: 20px;
+	width: 0;
+	height: 0;
+	border-width: 10px 10px 0 0;
+	border-style: solid;
+	border-color: #efefef transparent;
+}
+ul.bmlm_transaction_notes li .note_content p {
+	margin: 0;
+	padding: 0;
+	word-wrap: break-word;
+	font-size: 13px;
+}
+.bmlm-inside {
+	background-color: #dcdcdc;
+	margin-top: 0px !important;
+}
+.bmlm-inside .table-warpper {
+	display: inline-block;
+	width: 47%;
+	margin: 20px 1.2%;
+	vertical-align: top;
+}
+.bmlm-inside .table-warpper.full {
+	width: 98%;
+}
+.bmlm-inside .table-warpper.full tbody td {
+	vertical-align: middle;
+}
+.bmlm-inside .table-warpper.full tbody td img {
+	border-radius: 50%;
+}
+
+.bmlm-wrapper tbody tr:nth-child(2n + 1) th,
+.bmlm-wrapper tbody tr:nth-child(2n + 1) td {
+	background-color: rgb(241, 241, 241);
+}
+.bmlm-badge-wrapper img {
+	border-radius: 50%;
+	margin: 0 auto;
+	display: block;
+	padding-top: 10px;
+}
+#bmlm-wallet-manual-transaction .action-submit p,
+#bmlm-wallet-manual-transaction .action-submit a {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 10px 0px 0px 0px !important;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.bmlm-back.button.primary {
+	position: relative;
+	top: 10px;
+	margin: 0px 0 0 5px;
+}
+
+.bmlm-badge-error-color{
+	color:red;
+}

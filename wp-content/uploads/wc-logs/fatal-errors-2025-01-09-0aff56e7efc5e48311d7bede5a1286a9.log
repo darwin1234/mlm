@@ -1,0 +1,268 @@
+2025-01-09T10:17:26+00:00 CRITICAL Uncaught Error: Call to a member function bmlm_get_network_user_sponsor_code() on null in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php:273
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\templates\front\sponsor\ads\class-bmlm-sponsor-ads.php(121): WCBMLMARKETING\Helper\Sponsor\BMLM_Sponsor->bmlm_get_sponsor_code(2)
+#1 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\includes\sponsor\class-bmlm-template-controller.php(105): WCBMLMARKETING\Templates\Front\Sponsor\Ads\BMLM_Sponsor_Ads->__construct(Object(WCBMLMARKETING\Includes\Account\BMLM_Account))
+#2 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(434): WCBMLMARKETING\Includes\Sponsor\BMLM_Template_Controller->bmlm_sponsor_ads(Array, '', 'sponsor')
+#3 [internal function]: do_shortcode_tag(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(sponso...', 'do_shortcode_ta...' in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php on line 273
+
+2025-01-09T10:20:11+00:00 CRITICAL Uncaught Error: Call to a member function bmlm_get_network_user_sponsor_code() on null in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php:273
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\templates\front\sponsor\ads\class-bmlm-sponsor-ads.php(121): WCBMLMARKETING\Helper\Sponsor\BMLM_Sponsor->bmlm_get_sponsor_code(2)
+#1 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\includes\sponsor\class-bmlm-template-controller.php(105): WCBMLMARKETING\Templates\Front\Sponsor\Ads\BMLM_Sponsor_Ads->__construct(Object(WCBMLMARKETING\Includes\Account\BMLM_Account))
+#2 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(434): WCBMLMARKETING\Includes\Sponsor\BMLM_Template_Controller->bmlm_sponsor_ads(Array, '', 'sponsor')
+#3 [internal function]: do_shortcode_tag(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(sponso...', 'do_shortcode_ta...' in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php on line 273
+
+2025-01-09T10:20:25+00:00 CRITICAL Uncaught Error: Call to a member function bmlm_get_network_user_sponsor_code() on null in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php:273
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\templates\front\sponsor\ads\class-bmlm-sponsor-ads.php(121): WCBMLMARKETING\Helper\Sponsor\BMLM_Sponsor->bmlm_get_sponsor_code(2)
+#1 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\includes\sponsor\class-bmlm-template-controller.php(105): WCBMLMARKETING\Templates\Front\Sponsor\Ads\BMLM_Sponsor_Ads->__construct(Object(WCBMLMARKETING\Includes\Account\BMLM_Account))
+#2 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(434): WCBMLMARKETING\Includes\Sponsor\BMLM_Template_Controller->bmlm_sponsor_ads(Array, '', 'sponsor')
+#3 [internal function]: do_shortcode_tag(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(sponso...', 'do_shortcode_ta...' in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php on line 273
+
+2025-01-09T10:20:41+00:00 CRITICAL Uncaught Error: Call to a member function bmlm_get_network_user_sponsor_code() on null in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php:273
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\templates\front\sponsor\ads\class-bmlm-sponsor-ads.php(121): WCBMLMARKETING\Helper\Sponsor\BMLM_Sponsor->bmlm_get_sponsor_code(2)
+#1 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\includes\sponsor\class-bmlm-template-controller.php(105): WCBMLMARKETING\Templates\Front\Sponsor\Ads\BMLM_Sponsor_Ads->__construct(Object(WCBMLMARKETING\Includes\Account\BMLM_Account))
+#2 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(434): WCBMLMARKETING\Includes\Sponsor\BMLM_Template_Controller->bmlm_sponsor_ads(Array, '', 'sponsor')
+#3 [internal function]: do_shortcode_tag(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(sponso...', 'do_shortcode_ta...' in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php on line 273
+
+2025-01-09T10:21:15+00:00 CRITICAL Uncaught Error: Call to a member function bmlm_get_network_user_sponsor_code() on null in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php:273
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\templates\front\sponsor\ads\class-bmlm-sponsor-ads.php(121): WCBMLMARKETING\Helper\Sponsor\BMLM_Sponsor->bmlm_get_sponsor_code(2)
+#1 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\includes\sponsor\class-bmlm-template-controller.php(105): WCBMLMARKETING\Templates\Front\Sponsor\Ads\BMLM_Sponsor_Ads->__construct(Object(WCBMLMARKETING\Includes\Account\BMLM_Account))
+#2 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(434): WCBMLMARKETING\Includes\Sponsor\BMLM_Template_Controller->bmlm_sponsor_ads(Array, '', 'sponsor')
+#3 [internal function]: do_shortcode_tag(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(sponso...', 'do_shortcode_ta...', '[sponsor]\n')
+#5 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): do_shortcode('[sponsor]\n')
+#6 C:\wamp64\www\mlm2\wp-includes\plugin.php(205): WP_Hook->apply_filters('[sponsor]\n', Array)
+#7 C:\wamp64\www\mlm2\wp-includes\post-template.php(256): apply_filters('the_content', '[sponsor]')
+#8 C:\wamp64\www\mlm2\wp-content\themes\twentytwentyone\template-parts\content\content-page.php(29): the_content()
+#9 C:\wamp64\www\mlm2\wp-includes\template.php(812): require('C:\\wamp64\\www\\m...')
+#10 C:\wamp64\www\mlm2\wp-includes\template.php(745): load_template('C:\\wamp64\\www\\m...', false, Array)
+#11 C:\wamp64\www\mlm2\wp-includes\general-template.php(206): locate_template(Array, true, false, Array)
+#12 C:\wamp64\www\mlm2\wp-content\themes\twentytwentyone\page.php(17): get_template_part('template-parts/...')
+#13 C:\wamp64\www\mlm2\wp-includes\template-loader.php(106): include('C:\\wamp64\\www\\m...')
+#14 C:\wamp64\www\mlm2\wp-blog-header.php(19): require_once('C:\\wamp64\\www\\m...')
+#15 C:\wamp64\www\mlm2\index.php(17): require('C:\\wamp64\\www\\m...')
+#16 {main}
+  thrown in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php on line 273
+
+2025-01-09T10:21:15+00:00 CRITICAL Uncaught Error: Call to a member function bmlm_get_network_user_sponsor_code() on null in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php:273
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\templates\front\sponsor\ads\class-bmlm-sponsor-ads.php(121): WCBMLMARKETING\Helper\Sponsor\BMLM_Sponsor->bmlm_get_sponsor_code(2)
+#1 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\includes\sponsor\class-bmlm-template-controller.php(105): WCBMLMARKETING\Templates\Front\Sponsor\Ads\BMLM_Sponsor_Ads->__construct(Object(WCBMLMARKETING\Includes\Account\BMLM_Account))
+#2 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(434): WCBMLMARKETING\Includes\Sponsor\BMLM_Template_Controller->bmlm_sponsor_ads(Array, '', 'sponsor')
+#3 [internal function]: do_shortcode_tag(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(sponso...', 'do_shortcode_ta...', '[sponsor]\n')
+#5 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): do_shortcode('[sponsor]\n')
+#6 C:\wamp64\www\mlm2\wp-includes\plugin.php(205): WP_Hook->apply_filters('[sponsor]\n', Array)
+#7 C:\wamp64\www\mlm2\wp-includes\post-template.php(256): apply_filters('the_content', '[sponsor]')
+#8 C:\wamp64\www\mlm2\wp-content\themes\twentytwentyone\template-parts\content\content-page.php(29): the_content()
+#9 C:\wamp64\www\mlm2\wp-includes\template.php(812): require('C:\\wamp64\\www\\m...')
+#10 C:\wamp64\www\mlm2\wp-includes\template.php(745): load_template('C:\\wamp64\\www\\m...', false, Array)
+#11 C:\wamp64\www\mlm2\wp-includes\general-template.php(206): locate_template(Array, true, false, Array)
+#12 C:\wamp64\www\mlm2\wp-content\themes\twentytwentyone\page.php(17): get_template_part('template-parts/...')
+#13 C:\wamp64\www\mlm2\wp-includes\template-loader.php(106): include('C:\\wamp64\\www\\m...')
+#14 C:\wamp64\www\mlm2\wp-blog-header.php(19): require_once('C:\\wamp64\\www\\m...')
+#15 C:\wamp64\www\mlm2\index.php(17): require('C:\\wamp64\\www\\m...')
+#16 {main}
+  thrown in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php on line 273
+
+2025-01-09T10:21:22+00:00 CRITICAL Uncaught Error: Call to a member function bmlm_get_network_user_sponsor_code() on null in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php:273
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\templates\front\sponsor\ads\class-bmlm-sponsor-ads.php(121): WCBMLMARKETING\Helper\Sponsor\BMLM_Sponsor->bmlm_get_sponsor_code(2)
+#1 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\includes\sponsor\class-bmlm-template-controller.php(105): WCBMLMARKETING\Templates\Front\Sponsor\Ads\BMLM_Sponsor_Ads->__construct(Object(WCBMLMARKETING\Includes\Account\BMLM_Account))
+#2 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(434): WCBMLMARKETING\Includes\Sponsor\BMLM_Template_Controller->bmlm_sponsor_ads(Array, '', 'sponsor')
+#3 [internal function]: do_shortcode_tag(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(sponso...', 'do_shortcode_ta...', '[sponsor]\n')
+#5 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): do_shortcode('[sponsor]\n')
+#6 C:\wamp64\www\mlm2\wp-includes\plugin.php(205): WP_Hook->apply_filters('[sponsor]\n', Array)
+#7 C:\wamp64\www\mlm2\wp-includes\post-template.php(256): apply_filters('the_content', '[sponsor]')
+#8 C:\wamp64\www\mlm2\wp-content\themes\twentytwentyone\template-parts\content\content-page.php(29): the_content()
+#9 C:\wamp64\www\mlm2\wp-includes\template.php(812): require('C:\\wamp64\\www\\m...')
+#10 C:\wamp64\www\mlm2\wp-includes\template.php(745): load_template('C:\\wamp64\\www\\m...', false, Array)
+#11 C:\wamp64\www\mlm2\wp-includes\general-template.php(206): locate_template(Array, true, false, Array)
+#12 C:\wamp64\www\mlm2\wp-content\themes\twentytwentyone\page.php(17): get_template_part('template-parts/...')
+#13 C:\wamp64\www\mlm2\wp-includes\template-loader.php(106): include('C:\\wamp64\\www\\m...')
+#14 C:\wamp64\www\mlm2\wp-blog-header.php(19): require_once('C:\\wamp64\\www\\m...')
+#15 C:\wamp64\www\mlm2\index.php(17): require('C:\\wamp64\\www\\m...')
+#16 {main}
+  thrown in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php on line 273
+
+2025-01-09T10:27:00+00:00 CRITICAL Uncaught Error: Call to a member function bmlm_get_network_user_sponsor_code() on null in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php:273
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\templates\front\sponsor\ads\class-bmlm-sponsor-ads.php(121): WCBMLMARKETING\Helper\Sponsor\BMLM_Sponsor->bmlm_get_sponsor_code(2)
+#1 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\includes\sponsor\class-bmlm-template-controller.php(105): WCBMLMARKETING\Templates\Front\Sponsor\Ads\BMLM_Sponsor_Ads->__construct(Object(WCBMLMARKETING\Includes\Account\BMLM_Account))
+#2 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(434): WCBMLMARKETING\Includes\Sponsor\BMLM_Template_Controller->bmlm_sponsor_ads(Array, '', 'sponsor')
+#3 [internal function]: do_shortcode_tag(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(sponso...', 'do_shortcode_ta...', '[sponsor]\n')
+#5 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): do_shortcode('[sponsor]\n')
+#6 C:\wamp64\www\mlm2\wp-includes\plugin.php(205): WP_Hook->apply_filters('[sponsor]\n', Array)
+#7 C:\wamp64\www\mlm2\wp-includes\post-template.php(256): apply_filters('the_content', '[sponsor]')
+#8 C:\wamp64\www\mlm2\wp-content\themes\twentytwentyone\template-parts\content\content-page.php(29): the_content()
+#9 C:\wamp64\www\mlm2\wp-includes\template.php(812): require('C:\\wamp64\\www\\m...')
+#10 C:\wamp64\www\mlm2\wp-includes\template.php(745): load_template('C:\\wamp64\\www\\m...', false, Array)
+#11 C:\wamp64\www\mlm2\wp-includes\general-template.php(206): locate_template(Array, true, false, Array)
+#12 C:\wamp64\www\mlm2\wp-content\themes\twentytwentyone\page.php(17): get_template_part('template-parts/...')
+#13 C:\wamp64\www\mlm2\wp-includes\template-loader.php(106): include('C:\\wamp64\\www\\m...')
+#14 C:\wamp64\www\mlm2\wp-blog-header.php(19): require_once('C:\\wamp64\\www\\m...')
+#15 C:\wamp64\www\mlm2\index.php(17): require('C:\\wamp64\\www\\m...')
+#16 {main}
+  thrown in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php on line 273
+
+2025-01-09T10:28:00+00:00 CRITICAL Uncaught Error: Call to a member function bmlm_get_network_user_sponsor_code() on null in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php:273
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\templates\front\sponsor\ads\class-bmlm-sponsor-ads.php(121): WCBMLMARKETING\Helper\Sponsor\BMLM_Sponsor->bmlm_get_sponsor_code(2)
+#1 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\includes\sponsor\class-bmlm-template-controller.php(105): WCBMLMARKETING\Templates\Front\Sponsor\Ads\BMLM_Sponsor_Ads->__construct(Object(WCBMLMARKETING\Includes\Account\BMLM_Account))
+#2 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(434): WCBMLMARKETING\Includes\Sponsor\BMLM_Template_Controller->bmlm_sponsor_ads(Array, '', 'sponsor')
+#3 [internal function]: do_shortcode_tag(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(sponso...', 'do_shortcode_ta...', '[sponsor]\n')
+#5 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): do_shortcode('[sponsor]\n')
+#6 C:\wamp64\www\mlm2\wp-includes\plugin.php(205): WP_Hook->apply_filters('[sponsor]\n', Array)
+#7 C:\wamp64\www\mlm2\wp-includes\post-template.php(256): apply_filters('the_content', '[sponsor]')
+#8 C:\wamp64\www\mlm2\wp-content\themes\twentytwentyone\template-parts\content\content-page.php(29): the_content()
+#9 C:\wamp64\www\mlm2\wp-includes\template.php(812): require('C:\\wamp64\\www\\m...')
+#10 C:\wamp64\www\mlm2\wp-includes\template.php(745): load_template('C:\\wamp64\\www\\m...', false, Array)
+#11 C:\wamp64\www\mlm2\wp-includes\general-template.php(206): locate_template(Array, true, false, Array)
+#12 C:\wamp64\www\mlm2\wp-content\themes\twentytwentyone\page.php(17): get_template_part('template-parts/...')
+#13 C:\wamp64\www\mlm2\wp-includes\template-loader.php(106): include('C:\\wamp64\\www\\m...')
+#14 C:\wamp64\www\mlm2\wp-blog-header.php(19): require_once('C:\\wamp64\\www\\m...')
+#15 C:\wamp64\www\mlm2\index.php(17): require('C:\\wamp64\\www\\m...')
+#16 {main}
+  thrown in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce-binary-multi-level-marketing\helper\sponsor\class-bmlm-sponsor.php on line 273
+
+2025-01-09T10:36:41+00:00 CRITICAL Uncaught TypeError: array_diff(): Argument #1 ($array) must be of type array, null given in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php:222
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php(222): array_diff(NULL, Array)
+#1 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Automattic\WooCommerce\Blocks\Payments\Api->verify_payment_methods_dependencies('')
+#2 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#3 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\functions.wp-scripts.php(95): do_action('wp_print_script...')
+#5 C:\wamp64\www\mlm2\wp-includes\class-wp-editor.php(1564): wp_print_scripts(Array)
+#6 C:\wamp64\www\mlm2\wp-includes\class-wp-editor.php(1014): _WP_Editors::print_tinymce_scripts()
+#7 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\common\editor-common-scripts-settings.php(177): _WP_Editors::print_default_editor_scripts()
+#8 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\common\editor-common-scripts-settings.php(60): Elementor\Core\Editor\Loader\Common\Editor_Common_Scripts_Settings::get_wp_editor_config()
+#9 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\v2\editor-v2-loader.php(145): Elementor\Core\Editor\Loader\Common\Editor_Common_Scripts_Settings::get()
+#10 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\editor.php(364): Elementor\Core\Editor\Loader\V2\Editor_V2_Loader->enqueue_scripts()
+#11 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Elementor\Core\Editor\Editor->enqueue_scripts('')
+#12 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#13 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#14 C:\wamp64\www\mlm2\wp-includes\script-loader.php(2272): do_action('wp_enqueue_scri...')
+#15 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): wp_enqueue_scripts('')
+#16 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#17 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#18 C:\wamp64\www\mlm2\wp-includes\general-template.php(3064): do_action('wp_head')
+#19 C:\wamp64\www\mlm2\wp-content\plugins\elementor\includes\editor-templates\editor-wrapper.php(31): wp_head()
+#20 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\v2\editor-v2-loader.php(195): include('C:\\wamp64\\www\\m...')
+#21 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\editor.php(169): Elementor\Core\Editor\Loader\V2\Editor_V2_Loader->print_root_template()
+#22 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Elementor\Core\Editor\Editor->init('')
+#23 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#24 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#25 C:\wamp64\www\mlm2\wp-admin\admin.php(419): do_action('admin_action_el...')
+#26 C:\wamp64\www\mlm2\wp-admin\post.php(12): require_once('C:\\wamp64\\www\\m...')
+#27 {main}
+  thrown in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php on line 222
+
+2025-01-09T10:36:42+00:00 CRITICAL Uncaught TypeError: array_diff(): Argument #1 ($array) must be of type array, null given in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php:222
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php(222): array_diff(NULL, Array)
+#1 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Automattic\WooCommerce\Blocks\Payments\Api->verify_payment_methods_dependencies('')
+#2 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#3 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\functions.wp-scripts.php(95): do_action('wp_print_script...')
+#5 C:\wamp64\www\mlm2\wp-includes\class-wp-editor.php(1564): wp_print_scripts(Array)
+#6 C:\wamp64\www\mlm2\wp-includes\class-wp-editor.php(1014): _WP_Editors::print_tinymce_scripts()
+#7 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\common\editor-common-scripts-settings.php(177): _WP_Editors::print_default_editor_scripts()
+#8 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\common\editor-common-scripts-settings.php(60): Elementor\Core\Editor\Loader\Common\Editor_Common_Scripts_Settings::get_wp_editor_config()
+#9 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\v2\editor-v2-loader.php(145): Elementor\Core\Editor\Loader\Common\Editor_Common_Scripts_Settings::get()
+#10 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\editor.php(364): Elementor\Core\Editor\Loader\V2\Editor_V2_Loader->enqueue_scripts()
+#11 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Elementor\Core\Editor\Editor->enqueue_scripts('')
+#12 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#13 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#14 C:\wamp64\www\mlm2\wp-includes\script-loader.php(2272): do_action('wp_enqueue_scri...')
+#15 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): wp_enqueue_scripts('')
+#16 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#17 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#18 C:\wamp64\www\mlm2\wp-includes\general-template.php(3064): do_action('wp_head')
+#19 C:\wamp64\www\mlm2\wp-content\plugins\elementor\includes\editor-templates\editor-wrapper.php(31): wp_head()
+#20 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\v2\editor-v2-loader.php(195): include('C:\\wamp64\\www\\m...')
+#21 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\editor.php(169): Elementor\Core\Editor\Loader\V2\Editor_V2_Loader->print_root_template()
+#22 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Elementor\Core\Editor\Editor->init('')
+#23 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#24 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#25 C:\wamp64\www\mlm2\wp-admin\admin.php(419): do_action('admin_action_el...')
+#26 C:\wamp64\www\mlm2\wp-admin\post.php(12): require_once('C:\\wamp64\\www\\m...')
+#27 {main}
+  thrown in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php on line 222
+
+2025-01-09T10:36:52+00:00 CRITICAL Uncaught TypeError: array_diff(): Argument #1 ($array) must be of type array, null given in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php:222
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php(222): array_diff(NULL, Array)
+#1 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Automattic\WooCommerce\Blocks\Payments\Api->verify_payment_methods_dependencies('')
+#2 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#3 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\functions.wp-scripts.php(95): do_action('wp_print_script...')
+#5 C:\wamp64\www\mlm2\wp-includes\class-wp-editor.php(1564): wp_print_scripts(Array)
+#6 C:\wamp64\www\mlm2\wp-includes\class-wp-editor.php(1014): _WP_Editors::print_tinymce_scripts()
+#7 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\common\editor-common-scripts-settings.php(177): _WP_Editors::print_default_editor_scripts()
+#8 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\common\editor-common-scripts-settings.php(60): Elementor\Core\Editor\Loader\Common\Editor_Common_Scripts_Settings::get_wp_editor_config()
+#9 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\v2\editor-v2-loader.php(145): Elementor\Core\Editor\Loader\Common\Editor_Common_Scripts_Settings::get()
+#10 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\editor.php(364): Elementor\Core\Editor\Loader\V2\Editor_V2_Loader->enqueue_scripts()
+#11 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Elementor\Core\Editor\Editor->enqueue_scripts('')
+#12 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#13 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#14 C:\wamp64\www\mlm2\wp-includes\script-loader.php(2272): do_action('wp_enqueue_scri...')
+#15 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): wp_enqueue_scripts('')
+#16 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#17 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#18 C:\wamp64\www\mlm2\wp-includes\general-template.php(3064): do_action('wp_head')
+#19 C:\wamp64\www\mlm2\wp-content\plugins\elementor\includes\editor-templates\editor-wrapper.php(31): wp_head()
+#20 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\v2\editor-v2-loader.php(195): include('C:\\wamp64\\www\\m...')
+#21 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\editor.php(169): Elementor\Core\Editor\Loader\V2\Editor_V2_Loader->print_root_template()
+#22 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Elementor\Core\Editor\Editor->init('')
+#23 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#24 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#25 C:\wamp64\www\mlm2\wp-admin\admin.php(419): do_action('admin_action_el...')
+#26 C:\wamp64\www\mlm2\wp-admin\post.php(12): require_once('C:\\wamp64\\www\\m...')
+#27 {main}
+  thrown in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php on line 222
+
+2025-01-09T10:36:57+00:00 CRITICAL Uncaught TypeError: array_diff(): Argument #1 ($array) must be of type array, null given in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php:222
+Stack trace:
+#0 C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php(222): array_diff(NULL, Array)
+#1 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Automattic\WooCommerce\Blocks\Payments\Api->verify_payment_methods_dependencies('')
+#2 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#3 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#4 C:\wamp64\www\mlm2\wp-includes\functions.wp-scripts.php(95): do_action('wp_print_script...')
+#5 C:\wamp64\www\mlm2\wp-includes\class-wp-editor.php(1564): wp_print_scripts(Array)
+#6 C:\wamp64\www\mlm2\wp-includes\class-wp-editor.php(1014): _WP_Editors::print_tinymce_scripts()
+#7 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\common\editor-common-scripts-settings.php(177): _WP_Editors::print_default_editor_scripts()
+#8 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\common\editor-common-scripts-settings.php(60): Elementor\Core\Editor\Loader\Common\Editor_Common_Scripts_Settings::get_wp_editor_config()
+#9 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\v2\editor-v2-loader.php(145): Elementor\Core\Editor\Loader\Common\Editor_Common_Scripts_Settings::get()
+#10 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\editor.php(364): Elementor\Core\Editor\Loader\V2\Editor_V2_Loader->enqueue_scripts()
+#11 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Elementor\Core\Editor\Editor->enqueue_scripts('')
+#12 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#13 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#14 C:\wamp64\www\mlm2\wp-includes\script-loader.php(2272): do_action('wp_enqueue_scri...')
+#15 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): wp_enqueue_scripts('')
+#16 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#17 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#18 C:\wamp64\www\mlm2\wp-includes\general-template.php(3064): do_action('wp_head')
+#19 C:\wamp64\www\mlm2\wp-content\plugins\elementor\includes\editor-templates\editor-wrapper.php(31): wp_head()
+#20 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\loader\v2\editor-v2-loader.php(195): include('C:\\wamp64\\www\\m...')
+#21 C:\wamp64\www\mlm2\wp-content\plugins\elementor\core\editor\editor.php(169): Elementor\Core\Editor\Loader\V2\Editor_V2_Loader->print_root_template()
+#22 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Elementor\Core\Editor\Editor->init('')
+#23 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#24 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#25 C:\wamp64\www\mlm2\wp-admin\admin.php(419): do_action('admin_action_el...')
+#26 C:\wamp64\www\mlm2\wp-admin\post.php(12): require_once('C:\\wamp64\\www\\m...')
+#27 {main}
+  thrown in C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\packages\woocommerce-blocks\src\Payments\Api.php on line 222
+
+2025-01-09T22:15:15+00:00 CRITICAL Uncaught Error: Call to a member function get_gallery_image_ids() on bool in C:\wamp64\www\mlm2\wp-content\plugins\elementor\modules\ai\module.php:231 CONTEXT: {"error":{"type":1,"file":"C:\wamp64\www\mlm2\wp-content\plugins\elementor\modules\ai\module.php","line":231},"remote-logging":true,"backtrace":["#0 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(324): Elementor\Modules\Ai\Module->get_product_images_ajax('')n#1 C:\wamp64\www\mlm2\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters('', Array)n#2 C:\wamp64\www\mlm2\wp-includes\plugin.php(517): WP_Hook->do_action(Array)n#3 C:\wamp64\www\mlm2\wp-admin\admin-ajax.php(192): do_action('wp_ajax_element...')n#4 {main}n  thrown"]}
+2025-01-09T22:17:53+00:00 CRITICAL Out of memory (allocated 62914560) (tried to allocate 65536 bytes) CONTEXT: {"error":{"type":1,"file":"C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\src\Admin\Notes\DeprecatedNotes.php","line":147},"remote-logging":true,"backtrace":[{"file":"C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\includes\class-woocommerce.php","line":412,"function":"critical","class":"WC_Logger","type":"->"},{"function":"log_errors","class":"WooCommerce","type":"->"}]}
+2025-01-09T22:18:18+00:00 CRITICAL Allowed memory size of 134217728 bytes exhausted (tried to allocate 20480 bytes) CONTEXT: {"error":{"type":1,"file":"C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\src\Blocks\BlockPatterns.php","line":256},"remote-logging":true,"backtrace":[{"file":"C:\wamp64\www\mlm2\wp-content\plugins\woocommerce\includes\class-woocommerce.php","line":412,"function":"critical","class":"WC_Logger","type":"->"},{"function":"log_errors","class":"WooCommerce","type":"->"}]}
