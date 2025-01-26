@@ -95,6 +95,12 @@ if ( ! class_exists( 'BMLM_Account' ) ) {
 					case 'refferal':
 						add_shortcode( 'sponsor', array( $this->sponsor_template, 'bmlm_sponsor_refferal_links' ), 'refferal' );
 						break;
+					case 'client-refferal':
+						add_shortcode( 'sponsor', array( $this->sponsor_template, 'bmlm_sponsor_client_refferal_links' ), 'clientrefferal' );
+						break;
+					case 'invoice':
+						add_shortcode( 'sponsor', array( $this->sponsor_template, 'bmlm_sponsor_client_invoice' ), 'invoice' );
+						break;	
 					case 'marketing-crm-link':
 						add_shortcode( 'sponsor', array( $this->sponsor_template, 'bmlm_sponsor_marketing_crm_link' ), 'marketingcrmlink' );
 						break;
@@ -248,7 +254,8 @@ if ( ! class_exists( 'BMLM_Account' ) ) {
 						'../' . $page_name . '/ads'        => esc_html__( 'Sponsor Ads', 'binary-mlm' ),
 						'../' . $page_name . '/genealogy'  => esc_html__( 'Genealogy Tree', 'binary-mlm' ),
 						'../' . $page_name . '/commission' => esc_html__( 'Commissions', 'binary-mlm' ),
-						'../' . $page_name . '/refferal'   => esc_html__( "Dealer's Link", 'binary-mlm' ),
+						'../' . $page_name . '/refferal'   => esc_html__( "Dealer's Affiliate Link", 'binary-mlm' ),
+						'../' . $page_name . '/client-refferal'   => esc_html__( "Client Affiliate Link", 'binary-mlm' ),
 						'../' . $page_name . '/marketing-crm-link'   => esc_html__( "Marketing CRM Link", 'binary-mlm' ),
 						'../' . $page_name . '/social-media-kit'   => esc_html__( "Social Media Kit", 'binary-mlm' ),
 						'../' . $page_name . '/training-resources'   => esc_html__( "Training Resources", 'binary-mlm' ),

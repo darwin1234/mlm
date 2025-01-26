@@ -52,13 +52,22 @@ if ( ! class_exists( 'BMLM_Template_Controller' ) ) {
 		 */
 		public function bmlm_sponsor_account_menu() {
 			wc_print_notices();
+			global $wp;
+			$url = home_url( add_query_arg( array(), $wp->request ) );
+			$path = parse_url($url, PHP_URL_PATH);
+			$segments = explode('/', $path);
 			?>
 			<nav class="woocommerce-MyAccount-navigation">
 				<ul>
 					<li><a href="/" class="d-flex align-items-center text-dark text-decoration-none"><img id="logo" src="<?php echo bloginfo('template_url');?>/assets/images/logo.png"></a></li>
 					<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
-						<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
-							<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?></a>
+						<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?> <?php  
+								if (array_key_exists(3, $segments)) {
+									echo "../sponsor/" . $segments[3]   ===   $endpoint ? " is-active " : "";
+								}?>">
+							<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>" <?php echo wc_is_current_account_menu_item( $endpoint ) ? 'aria-current="page"' : ''; ?>>
+								<span class="ds_<?php echo wc_get_account_menu_item_classes($label); ?>"></span><?php echo esc_html( $label ); ?>
+							</a>
 						</li>
 					<?php endforeach; ?>
 				
@@ -155,5 +164,15 @@ if ( ! class_exists( 'BMLM_Template_Controller' ) ) {
 			$marketing->get_template();
 		}
 
+		public function bmlm_sponsor_client_refferal_links(){
+			$referral = new Front\Sponsor\Refferal\BMLM_ClientRefferal( $this->sponsor );
+			$referral->get_template();
+		}
+
+		public function bmlm_sponsor_client_invoice(){
+			$referral = new Front\Sponsor\Invoice\BMLM_Invoice( $this->sponsor );
+			$referral->get_template();
+		}
+		
 	}
 }

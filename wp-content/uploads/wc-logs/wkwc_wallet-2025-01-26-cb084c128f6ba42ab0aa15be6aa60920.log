@@ -1,0 +1,44 @@
+2025-01-26T13:36:26+00:00 INFO User in action: 24: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_24
+2025-01-26T13:36:26+00:00 INFO User in action: 24: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_24_10_0
+2025-01-26T13:38:53+00:00 INFO User in action: 26: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_id_26
+2025-01-26T13:38:53+00:00 INFO User in action: 26: Set get_transactions Cached group: wkwc_wallet_transactions, Cached key: customer_26_10_0
+2025-01-26T16:05:17+00:00 INFO User in action: 28: Order id: 103, Checkout order processing, transaction data: Array
+(
+    [order_id] => 103
+    [sender] => 1
+    [customer] => 28
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-26 16:05:17
+    [transaction_status] => used
+)
+
+2025-01-26T16:05:17+00:00 INFO User in action: 28: Order id: 103, Checkout order processing, transaction data: Array
+(
+    [order_id] => 103
+    [sender] => 1
+    [customer] => 28
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-26 16:05:17
+    [transaction_status] => used
+)
+
+2025-01-26T17:03:19+00:00 INFO User in action: 29: Order id: 104, Checkout order processing, transaction data: Array
+(
+    [order_id] => 104
+    [sender] => 1
+    [customer] => 29
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-26 17:03:19
+    [transaction_status] => used
+)
+
+2025-01-26T17:03:19+00:00 INFO User in action: 29: Order id: 104, Checkout order processing, transaction data: Array
+(
+    [order_id] => 104
+    [sender] => 1
+    [customer] => 29
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-26 17:03:19
+    [transaction_status] => used
+)
+

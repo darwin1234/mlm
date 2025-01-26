@@ -304,8 +304,22 @@ End of comment */
 	margin: auto;
   }
 
-  #sponsorFrm .woocommerce-form-register {
+#sponsorFrm .woocommerce-form-register {
 	margin:auto;
 	overflow:auto;
 	display:block;
-  }
+}
+.woocommerce-additional-fields{
+	display:none!important;
+}
+.woocommerce-form-coupon-toggle{
+	display:none!important;
+}
+
+
+
+
+.woocommerce-MyAccount-navigation {
+	float:left !important;
+}
+

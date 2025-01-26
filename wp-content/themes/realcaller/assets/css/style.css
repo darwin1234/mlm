@@ -576,82 +576,9 @@ button#headerbtn {
 }
 .container  {width:400px;}
 
-.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--orders a:before {
-    content: "\f513";
-    font-family: "Dashicons";
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
-}
-
-.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--edit-address a:before {
-    content: "\f513";
-    font-family: "Dashicons";
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
-}
-
-.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--payment-methods a:before {
-    content: "\f513";
-    font-family: "Dashicons";
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
-}
-
-.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--edit-account a:before {
-    content: "\f513";
-    font-family: "Dashicons";
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
-}
-.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--wkwc_wallet a:before {
-    content: "\f513";
-    font-family: "Dashicons";
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
-}
-
-.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--customer-logout a:before {
-    content: "\f513";
-    font-family: "Dashicons";
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
-}
 .woocommerce-account .woocommerce-MyAccount-navigation{
     width:25%!important;
 }
-
-
-.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--sponsormarketing-crm-link a:before {
-    content: "\f513";
-    font-family: "Dashicons";
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
-}
-
-
-.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--sponsorsocial-media-kit a:before  {
-    content: "\f513";
-    font-family: "Dashicons";
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
-}
-
-.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--sponsortraining-resources a:before  {
-    content: "\f513";
-    font-family: "Dashicons";
-    font-size: 20px;
-    font-weight: normal;
-    text-align: center;
-}
-
 .woocommerce .col2-set .col-2 {
   float: inherit;
   width: 600px;
@@ -681,4 +608,278 @@ p{
   padding:15px!important;
   color:#ffffff!important;
   font-family: 'Inter';
+}
+#register_dealer{
+	background-color:#8C52FF!important;
+	color:#ffffff;
+  font-family:'inter';
+}
+.woocommerce-form-coupon-toggle{
+	display:none!important;
+}
+.woocommerce-checkout h3{
+  font-family: "Montserrat", serif;
+  font-weight: 600;
+}
+.woocommerce-checkout label{
+  font-family: "DroidSans", serif!important;
+  font-size:14px!important;
+  line-height:25px!important;
+  display:block!important;
+}
+
+.woocommerce-checkout input[type='text']{
+  font-family: "DroidSans", serif!important;
+  font-size:15px!important;
+  line-height:25px!important;
+  display:block!important;
+  height:40px;
+}
+.select2-selection__rendered{
+  font-family: "DroidSans", serif!important;
+  font-size:15px!important;
+  line-height:25px!important;
+  display:block!important;
+  height:40px;
+}
+
+
+.woocommerce-checkout select{
+  font-family: "DroidSans", serif!important;
+  font-size:15px!important;
+  line-height:25px!important;
+  display:block!important;
+  height:40px;
+}
+.woocommerce-checkout input[type='email']{
+  font-family: "DroidSans", serif!important;
+  font-size:15px!important;
+  line-height:25px!important;
+  display:block!important;
+  height:40px;
+}
+.woocommerce-checkout p.desc{
+  font-family: "DroidSans", serif!important;
+  font-size:16px!important;
+  line-height:25px!important;
+  width:80%!important;
+}
+
+#checkoutLogo{
+  width:300px;
+  display:block;
+}
+.woocommerce #payment #place_order, .woocommerce-page #payment #place_orderr{
+  width:200px;
+  padding:15px;
+  border-radius:15px!important;
+  font-family: "Montserrat", serif;
+  font-weight: 600;
+}
+.woocommerce-privacy-policy-text p{
+  font-family: "DroidSans", serif!important;
+  font-size:14px!important;
+  line-height:25px!important;
+}
+#woocommerce_back_button{
+  background-color:#fff;
+  border:1px solid #000;
+  padding:10px;
+  width:200px;
+  border-radius:15px!important;
+  font-family: "Montserrat", serif;
+  font-weight: 600;
+  color:#000000!important;
+}
+
+#add_payment_method #payment, .woocommerce-cart #payment, .woocommerce-checkout #payment{
+  background-color:transparent!important;
+}
+
+#add_payment_method #payment ul.payment_methods, .woocommerce-cart #payment ul.payment_methods, .woocommerce-checkout #payment ul.payment_methods{
+  padding:0!important;
+}
+#checkoutpolicy .col-md-12{
+  padding:0!important;
+  margin:0!important;
+}
+#checkoutpolicy .col-md-6{
+  padding:0!important;
+  margin:0!important;
+}
+.place-order{
+  padding:0!important;
+  margin:0!important;
+}
+.woocommerce-MyAccount-navigation-link{
+  width:280px;
+  margin:auto;
+}
+
+span.woocommerce-MyAccount-navigation-link--Dashboard {
+  background:url('../icons/Storefront@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+
+span.woocommerce-MyAccount-navigation-link--SponsorAds{
+  background:url('../icons/uil_megaphone@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+
+
+span.woocommerce-MyAccount-navigation-link--GenealogyTree{
+  background:url('../icons/Group2@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+
+span.woocommerce-MyAccount-navigation-link--Commissions{
+  background:url('../icons/Attachmoney@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+
+span.woocommerce-MyAccount-navigation-link--Dealer039sAffiliateLink{
+  background:url('../icons/users@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+span.woocommerce-MyAccount-navigation-link--ClientAffiliateLink{
+  background:url('../icons/users@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+
+.woocommerce-MyAccount-navigation-link--sponsormarketing-crm-link{
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+span.woocommerce-MyAccount-navigation-link--MarketingCRMLink{
+  background:url('../icons/Arrowoutward@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: right;
+}
+
+span.woocommerce-MyAccount-navigation-link--SocialMediaKit{
+  background:url('../icons/Permmedia@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+
+span.woocommerce-MyAccount-navigation-link--TrainingResources{
+  background:url('../icons/Contacts@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+
+.woocommerce-MyAccount-navigation-link--orders{
+  margin-top:30px;
+}
+
+span.woocommerce-MyAccount-navigation-link--Orders{
+  background:url('../icons/Boxadd@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+
+span.woocommerce-MyAccount-navigation-link--Addresses{
+  background:url('../icons/Map@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+span.woocommerce-MyAccount-navigation-link--Paymentmethods{
+  background:url('../icons/Creditcard@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+span.woocommerce-MyAccount-navigation-link--Accountdetails{
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  margin-top: 14px;
+  float: left;
+}
+
+span.woocommerce-MyAccount-navigation-link--MyWallet{
+  background:url('../icons/Accountbalancewallet@2x.svg');
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right:10px;
+  float: left;
+}
+.woocommerce-MyAccount-navigation-link--Logout{
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  margin-top: 14px;
+  float: left;
 }
