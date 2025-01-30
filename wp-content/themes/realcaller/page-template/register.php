@@ -3,29 +3,56 @@
     Template Name: Registration
 
 */
-get_header();
+
 ?>
-<section class="register py-5" id="register">
+<?php  get_header('dashboard');?>
+<section class="register" id="register">
     <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="<?php echo bloginfo('template_url');?>/assets/images/logo.png" class="w-50">
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+    <div id="registration_dealder" class="container">
         <div class="row ">
-            <div class="col-md-5 m-auto py-5 border">
-                <h4 class="pb-4">Please fill with your details</h4>
+            <div class="col-md-7 m-auto py-5">
+                <h1 class="pb-4">Dealer Registration</h1>
+                <p>Nisl blandit molestie aliquam viverra sapien congue odio.</p>
                 <form method="POST">
-                <div class="mb-3">
-                    <label for="fistname" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="firstname" name="first_name" aria-describedby="Firstname">
+                <div class="row">   
+                    <div class="col mb-3">
+                        <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Company Name" aria-describedby="email address" required>
+                    </div>
+                    <div class="col mb-3">
+                        <input type="text" class="form-control" id="business_name" name="business_name" placeholder="Business Name" aria-describedby="email address" required>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="lastname" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lastname" name="last_name" aria-describedby="Lastname">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" id="firstname" name="first_name" placeholder="First Name" aria-describedby="Firstname" required>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="lastname" name="last_name"   placeholder="Last Name"aria-describedby="Lastname" required>
+                        </div>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="email_address" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email_address" name="email_address" aria-describedby="email address">
+                    <input type="email" class="form-control" id="email_address" name="email_address" placeholder="Email address" aria-describedby="email address" required>
                 </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                    </div>
+                    <div class="col mb-3">
+                        <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
+                    </div>
+                </div>
+
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" id="password">
+                    <input type="text" class="form-control" name="contact_no" id="contact_no" placeholder="Contact Number">
                 </div>
                 <button id="register_dealer" type="submit" name="register_dealer" class="w-100 btn btn-primary">Register</button>
                 </form>
@@ -34,6 +61,4 @@ get_header();
     </div>
 </section>
 
-<?php 
-get_footer();
-?>
+<?php  get_footer('login');?>

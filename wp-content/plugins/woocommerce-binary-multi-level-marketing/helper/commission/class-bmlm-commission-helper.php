@@ -280,9 +280,16 @@ if ( ! class_exists( 'BMLM_Commission_Helper' ) ) {
 		 * @return int
 		 */
 		public function bmlm_evaluate_percentage_amount( $commission_percent, $amount ) {
+			// Ensure numeric values
+			$commission_percent = floatval($commission_percent);
+			$amount = floatval($amount);
+		
+			// Perform calculation
 			$commission = ( $commission_percent / 100 ) * $amount;
+		
 			return apply_filters( 'bmlm_modify_commission_evaluated', $commission );
 		}
+		
 
 		/**
 		 * Format commission.

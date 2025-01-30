@@ -24,10 +24,13 @@ if ( is_readable( $custom_walker_footer ) ) {
 
 class dsMLM {
 
+
+	private $ghl_endpoint = "https://rest.gohighlevel.com";
+
+	private $api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55X2lkIjoiZGNCY0g4enRsRE8zcWZ3QmV2M3oiLCJ2ZXJzaW9uIjoxLCJpYXQiOjE3MzgyMjgwNjQzNjUsInN1YiI6IlROQ05yaTZEc3Q2OVRzZGVxbjU5In0.I6e3Wqej7p5zeXCS3aPFlogvDXR41aT5ciKPLEY6Cc8';
+
 	public function __construct()
 	{
-
-
 		add_action( 'after_setup_theme', array($this,'realcaller_setup_theme' ));
 
 		add_action( 'enqueue_block_assets', array($this,'realcaller_load_editor_styles'));
@@ -74,45 +77,9 @@ class dsMLM {
 
 		add_action('init', array($this, 'register_as_client'));
 
-		//add_action('init', array($this,'register_dealer' ));
-
-		if ( ! function_exists( 'realcaller_article_posted_on' ) ) {
-			/**
-			 * "Theme posted on" pattern.
-			 *
-			 * @since v1.0
-			 */
-			function realcaller_article_posted_on() {
-				printf(
-					wp_kses_post( __( '<span class="sep">Posted on </span><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author-meta vcard"><a class="url fn n" href="%5$s" title="%6$s" rel="author">%7$s</a></span></span>', 'realcaller' ) ),
-					esc_url( get_the_permalink() ),
-					esc_attr( get_the_date() . ' - ' . get_the_time() ),
-					esc_attr( get_the_date( 'c' ) ),
-					esc_html( get_the_date() . ' - ' . get_the_time() ),
-					esc_url( get_author_posts_url( (int) get_the_author_meta( 'ID' ) ) ),
-					sprintf( esc_attr__( 'View all posts by %s', 'realcaller' ), get_the_author() ),
-					get_the_author()
-				);
-			}
-		}
-
-		// Redirect to checkout if the specific product is the only one in the cart
-		function redirect_to_checkout_if_single_specific_product() {
-			// Define the product ID you want to restrict
-			$specific_product_id = 11; // Change this to your desired product ID
-
-			if (is_cart() && WC()->cart->get_cart_contents_count() === 1) {
-				$cart_product_ids = array();
-				foreach (WC()->cart->get_cart() as $cart_item) {
-					$cart_product_ids[] = $cart_item['product_id'];
-				}
-
-				if (in_array($specific_product_id, $cart_product_ids)) {
-					wp_redirect(wc_get_checkout_url());
-					exit;
-				}
-			}
-		}
+		add_action('init', array($this,'register_dealer' ));
+		
+		add_action('init', array($this,'register_client_1' ));
 		
 		add_filter( 'woocommerce_registration_redirect', array($this, 'custom_redirection_after_registration'), 10, 1 );
 	
@@ -125,7 +92,135 @@ class dsMLM {
 		// Hook to add product to the cart after WooCommerce initializes
 		add_action('wp_loaded',array($this, 'empty_the_cart'));
 
+		// Add Admin Menu
+		add_action('admin_menu', array($this,'ghl_plugin_menu'));
 
+		add_action('woocommerce_order_status_completed', array($this,'ds_order_completed' ), 10, 1);
+		
+
+	}
+
+	/**
+	 * Helper function to send API requests
+	 */
+	private function send_api_request($endpoint, $data)
+	{
+		$response = wp_remote_post($this->ghl_endpoint . $endpoint, [
+			'method' => 'POST',
+			'headers' => [
+				'Authorization' => 'Bearer ' . $this->api_key,
+				'Content-Type' => 'application/json'
+			],
+			'body' => json_encode($data),
+			'data_format' => 'body'
+		]);
+
+		if (is_wp_error($response)) {
+			error_log("API ERROR: " . $response->get_error_message());
+			return false;
+		}
+
+    	return json_decode(wp_remote_retrieve_body($response), true);
+	}
+
+	public function ds_order_completed($order_id)
+	{
+		$order = wc_get_order($order_id);
+		$customer_id = $order->get_user_id();
+
+		if (!$customer_id) {
+			error_log("Order $order_id has no associated customer.");
+			return;
+		}
+
+		// Retrieve user meta
+		$first_name = get_user_meta($customer_id, 'first_name', true);
+		$last_name = get_user_meta($customer_id, 'last_name', true);
+		$email = get_user_meta($customer_id, 'billing_email', true);
+		$ds_business_name = get_user_meta($customer_id, 'ds_business_name', true);
+		$ds_company_name = get_user_meta($customer_id, 'ds_company_name', true);
+		$ds_phone =  get_user_meta($customer_id, 'ds_phone', true);
+		$address = get_user_meta($customer_id, 'ds_address', true);
+		$city  =  get_user_meta($customer_id, 'ds_city', true);
+		$state  =  get_user_meta($customer_id, 'ds_state', true);
+		$postal_code  = get_user_meta($customer_id, 'ds_postal_code', true);
+		$country =   get_user_meta($customer_id, 'ds_country', true);	
+		$password =  get_user_meta($customer_id, 'ds_password', true);
+		
+		// Prepare API data
+		$business_data = [
+			"businessName" => $ds_business_name,
+			"companyName" => $ds_company_name,
+			"email" => $email,
+			"phone" => $sanitized_input['phone'],
+			"address" => $sanitized_input['address'],
+			"city" => $sanitized_input['city'],
+			"state" => $sanitized_input['state'],
+			"postalCode" => $sanitized_input['postalCode'],
+			"country" => $sanitized_input['country']
+		];
+
+		
+		// Send request to create sub-account
+		$response = $this->send_api_request("/v1/locations/", $business_data);
+
+		if (!$response || empty($response['id'])) {
+			error_log("Failed to create sub-account for order $order_id.");
+			return;
+		}
+
+		$location_id = $response['id'];
+
+		// Prepare admin user data
+		$user_data = [
+			"locationIds" => $location_id,//['VxgP7Rj68WYNIXhMQsb5'],
+			"firstName" => $first_name,
+			"lastName" => $last_name,
+			"email" => $email,
+			"password" => $password,
+			"type" => "account",
+    		"role" =>"user",
+			"permissions" => [
+				"campaignsEnabled" => true,
+				"campaignsReadOnly"=> false,
+				"contactsEnabled"=> true,
+				"workflowsEnabled"=> true,
+				"triggersEnabled"=> true,
+				"funnelsEnabled" =>  true,
+				"websitesEnabled" => false,
+				"opportunitiesEnabled"=> true,
+				"dashboardStatsEnabled"=> true,
+				"bulkRequestsEnabled"=>true,
+				"appointmentsEnabled"=> true,
+				"reviewsEnabled"=> true,
+				"onlineListingsEnabled"=> true,
+				"phoneCallEnabled"=> true,
+				"conversationsEnabled"=> true,
+				"assignedDataOnly"=> false,
+				"adwordsReportingEnabled"=> false,
+				"membershipEnabled"=> false,
+				"facebookAdsReportingEnabled"=> false,
+				"attributionsReportingEnabled"=> false,
+				"settingsEnabled"=> true,
+				"tagsEnabled"=> true,
+				"leadValueEnabled"=> true,
+				"marketingEnabled"=> true
+			]
+		];
+	
+		// Send request to create admin user
+		$user_response = $this->send_api_request("/v1/users/", $user_data);
+
+
+		if ($user_response) {
+			error_log("Success: Sub-Account and Admin User Created Successfully!");
+		} else {
+			error_log("Failed: Admin user creation failed for order $order_id.");
+		}
+	}
+
+	public function ghl_plugin_menu() {
+		add_menu_page('GHL Sub-Account Creator', 'GHL Creator', 'manage_options', 'ghl_creator', array($this, 'ghl_plugin_page'));
 	}
 
 	public function empty_the_cart(){
@@ -154,7 +249,6 @@ class dsMLM {
 		unset($fields['billing']['billing_address_1']);
 		unset($fields['billing']['billing_address_2']);
 
-		
 		//Remove Shipping fields
 		unset($fields['shipping']['shipping_first_name']);
 		unset($fields['shipping']['shipping_last_name']);
@@ -207,115 +301,206 @@ class dsMLM {
 
 	public function register_dealer() {
 
-		if(!is_user_logged_in())
-		{
-			if (!is_user_logged_in()) {
-				if (isset($_POST['register_dealer'])) {
-					// Sanitize user input
-					$first_name = sanitize_text_field($_POST['first_name']);
-					$last_name = sanitize_text_field($_POST['last_name']);
-					$email_address = sanitize_email($_POST['email_address']);
-					$password = sanitize_text_field($_POST['password']);
-					
-					// Validate email
-					if (!is_email($email_address)) {
-						wp_die('Invalid email address.'); // You can replace this with a user-friendly error.
-					}
-					
-					// Check if the email already exists
-					if (email_exists($email_address)) {
-						wp_die('Email already exists. Please use a different email.'); // Customize error message.
-					}
-					
-					// Create user
-					$user_id = wp_create_user($email_address, $password, $email_address);
-			
-					if (is_wp_error($user_id)) {
-						// Handle errors
-						wp_die($user_id->get_error_message());
-					}
-			
-					// Update user meta
-					wp_update_user([
-						'ID' => $user_id,
-						'first_name' => $first_name,
-						'last_name' => $last_name,
-					]);
-			
-					$bmlm_sponsor_id = $this->generate_random_string(10);
-			
-					add_user_meta($user_id, 'bmlm_sponsor_id', $bmlm_sponsor_id);
-			
-					// Optionally, assign a role (e.g., subscriber, dealer, etc.)
-					$user = new WP_User($user_id);
-					$user->set_role('bmlm_sponsor'); // Replace with a custom role if applicable.
-					
-					// Product ID to be ordered
-					$product_id = 76; // Replace with the actual product ID
-					$quantity = 1;     // Specify the quantity
-					
-					// Ensure the product exists
-					$product = wc_get_product($product_id);
-					if (!$product) {
-						wc_add_notice(__('Invalid product.', 'woocommerce'), 'error');
-						return;
-					}
-				
-					if (!$user_id) {
-						wc_add_notice(__('You must be logged in to place an order.', 'woocommerce'), 'error');
-						return;
-					}
-				
-					// Create a new order
-					$order = wc_create_order();
-				
-					// Add the product to the order
-					$order->add_product($product, $quantity);
-				
-					// Set the customer ID
-					$order->set_customer_id($user_id);
-				
-					// Add billing and shipping information (replace with actual user data)
-					$user_data = get_userdata($user_id);
-					
-					$address = [
-						'first_name' => $user_data->first_name,
-						'last_name'  => $user_data->last_name,
-						'email'      => $user_data->user_email,
-						'phone'      => get_user_meta($user_id, 'billing_phone', true),
-						'address_1'  => get_user_meta($user_id, 'billing_address_1', true),
-						'address_2'  => get_user_meta($user_id, 'billing_address_2', true),
-						'city'       => get_user_meta($user_id, 'billing_city', true),
-						'state'      => get_user_meta($user_id, 'billing_state', true),
-						'postcode'   => get_user_meta($user_id, 'billing_postcode', true),
-						'country'    => get_user_meta($user_id, 'billing_country', true),
-					];
-				
-					$order->set_address($address, 'billing');
-					$order->set_address($address, 'shipping');
-				
-					// Calculate totals
-					$order->calculate_totals();
-			
-					// Automatically set order status to completed
-					$order->set_status('completed');
-					$order->save();
-				
-					// Auto-login the user
-					wp_clear_auth_cookie();
-					wp_set_current_user($user_id);
-					wp_set_auth_cookie($user_id);
-
-					// Redirect user after successful order creation
-					wp_safe_redirect(site_url() . "/my-account");
-					exit;
-				}
-			}
-				
-		}
+		if (!is_user_logged_in()) {
+			if (isset($_POST['register_dealer'])) {
+				// Sanitize user input
+				$first_name = sanitize_text_field($_POST['first_name']);
+				$last_name = sanitize_text_field($_POST['last_name']);
+				$email_address = sanitize_email($_POST['email_address']);
+				$password = sanitize_text_field($_POST['password']);
+				$confirm_password = sanitize_text_field($_POST['confirm_password']); // Password confirmation
 	
+				// Validate email
+				if (!is_email($email_address)) {
+					wp_die('Invalid email address.'); 
+				}
+	
+				// Check if the email already exists
+				if (email_exists($email_address)) {
+					wc_add_notice('Email already exists. Please use a different email.', 'error');
+				}
+	
+				// Check if passwords match
+				if ($password !== $confirm_password) {
+					wp_die('Passwords do not match. Please try again.');
+				}
+	
+				// Create user
+				$user_id = wp_create_user($email_address, $password, $email_address);
+	
+				if (is_wp_error($user_id)) {
+					wp_die($user_id->get_error_message());
+				}
+	
+				// Update user meta
+				wp_update_user([
+					'ID'         => $user_id,
+					'first_name' => $first_name,
+					'last_name'  => $last_name,
+				]);
+	
+				$bmlm_sponsor_id = $this->generate_random_string(10);
+				add_user_meta($user_id, 'bmlm_sponsor_id', $bmlm_sponsor_id);
+	
+				// Assign a role
+				$user = new WP_User($user_id);
+				$user->set_role('bmlm_sponsor');
+	
+				// Product ID to be ordered
+				$product_id = 76; 
+				$quantity = 1;
+	
+				// Ensure the product exists
+				$product = wc_get_product($product_id);
+				if (!$product) {
+					wc_add_notice(__('Invalid product.', 'woocommerce'), 'error');
+					return;
+				}
+	
+				if (!$user_id) {
+					wc_add_notice(__('You must be logged in to place an order.', 'woocommerce'), 'error');
+					return;
+				}
+				
+				// Create a new WooCommerce order
+				$order = wc_create_order();
+				$order->add_product($product, $quantity);
+				$order->set_customer_id($user_id);
+	
+				// Get user data
+				$user_data = get_userdata($user_id);
+				$address = [
+					'first_name' => $user_data->first_name,
+					'last_name'  => $user_data->last_name,
+					'email'      => $user_data->user_email,
+					'phone'      => get_user_meta($user_id, 'billing_phone', true),
+					'address_1'  => get_user_meta($user_id, 'billing_address_1', true),
+					'address_2'  => get_user_meta($user_id, 'billing_address_2', true),
+					'city'       => get_user_meta($user_id, 'billing_city', true),
+					'state'      => get_user_meta($user_id, 'billing_state', true),
+					'postcode'   => get_user_meta($user_id, 'billing_postcode', true),
+					'country'    => get_user_meta($user_id, 'billing_country', true),
+				];
+	
+				$order->set_address($address, 'billing');
+				$order->set_address($address, 'shipping');
+	
+				// Calculate totals and complete order
+				$order->calculate_totals();
+				$order->set_status('completed');
+				$order->save();
+	
+				// Auto-login the user
+				wp_clear_auth_cookie();
+				wp_set_current_user($user_id);
+				wp_set_auth_cookie($user_id);
+	
+				// Redirect after successful order creation
+				wp_safe_redirect(site_url() . "/my-account");
+				exit;
+			}
+		}
 	}
 
+	public function register_client_1(){
+		
+		if (!is_user_logged_in()) {
+			if (isset($_POST['register_client_1'])) {
+
+				$first_name = sanitize_text_field($_POST['first_name']);
+				$last_name = sanitize_text_field($_POST['last_name']);
+				$email_address = sanitize_email($_POST['email']);
+				$password = sanitize_text_field($_POST['password']);
+				$company_name =  sanitize_text_field($_POST['company_name']);
+				$business_name =  sanitize_text_field($_POST['business_name']);
+				$company_name =  sanitize_text_field($_POST['company_name']);
+				$phone =  sanitize_text_field($_POST['phone']);
+				$address =  sanitize_text_field($_POST['address']);
+				$city  =  sanitize_text_field($_POST['city']);
+				$state  =  sanitize_text_field($_POST['state']);
+				$postal_code  =  sanitize_text_field($_POST['postal_code']);
+				$country =  sanitize_text_field($_POST['country']);
+				
+				$ds_password= $password;
+
+				// Validate email
+				if (!is_email($email_address)) {
+					wp_die('Invalid email address.');
+				}
+
+				// Check if the email already exists
+				if (email_exists($email_address)) {
+					wc_add_notice('Email already exists.', 'error');
+				}
+
+				// Create user
+				$user_id = wp_create_user($email_address, $password, $email_address);
+
+				if (is_wp_error($user_id)) {
+					// Handle errors
+					wp_die($user_id->get_error_message());
+				}
+
+				// Update user meta
+				wp_update_user([
+					'ID' => $user_id,
+					'first_name' => $first_name,
+					'last_name' => $last_name,
+					'billing_first_name' => $first_name,
+					'billing_last_name' => $last_name,
+					
+				]);
+
+				add_user_meta($user_id, 'account_type', 'ds_client');
+
+				$bmlm_sponsor_id = $this->generate_random_string(10);
+
+				add_user_meta($user_id, 'bmlm_sponsor_id', $bmlm_sponsor_id);
+				
+				add_user_meta($user_id, 'ds_business_name', $business_name);
+
+				add_user_meta($user_id, 'ds_company_name', $company_name);
+
+				add_user_meta($user_id, 'ds_phone', $phone);
+				
+				add_user_meta($user_id, 'ds_address', $address);
+				
+				add_user_meta($user_id, 'ds_city', $city);
+				
+				add_user_meta($user_id, 'ds_state', $state);
+				
+				add_user_meta($user_id, 'ds_postal_code', $postal_code);
+				
+				add_user_meta($user_id, 'ds_country', $country);
+				
+				add_user_meta($user_id, 'ds_password', $ds_password);
+				
+				
+				// Assign role
+				$user = new WP_User($user_id);
+				$user->set_role('bmlm_sponsor');
+
+				// Auto-login the user
+				wp_clear_auth_cookie();
+				wp_set_current_user($user_id);
+				wp_set_auth_cookie($user_id);
+
+				// Add product to cart and redirect
+				if (class_exists('WooCommerce')) {
+					// Set a flag to add the product to the cart
+					set_transient('add_product_to_cart_for_user_' . $user_id, true, 10);
+					// Redirect user to WooCommerce Checkout Page
+					$redirect_url = wc_get_checkout_url();
+					wp_safe_redirect($redirect_url);
+					exit; // Ensure the script stops here
+				} else {
+					wp_die('WooCommerce is not active. Please enable WooCommerce.');
+				}
+			}
+		}
+	}
+
+	
 	public function register_as_client()
 	{
 		if (!is_user_logged_in()) {
@@ -325,6 +510,16 @@ class dsMLM {
 				$last_name = sanitize_text_field($_POST['last_name']);
 				$email_address = sanitize_email($_POST['email']);
 				$password = sanitize_text_field($_POST['password']);
+				$business_name =  sanitize_text_field($_POST['business_name']);
+				$company_name =  sanitize_text_field($_POST['company_name']);
+				$phone =  sanitize_text_field($_POST['phone']);
+				$address =  sanitize_text_field($_POST['address']);
+				$city  =  sanitize_text_field($_POST['city']);
+				$state  =  sanitize_text_field($_POST['state']);
+				$postal_code  =  sanitize_text_field($_POST['postal_code']);
+				$country =  sanitize_text_field($_POST['country']);
+
+				$ds_password = $password;
 
 				// Validate email
 				if (!is_email($email_address)) {
@@ -356,6 +551,24 @@ class dsMLM {
 				$bmlm_sponsor_id = $this->generate_random_string(10);
 
 				add_user_meta($user_id, 'bmlm_sponsor_id', $bmlm_sponsor_id);
+				
+				add_user_meta($user_id, 'ds_business_name', $business_name);
+
+				add_user_meta($user_id, 'ds_company_name', $company_name);
+
+				add_user_meta($user_id, 'ds_phone', $phone);
+				
+				add_user_meta($user_id, 'ds_address', $address);
+				
+				add_user_meta($user_id, 'ds_city', $city);
+				
+				add_user_meta($user_id, 'ds_state', $state);
+				
+				add_user_meta($user_id, 'ds_postal_code', $postal_code);
+				
+				add_user_meta($user_id, 'ds_country', $country);
+
+				add_user_meta($user_id, 'ds_password', $ds_password);
 
 				// Assign role
 				$user = new WP_User($user_id);
@@ -371,8 +584,8 @@ class dsMLM {
 					// Set a flag to add the product to the cart
 					set_transient('add_product_to_cart_for_user_' . $user_id, true, 10);
 
-					// Redirect to the invoice page
-					$redirect_url = site_url('/sponsor/invoice/');
+					// Redirect user to WooCommerce Checkout Page
+					$redirect_url = wc_get_checkout_url();
 					wp_safe_redirect($redirect_url);
 					exit; // Ensure the script stops here
 				} else {
@@ -385,13 +598,20 @@ class dsMLM {
 	public function ak_remove_my_account_links( $menu_links )
 	{
 		unset( $menu_links[ 'dashboard' ] ); // Remove Dashboard
+		unset( $menu_links[ 'orders' ] );
+		$user_id = get_current_user_id();
+		if ($user_id){
+			$account_type = get_user_meta($user_id, 'account_type', true);
+			if($account_type =="ds_client"){
+				set( $menu_links[ 'orders' ] );
+			}
+		}
 		return $menu_links;    
 	}
 
 	public function register_navwalker(){
 		require_once get_template_directory() . '/includes/class-wp-bootstrap-navwalker.php';
 	}
-	
 
 	public function bbloomer_add_name_woo_account_registration() {
 		?>
@@ -399,16 +619,300 @@ class dsMLM {
 				<label for="reg_billing_first_name"><span class="required">*</span><?php _e( 'First name', 'woocommerce' ); ?></label>
 				<input type="text" class="form-control input-text" name="first_name" id="reg_billing_first_name" value="<?php if ( ! empty( $_POST['billing_first_name'] ) ) esc_attr_e( $_POST['billing_first_name'] ); ?>" />
 			</div>
-			
 			<div class="form-row form-row-last">
 				<label for="reg_billing_last_name"><span class="required">*</span><?php _e( 'Last name', 'woocommerce' ); ?></label>
 				<input type="text" class="form-control input-text" name="last_name" id="reg_billing_last_name" value="<?php if ( ! empty( $_POST['billing_last_name'] ) ) esc_attr_e( $_POST['billing_last_name'] ); ?>" />
 			</div>
-			
+			<div class="form-row form-row-first">
+				<label for="reg_company_name"><span class="required">*</span><?php _e( 'Company Name', 'woocommerce' ); ?></label>
+				<input type="text" class="form-control" id="company_name" name="company_name" placeholder="" aria-describedby="email address">
+            </div>
+			<div class="form-row form-row-last">
+				<label for="reg_business_name"><span class="required">*</span><?php _e( 'Business Name', 'woocommerce' ); ?></label>
+                <input type="text" class="form-control" id="business_name" name="business_name" placeholder="" aria-describedby="email address">
+            </div>
+			<div class="form-row form-row-first">
+				<label for="reg_phone_number"><span class="required">*</span><?php _e( 'Phone Number', 'woocommerce' ); ?></label>
+                <input type="text" class="form-control" id="phone_number" name="phone" placeholder="" aria-describedby="Phone Number">
+            </div>
+			<div class="form-row form-row-last">
+				<label for="reg_address"><span class="required">*</span><?php _e( 'Address', 'woocommerce' ); ?></label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="" aria-describedby="">
+            </div>
+			<div class="form-row form-row-first">
+				<label for="reg_address"><span class="required">*</span><?php _e( 'City', 'woocommerce' ); ?></label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="" aria-describedby="City">
+            </div>
+            <div class="form-row form-row-last">
+				<label for="reg_state"><span class="required">*</span><?php _e( 'State', 'woocommerce' ); ?></label>
+                <input type="text" class="form-control" id="state" name="state" placeholder="" aria-describedby="State">
+            </div>
+			<div class="form-row form-row-first">
+				<label for="reg_postal_code"><span class="required">*</span><?php _e( 'Postal code', 'woocommerce' ); ?></label>
+                <input type="text" class="form-control" id="postalCode" name="postal_code" placeholder="" aria-describedby="postal_code">
+            </div>
+            <div class="form-row form-row-last">
+				<label for="reg_country"><span class="required">*</span><?php _e( 'Country', 'woocommerce' ); ?></label>
+				<select class="form-select form-control" autocomplete="country" id="country" name="country">
+					<option value="">Select Country</option>
+					<option value="AF">Afghanistan</option>
+					<option value="AX">Åland Islands</option>
+					<option value="AL">Albania</option>
+					<option value="DZ">Algeria</option>
+					<option value="AS">American Samoa</option>
+					<option value="AD">Andorra</option>
+					<option value="AO">Angola</option>
+					<option value="AI">Anguilla</option>
+					<option value="AQ">Antarctica</option>
+					<option value="AG">Antigua and Barbuda</option>
+					<option value="AR">Argentina</option>
+					<option value="AM">Armenia</option>
+					<option value="AW">Aruba</option>
+					<option value="AU">Australia</option>
+					<option value="AT">Austria</option>
+					<option value="AZ">Azerbaijan</option>
+					<option value="BS">Bahamas</option>
+					<option value="BH">Bahrain</option>
+					<option value="BD">Bangladesh</option>
+					<option value="BB">Barbados</option>
+					<option value="BY">Belarus</option>
+					<option value="BE">Belgium</option>
+					<option value="BZ">Belize</option>
+					<option value="BJ">Benin</option>
+					<option value="BM">Bermuda</option>
+					<option value="BT">Bhutan</option>
+					<option value="BO">Bolivia (Plurinational State of)</option>
+					<option value="BA">Bosnia and Herzegovina</option>
+					<option value="BW">Botswana</option>
+					<option value="BV">Bouvet Island</option>
+					<option value="BR">Brazil</option>
+					<option value="IO">British Indian Ocean Territory</option>
+					<option value="BN">Brunei Darussalam</option>
+					<option value="BG">Bulgaria</option>
+					<option value="BF">Burkina Faso</option>
+					<option value="BI">Burundi</option>
+					<option value="CV">Cabo Verde</option>
+					<option value="KH">Cambodia</option>
+					<option value="CM">Cameroon</option>
+					<option value="CA">Canada</option>
+					<option value="BQ">Caribbean Netherlands</option>
+					<option value="KY">Cayman Islands</option>
+					<option value="CF">Central African Republic</option>
+					<option value="TD">Chad</option>
+					<option value="CL">Chile</option>
+					<option value="CN">China</option>
+					<option value="CX">Christmas Island</option>
+					<option value="CC">Cocos (Keeling) Islands</option>
+					<option value="CO">Colombia</option>
+					<option value="KM">Comoros</option>
+					<option value="CG">Congo</option>
+					<option value="CD">Congo, Democratic Republic of the</option>
+					<option value="CK">Cook Islands</option>
+					<option value="CR">Costa Rica</option>
+					<option value="HR">Croatia</option>
+					<option value="CU">Cuba</option>
+					<option value="CW">Curaçao</option>
+					<option value="CY">Cyprus</option>
+					<option value="CZ">Czech Republic</option>
+					<option value="CI">Côte d'Ivoire</option>
+					<option value="DK">Denmark</option>
+					<option value="DJ">Djibouti</option>
+					<option value="DM">Dominica</option>
+					<option value="DO">Dominican Republic</option>
+					<option value="EC">Ecuador</option>
+					<option value="EG">Egypt</option>
+					<option value="SV">El Salvador</option>
+					<option value="GQ">Equatorial Guinea</option>
+					<option value="ER">Eritrea</option>
+					<option value="EE">Estonia</option>
+					<option value="SZ">Eswatini (Swaziland)</option>
+					<option value="ET">Ethiopia</option>
+					<option value="FK">Falkland Islands (Malvinas)</option>
+					<option value="FO">Faroe Islands</option>
+					<option value="FJ">Fiji</option>
+					<option value="FI">Finland</option>
+					<option value="FR">France</option>
+					<option value="GF">French Guiana</option>
+					<option value="PF">French Polynesia</option>
+					<option value="TF">French Southern Territories</option>
+					<option value="GA">Gabon</option>
+					<option value="GM">Gambia</option>
+					<option value="GE">Georgia</option>
+					<option value="DE">Germany</option>
+					<option value="GH">Ghana</option>
+					<option value="GI">Gibraltar</option>
+					<option value="GR">Greece</option>
+					<option value="GL">Greenland</option>
+					<option value="GD">Grenada</option>
+					<option value="GP">Guadeloupe</option>
+					<option value="GU">Guam</option>
+					<option value="GT">Guatemala</option>
+					<option value="GG">Guernsey</option>
+					<option value="GN">Guinea</option>
+					<option value="GW">Guinea-Bissau</option>
+					<option value="GY">Guyana</option>
+					<option value="HT">Haiti</option>
+					<option value="HM">Heard Island and Mcdonald Islands</option>
+					<option value="HN">Honduras</option>
+					<option value="HK">Hong Kong</option>
+					<option value="HU">Hungary</option>
+					<option value="IS">Iceland</option>
+					<option value="IN">India</option>
+					<option value="ID">Indonesia</option>
+					<option value="IR">Iran</option>
+					<option value="IQ">Iraq</option>
+					<option value="IE">Ireland</option>
+					<option value="IM">Isle of Man</option>
+					<option value="IL">Israel</option>
+					<option value="IT">Italy</option>
+					<option value="JM">Jamaica</option>
+					<option value="JP">Japan</option>
+					<option value="JE">Jersey</option>
+					<option value="JO">Jordan</option>
+					<option value="KZ">Kazakhstan</option>
+					<option value="KE">Kenya</option>
+					<option value="KI">Kiribati</option>
+					<option value="KP">Korea, North</option>
+					<option value="KR">Korea, South</option>
+					<option value="XK">Kosovo</option>
+					<option value="KW">Kuwait</option>
+					<option value="KG">Kyrgyzstan</option>
+					<option value="LA">Lao People's Democratic Republic</option>
+					<option value="LV">Latvia</option>
+					<option value="LB">Lebanon</option>
+					<option value="LS">Lesotho</option>
+					<option value="LR">Liberia</option>
+					<option value="LY">Libya</option>
+					<option value="LI">Liechtenstein</option>
+					<option value="LT">Lithuania</option>
+					<option value="LU">Luxembourg</option>
+					<option value="MO">Macao</option>
+					<option value="MK">Macedonia North</option>
+					<option value="MG">Madagascar</option>
+					<option value="MW">Malawi</option>
+					<option value="MY">Malaysia</option>
+					<option value="MV">Maldives</option>
+					<option value="ML">Mali</option>
+					<option value="MT">Malta</option>
+					<option value="MH">Marshall Islands</option>
+					<option value="MQ">Martinique</option>
+					<option value="MR">Mauritania</option>
+					<option value="MU">Mauritius</option>
+					<option value="YT">Mayotte</option>
+					<option value="MX">Mexico</option>
+					<option value="FM">Micronesia</option>
+					<option value="MD">Moldova</option>
+					<option value="MC">Monaco</option>
+					<option value="MN">Mongolia</option>
+					<option value="ME">Montenegro</option>
+					<option value="MS">Montserrat</option>
+					<option value="MA">Morocco</option>
+					<option value="MZ">Mozambique</option>
+					<option value="MM">Myanmar (Burma)</option>
+					<option value="NA">Namibia</option>
+					<option value="NR">Nauru</option>
+					<option value="NP">Nepal</option>
+					<option value="NL">Netherlands</option>
+					<option value="AN">Netherlands Antilles</option>
+					<option value="NC">New Caledonia</option>
+					<option value="NZ">New Zealand</option>
+					<option value="NI">Nicaragua</option>
+					<option value="NE">Niger</option>
+					<option value="NG">Nigeria</option>
+					<option value="NU">Niue</option>
+					<option value="NF">Norfolk Island</option>
+					<option value="MP">Northern Mariana Islands</option>
+					<option value="NO">Norway</option>
+					<option value="OM">Oman</option>
+					<option value="PK">Pakistan</option>
+					<option value="PW">Palau</option>
+					<option value="PS">Palestine</option>
+					<option value="PA">Panama</option>
+					<option value="PG">Papua New Guinea</option>
+					<option value="PY">Paraguay</option>
+					<option value="PE">Peru</option>
+					<option value="PH">Philippines</option>
+					<option value="PN">Pitcairn Islands</option>
+					<option value="PL">Poland</option>
+					<option value="PT">Portugal</option>
+					<option value="PR">Puerto Rico</option>
+					<option value="QA">Qatar</option>
+					<option value="RE">Reunion</option>
+					<option value="RO">Romania</option>
+					<option value="RU">Russian Federation</option>
+					<option value="RW">Rwanda</option>
+					<option value="BL">Saint Barthelemy</option>
+					<option value="SH">Saint Helena</option>
+					<option value="KN">Saint Kitts and Nevis</option>
+					<option value="LC">Saint Lucia</option>
+					<option value="MF">Saint Martin</option>
+					<option value="PM">Saint Pierre and Miquelon</option>
+					<option value="VC">Saint Vincent and the Grenadines</option>
+					<option value="WS">Samoa</option>
+					<option value="SM">San Marino</option>
+					<option value="ST">Sao Tome and Principe</option>
+					<option value="SA">Saudi Arabia</option>
+					<option value="SN">Senegal</option>
+					<option value="RS">Serbia</option>
+					<option value="CS">Serbia and Montenegro</option>
+					<option value="SC">Seychelles</option>
+					<option value="SL">Sierra Leone</option>
+					<option value="SG">Singapore</option>
+					<option value="SX">Sint Maarten</option>
+					<option value="SK">Slovakia</option>
+					<option value="SI">Slovenia</option>
+					<option value="SB">Solomon Islands</option>
+					<option value="SO">Somalia</option>
+					<option value="ZA">South Africa</option>
+					<option value="GS">South Georgia and the South Sandwich Islands</option>
+					<option value="SS">South Sudan</option>
+					<option value="ES">Spain</option>
+					<option value="LK">Sri Lanka</option>
+					<option value="SD">Sudan</option>
+					<option value="SR">Suriname</option>
+					<option value="SJ">Svalbard and Jan Mayen</option>
+					<option value="SE">Sweden</option>
+					<option value="CH">Switzerland</option>
+					<option value="SY">Syria</option>
+					<option value="TW">Taiwan</option>
+					<option value="TJ">Tajikistan</option>
+					<option value="TZ">Tanzania</option>
+					<option value="TH">Thailand</option>
+					<option value="TL">Timor-Leste</option>
+					<option value="TG">Togo</option>
+					<option value="TK">Tokelau</option>
+					<option value="TO">Tonga</option>
+					<option value="TT">Trinidad and Tobago</option>
+					<option value="TN">Tunisia</option>
+					<option value="TR">Turkey (Türkiye)</option>
+					<option value="TM">Turkmenistan</option>
+					<option value="TC">Turks and Caicos Islands</option>
+					<option value="TV">Tuvalu</option>
+					<option value="UM">U.S. Outlying Islands</option>
+					<option value="UG">Uganda</option>
+					<option value="UA">Ukraine</option>
+					<option value="AE">United Arab Emirates</option>
+					<option value="GB">United Kingdom</option>
+					<option value="US">United States</option>
+					<option value="UY">Uruguay</option>
+					<option value="UZ">Uzbekistan</option>
+					<option value="VU">Vanuatu</option>
+					<option value="VA">Vatican City Holy See</option>
+					<option value="VE">Venezuela</option>
+					<option value="VN">Vietnam</option>
+					<option value="VG">Virgin Islands, British</option>
+					<option value="VI">Virgin Islands, U.S</option>
+					<option value="WF">Wallis and Futuna</option>
+					<option value="EH">Western Sahara</option>
+					<option value="YE">Yemen</option>
+					<option value="ZM">Zambia</option>
+					<option value="ZW">Zimbabwe</option>
+				</select>
+				<!-- total - 252 -->
+
+            </div>
 			<input type="hidden" name="register_client" value="1">
-		
 			<div class="clear"></div>
-	  
 		<?php
 	}
 
@@ -696,170 +1200,3 @@ class dsMLM {
 }
 
 new dsMLM;
-
-
-if ( ! function_exists( 'wp_body_open' ) ) {
-	/**
-	 * Fire the wp_body_open action.
-	 *
-	 * Added for backwards compatibility to support pre 5.2.0 WordPress versions.
-	 *
-	 * @since v2.2
-	 *
-	 * @return void
-	 */
-	function wp_body_open() {
-		do_action( 'wp_body_open' );
-	}
-}
-
-
-
-/**
- * Test if a page is a blog page.
- * if ( is_blog() ) { ... }
- *
- * @since v1.0
- *
- * @global WP_Post $post Global post object.
- *
- * @return bool
- */
-function is_blog() {
-	global $post;
-	$posttype = get_post_type( $post );
-
-	return ( ( is_archive() || is_author() || is_category() || is_home() || is_single() || ( is_tag() && ( 'post' === $posttype ) ) ) ? true : false );
-}
-
-
-
-
-if ( ! function_exists( 'realcaller_content_nav' ) ) {
-	/**
-	 * Display a navigation to next/previous pages when applicable.
-	 *
-	 * @since v1.0
-	 *
-	 * @param string $nav_id Navigation ID.
-	 */
-	function realcaller_content_nav( $nav_id ) {
-		global $wp_query;
-
-		if ( $wp_query->max_num_pages > 1 ) {
-			?>
-			<div id="<?php echo esc_attr( $nav_id ); ?>" class="d-flex mb-4 justify-content-between">
-				<div><?php next_posts_link( '<span aria-hidden="true">&larr;</span> ' . esc_html__( 'Older posts', 'realcaller' ) ); ?></div>
-				<div><?php previous_posts_link( esc_html__( 'Newer posts', 'realcaller' ) . ' <span aria-hidden="true">&rarr;</span>' ); ?></div>
-			</div><!-- /.d-flex -->
-			<?php
-		} else {
-			echo '<div class="clearfix"></div>';
-		}
-	}
-
-}
-
-
-
-
-
-if ( ! function_exists( 'realcaller_comment' ) ) {
-	/**
-	 * Style Reply link.
-	 *
-	 * @since v1.0
-	 *
-	 * @param string $link Link output.
-	 *
-	 * @return string
-	 */
-	function realcaller_replace_reply_link_class( $link ) {
-		return str_replace( "class='comment-reply-link", "class='comment-reply-link btn btn-outline-secondary", $link );
-	}
-	add_filter( 'comment_reply_link', 'realcaller_replace_reply_link_class' );
-
-	/**
-	 * Template for comments and pingbacks:
-	 * add function to comments.php ... wp_list_comments( array( 'callback' => 'realcaller_comment' ) );
-	 *
-	 * @since v1.0
-	 *
-	 * @param object $comment Comment object.
-	 * @param array  $args    Comment args.
-	 * @param int    $depth   Comment depth.
-	 */
-	function realcaller_comment( $comment, $args, $depth ) {
-		$GLOBALS['comment'] = $comment;
-		switch ( $comment->comment_type ) :
-			case 'pingback':
-			case 'trackback':
-				?>
-		<li class="post pingback">
-			<p>
-				<?php
-					esc_html_e( 'Pingback:', 'realcaller' );
-					comment_author_link();
-					edit_comment_link( esc_html__( 'Edit', 'realcaller' ), '<span class="edit-link">', '</span>' );
-				?>
-			</p>
-				<?php
-				break;
-			default:
-				?>
-		<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
-			<article id="comment-<?php comment_ID(); ?>" class="comment">
-				<footer class="comment-meta">
-					<div class="comment-author vcard">
-						<?php
-							$avatar_size = ( '0' !== $comment->comment_parent ? 68 : 136 );
-							echo get_avatar( $comment, $avatar_size );
-
-							/* Translators: 1: Comment author, 2: Date and time */
-							printf(
-								wp_kses_post( __( '%1$s, %2$s', 'realcaller' ) ),
-								sprintf( '<span class="fn">%s</span>', get_comment_author_link() ),
-								sprintf(
-									'<a href="%1$s"><time datetime="%2$s">%3$s</time></a>',
-									esc_url( get_comment_link( $comment->comment_ID ) ),
-									get_comment_time( 'c' ),
-									/* Translators: 1: Date, 2: Time */
-									sprintf( esc_html__( '%1$s ago', 'realcaller' ), human_time_diff( (int) get_comment_time( 'U' ), current_time( 'timestamp' ) ) )
-								)
-							);
-
-							edit_comment_link( esc_html__( 'Edit', 'realcaller' ), '<span class="edit-link">', '</span>' );
-						?>
-					</div><!-- .comment-author .vcard -->
-
-					<?php if ( '0' === $comment->comment_approved ) { ?>
-						<em class="comment-awaiting-moderation">
-							<?php esc_html_e( 'Your comment is awaiting moderation.', 'realcaller' ); ?>
-						</em>
-						<br />
-					<?php } ?>
-				</footer>
-
-				<div class="comment-content"><?php comment_text(); ?></div>
-
-				<div class="reply">
-					<?php
-						comment_reply_link(
-							array_merge(
-								$args,
-								array(
-									'reply_text' => esc_html__( 'Reply', 'realcaller' ) . ' <span>&darr;</span>',
-									'depth'      => $depth,
-									'max_depth'  => $args['max_depth'],
-								)
-							)
-						);
-					?>
-				</div><!-- /.reply -->
-			</article><!-- /#comment-## -->
-				<?php
-				break;
-		endswitch;
-	}
-
-}

@@ -34,8 +34,8 @@ class BMLM_Signup_Fields {
 		<div class="bmlm-sponsor-registration-fields">
 			<div>
 				<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-					<label for="bmlm-refferal_id"><span class="required">*</span><?php esc_html_e( 'Sponsor Referral ID', 'binary-mlm' ); ?></label>
-					<input type="text" class="input-text form-control" name="bmlm_refferal_id" id="bmlm-refferal_id" value="<?php echo $refferal_id; ?>" />
+					<label for="bmlm-refferal_id hidden" style="display:none!important;"><span class="required">*</span><?php esc_html_e( 'Sponsor Referral ID', 'binary-mlm' ); ?></label>
+					<input type="hidden" class="input-text form-control" name="bmlm_refferal_id" id="bmlm-refferal_id" value="<?php echo $refferal_id; ?>" />
 				</p>
 				<?php do_action( 'bmlm_sponsor_add_registeration_field' ); ?>
 			</div>

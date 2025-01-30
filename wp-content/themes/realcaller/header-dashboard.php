@@ -39,6 +39,11 @@
   <?php 
     $slug = basename(get_permalink());
   ?>
+  <script>
+    jQuery(document).ready(function(){
+        jQuery(".woocommerce-MyAccount-navigation-link--sponsormarketing-crm-link a").attr("href", 'https://app.marketingdpt.co/');
+    });
+  </script>
 <body class="<?php echo $slug; ?>">
 <main>
   <div id="mainWrapper" class="container-fluid py-4">

@@ -579,9 +579,9 @@ button#headerbtn {
 .woocommerce-account .woocommerce-MyAccount-navigation{
     width:25%!important;
 }
-.woocommerce .col2-set .col-2 {
+#loginform .woocommerce .col2-set .col-2 {
   float: inherit;
-  width: 600px;
+  width: 900px!important;
   margin: auto;
 }
 
@@ -613,6 +613,16 @@ p{
 	background-color:#8C52FF!important;
 	color:#ffffff;
   font-family:'inter';
+  padding:15px!important;
+  border-radius: 20px!important;
+}
+
+#register_client_1{
+	background-color:#8C52FF!important;
+	color:#ffffff;
+  font-family:'inter';
+  padding:15px!important;
+  border-radius: 20px!important;
 }
 .woocommerce-form-coupon-toggle{
 	display:none!important;
@@ -883,3 +893,116 @@ span.woocommerce-MyAccount-navigation-link--MyWallet{
   margin-top: 14px;
   float: left;
 }
+
+
+#registration_dealder input[type="text"] {
+  height:60px;
+  border-radius:40px;
+  border:1px solid #ccc;
+  padding-left:30px;
+}
+#registration_dealder select {
+  height:60px;
+  border-radius:40px;
+  border:1px solid #ccc;
+  padding-left:30px;
+}
+
+#registration_dealder input[type="email"] {
+  height:60px;
+  border-radius:40px;
+  border:1px solid #ccc;
+  padding-left:30px;
+}
+
+#registration_dealder input[type="password"] {
+  height:60px;
+  border-radius:40px;
+  border:1px solid #ccc;
+  padding-left:30px;
+}
+
+#loginform{
+  padding-top:150px;
+}
+
+#loginform input[type="text"] {
+  height:60px;
+  border-radius:40px;
+  border:1px solid #ccc;
+  padding-left:30px;
+}
+
+#loginform input[type="email"] {
+  height:60px;
+  border-radius:40px;
+  border:1px solid #ccc;
+  padding-left:30px;
+}
+
+#loginform input[type="password"] {
+  height:60px;
+  border-radius:40px;
+  border:1px solid #ccc;
+  padding-left:30px;
+}
+
+#loginform button {
+  height:60px;
+  border-radius:40px;
+  border:1px solid #ccc;
+  margin-top:15px;
+}
+#loginform .container{
+  overflow:auto;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+.woocommerce-thankyou-order-received{
+  font-family: 'DroidSans';
+  margin-top:100px;
+  font-weight:bold;
+  margin-bottom:50px!important;
+}
+
+table.woocommerce-table--order-details{
+  font-family: 'DroidSans';
+}
+
+#registration_client_form input[type="text"] {
+  height: 60px;
+  border-radius: 40px;
+  border: 1px solid #ccc;
+  padding-left: 30px;
+}
+#registration_client_form input[type="email"] {
+  height: 60px;
+  border-radius: 40px;
+  border: 1px solid #ccc;
+  padding-left: 30px;
+}
+
+#registration_client_form input[type="password"] {
+  height: 60px;
+  border-radius: 40px;
+  border: 1px solid #ccc;
+  padding-left: 30px;
+}
+
+
+#registration_client_form select {
+  height: 60px;
+  border-radius: 40px;
+  border: 1px solid #ccc;
+  padding-left: 30px;
+}
+
+#sponsorWrap{
+  width:800px!important;
+  margin:auto;
+}
+
+
+body.my-account #registration_client_form{
+	display:none;
+  }

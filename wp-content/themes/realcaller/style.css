@@ -316,10 +316,89 @@ End of comment */
 	display:none!important;
 }
 
-
-
-
 .woocommerce-MyAccount-navigation {
 	float:left !important;
 }
 
+#register_client_1{
+  background-color:#8C52FF!important;
+  color:#ffffff;
+  font-family:'inter';
+  padding:15px!important;
+  border-radius: 20px!important;
+}
+
+
+#registration_dealder select {
+	height:60px;
+	border-radius:40px;
+	border:1px solid #ccc;
+	padding-left:30px;
+}
+
+.woocommerce-thankyou-order-received{
+	margin-top:100px;
+}
+
+#gotoyourdashboard{
+	background-color:#8C52FF!important;
+	color:#ffffff!important;
+	font-family:'inter';
+	padding:20px!important;
+	border-radius: 20px!important;
+	width:300px!important;
+	text-align:center;
+}
+p.woocommerce-thankyou-order-received{
+	text-align:center;
+	font-size:30px;
+}
+
+#registration_client_form input[type="text"] {
+    height: 60px;
+    border-radius: 40px;
+    border: 1px solid #ccc;
+    padding-left: 30px;
+}
+
+#registration_client_form input[type="email"] {
+    height: 60px;
+    border-radius: 40px;
+    border: 1px solid #ccc;
+    padding-left: 30px;
+}
+
+#registration_client_form input[type="text"] {
+	height: 60px;
+	border-radius: 40px;
+	border: 1px solid #ccc;
+	padding-left: 30px;
+  }
+  #registration_client_form input[type="email"] {
+	height: 60px;
+	border-radius: 40px;
+	border: 1px solid #ccc;
+	padding-left: 30px;
+  }
+  
+  #registration_client_form input[type="password"] {
+	height: 60px;
+	border-radius: 40px;
+	border: 1px solid #ccc;
+	padding-left: 30px;
+  }
+  
+  
+  #registration_client_form select {
+	height: 60px;
+	border-radius: 40px;
+	border: 1px solid #ccc;
+	padding-left: 30px;
+  }
+
+  #loginform .woocommerce .col2-set .col-2{
+	width:800px!important;
+  }
+  body.my-account #registration_client_form{
+	display:none;
+  }

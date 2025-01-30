@@ -45,16 +45,8 @@ if ( ! class_exists( 'BMLM_Marketing' ) ) {
 		 * @return void
 		 */
 		public function get_template() {
-			?>
-					<div class="woocommerce-account woocommerce">
-						<?php do_action( 'bmlm_wc_account_menu' ); ?>
-						<div class="woocommerce-MyAccount-content">
-							<div class="bmlm-commissions-wrapper">
-								Marketing CRM Link
-							</div>
-						</div>
-					</div>
-			<?php 
+	
+
 		}
 	}
 }

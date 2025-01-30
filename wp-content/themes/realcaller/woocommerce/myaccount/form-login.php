@@ -74,14 +74,14 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 	</div>
 
-	<div class="u-column2 col-2">
+	<div id="sponsorWrap" class="">
 		<div id="sponsorFrm" class="mt-5">
 		<a href="/" class="d-flex align-items-center text-dark text-decoration-none">
             <img id="logo" class="m-auto" src="<?php echo bloginfo('template_url');?>/assets/images/logo.png">
         </a>
+		
+		<form id="registration_client_form" method="post"  <?php do_action( 'woocommerce_register_form_tag' ); ?> >
 		<h2 class="text-center"><?php esc_html_e( 'Client Registration', 'woocommerce' ); ?></h2>
-		<form method="post" class="woocommerce-form woocommerce-form-register register" <?php do_action( 'woocommerce_register_form_tag' ); ?> >
-
 			<?php do_action( 'woocommerce_register_form_start' ); ?>
 
 			<?php if ( 'no' === get_option( 'woocommerce_registration_generate_username' ) ) : ?>
