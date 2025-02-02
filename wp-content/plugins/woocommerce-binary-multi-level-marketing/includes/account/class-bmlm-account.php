@@ -107,6 +107,9 @@ if ( ! class_exists( 'BMLM_Account' ) ) {
 					case 'social-media-kit':
 						add_shortcode( 'sponsor', array( $this->sponsor_template, 'bmlm_sponsor_social_media_kit' ), 'socialmediakit' );
 						break;	
+					case 'become-a-dealer' :
+						add_shortcode( 'sponsor', array( $this->sponsor_template, 'bmlm_sponsor_become_a_member' ), 'becomeadealder' );
+						break;	
 					case 'training-resources':
 						add_shortcode( 'sponsor', array( $this->sponsor_template, 'bmlm_sponsor_training_resources' ), 'trainingresources' );
 						break;		
@@ -247,20 +250,29 @@ if ( ! class_exists( 'BMLM_Account' ) ) {
 			if ( $user_id ) {
 				$is_sponsor = $bmlm->bmlm_user_is_sponsor( $user_id );
 				$page_name  = $bmlm->sponsor_page_slug;
+				$new_items  = [];
+				if ( $is_sponsor ) 
+				{
+				
+					$account_type = get_user_meta($user_id, 'account_type', true);
 
-				if ( $is_sponsor ) {
-					$new_items = array(
-						'../' . $page_name . '/dashboard'  => esc_html__( 'Dashboard', 'binary-mlm' ),
-						'../' . $page_name . '/ads'        => esc_html__( 'Sponsor Ads', 'binary-mlm' ),
-						'../' . $page_name . '/genealogy'  => esc_html__( 'Genealogy Tree', 'binary-mlm' ),
-						'../' . $page_name . '/commission' => esc_html__( 'Commissions', 'binary-mlm' ),
-						'../' . $page_name . '/refferal'   => esc_html__( "Dealer's Affiliate Link", 'binary-mlm' ),
-						'../' . $page_name . '/client-refferal'   => esc_html__( "Client Affiliate Link", 'binary-mlm' ),
-						'../' . $page_name . '/marketing-crm-link'   => esc_html__( "Marketing CRM Link", 'binary-mlm' ),
-						'../' . $page_name . '/social-media-kit'   => esc_html__( "Social Media Kit", 'binary-mlm' ),
-						'../' . $page_name . '/training-resources'   => esc_html__( "Training Resources", 'binary-mlm' ),
-					);
-
+					if($account_type ==="ds_dealer"){
+						$new_items['../' . $page_name . '/dashboard'] = esc_html__( 'Dashboard', 'binary-mlm' );
+						$new_items['../' . $page_name . '/ads']   = esc_html__( 'Sponsor Ads', 'binary-mlm' );
+						$new_items['../' . $page_name . '/genealogy']   = esc_html__('Genealogy Tree', 'binary-mlm' );
+						$new_items['../' . $page_name . '/commission']  = esc_html__('Commissions', 'binary-mlm' );
+						$new_items['../' . $page_name . '/refferal']  = esc_html__( "Dealer's Affiliate Link", 'binary-mlm' );
+						//$new_items['../' . $page_name . '/client-refferal']  = esc_html__( "Client Affiliate Link", 'binary-mlm' );
+					}
+			
+					/*if($account_type ==="ds_client")
+					{	
+						$new_items['../' . $page_name . '/become-a-dealer']  = esc_html__( "Become a Dealer", 'binary-mlm' );
+					}*/
+					$new_items['../' . $page_name . '/marketing-crm-link']  = esc_html__( "Marketing CRM Link", 'binary-mlm' );
+					$new_items['../' . $page_name . '/social-media-kit']  = esc_html__( "Social Media Kit", 'binary-mlm' );
+					$new_items['../' . $page_name . '/training-resources']  = esc_html__( "Training Resources", 'binary-mlm' );
+					
 					$new_items = apply_filters( 'bmlm_woocommerce_account_menu_options', $new_items );
 
 				}

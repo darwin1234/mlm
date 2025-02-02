@@ -29,7 +29,22 @@ if ( ! class_exists( 'BMLM_Genealogy_Tree' ) ) {
 			?>
              <?php do_action( 'bmlm_wc_account_menu' ); ?>
              <div class="woocommerce-account woocommerce">
+          
     <div class="woocommerce-MyAccount-content bmlm-account-content">
+        <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <h3>Amet eleifend urna diam ut</h3>
+                        <p>Morbi risus non nulla morbi nulla dolor. Lorem iaculis nec.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="search-container">
+                            <input type="text" class="form-control search-input" placeholder="Search...">
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
+                    </div>
+                </div>
+         </div>
         <div class="row bmlm-front-action-container mb-3">
             <!-- Fullscreen Button -->
             <div class="col-md-4 mb-2 mb-md-0">

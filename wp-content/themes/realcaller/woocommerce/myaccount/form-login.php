@@ -82,7 +82,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 		
 		<form id="registration_client_form" method="post"  <?php do_action( 'woocommerce_register_form_tag' ); ?> >
 		<h2 class="text-center"><?php esc_html_e( 'Client Registration', 'woocommerce' ); ?></h2>
-			<?php do_action( 'woocommerce_register_form_start' ); ?>
+		
 
 			<?php if ( 'no' === get_option( 'woocommerce_registration_generate_username' ) ) : ?>
 
@@ -110,7 +110,9 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 				<p><?php esc_html_e( 'A link to set a new password will be sent to your email address.', 'woocommerce' ); ?></p>
 
 			<?php endif; ?>
-
+			
+			<?php do_action( 'woocommerce_register_form_start' ); ?>
+			
 			<?php do_action( 'woocommerce_register_form' ); ?>
 
 			<p class="woocommerce-form-row form-row">

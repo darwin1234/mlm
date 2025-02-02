@@ -57,9 +57,19 @@ if ( ! class_exists( 'BMLM_Template_Controller' ) ) {
 			$path = parse_url($url, PHP_URL_PATH);
 			$segments = explode('/', $path);
 			?>
+			
 			<nav class="woocommerce-MyAccount-navigation">
+				<a href="/" class="d-flex align-items-center text-dark text-decoration-none"><img id="logo" src="<?php echo bloginfo('template_url');?>/assets/images/logo.png"></a>
+				<?php 
+					$user_id = get_current_user_id();
+					$account_type = get_user_meta($user_id, 'account_type', true);
+				?>
+				<?php if($account_type==="ds_dealer") { ?>
+					<h1 id="ds_dashboard" class="text-center"><a href="<?php echo site_url();?>/sponsor/dashboard/">Dealer's Dashboard</a></h1>
+				<?php } else {?>
+					<h1 id="ds_dashboard" class="text-center"><a href="<?php echo site_url();?>/sponsor/become-a-dealer/">Member's Dashboard</a></h1>
+				<?php } ?>
 				<ul>
-					<li><a href="/" class="d-flex align-items-center text-dark text-decoration-none"><img id="logo" src="<?php echo bloginfo('template_url');?>/assets/images/logo.png"></a></li>
 					<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
 						<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?> <?php  
 								if (array_key_exists(3, $segments)) {
@@ -173,6 +183,13 @@ if ( ! class_exists( 'BMLM_Template_Controller' ) ) {
 			$referral = new Front\Sponsor\Invoice\BMLM_Invoice( $this->sponsor );
 			$referral->get_template();
 		}
+
+		public function bmlm_sponsor_become_a_member(){
+			$referral = new Front\Sponsor\Dealer\BMLM_BecomeADealer( $this->sponsor );
+			$referral->get_template();
+		}
+			
+		
 		
 	}
 }

@@ -223,7 +223,7 @@ p{
 	font-family: "Inter", serif!important;
 }
 .woocommerce-MyAccount-navigation ul li a{
-	font-size:18px!important;
+	font-size:18px;
 }
 
 .woocommerce-MyAccount-navigation ul li a:before{

@@ -34,6 +34,14 @@
             overflow: auto;
       }
     </style>
+    <style>
+	    .woocommerce-MyAccount-navigation-link--customer-user{
+	        width:200px;
+	    }
+	    .woocommerce-MyAccount-navigation-link--customer-email{
+	         width:200px;
+	    } 
+	</style>
 	<?php wp_head();?>
   </head>
   <?php 

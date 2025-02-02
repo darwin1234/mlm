@@ -66,3 +66,25 @@
 
 2025-01-30T11:46:21+00:00 INFO User in action: 54: Order id: 126, Wallet updated: 
 2025-01-30T11:46:21+00:00 INFO User in action: 54: Wallet id: 78
+2025-01-30T19:22:23+00:00 INFO User in action: 55: Order id: 128, Checkout order processing, transaction data: Array
+(
+    [order_id] => 128
+    [sender] => 1
+    [customer] => 55
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-30 19:22:23
+    [transaction_status] => used
+)
+
+2025-01-30T19:22:24+00:00 INFO User in action: 55: Order id: 128, Checkout order processing, transaction data: Array
+(
+    [order_id] => 128
+    [sender] => 1
+    [customer] => 55
+    [transaction_type] => debit
+    [transaction_date] => 2025-01-30 19:22:23
+    [transaction_status] => used
+)
+
+2025-01-30T19:22:38+00:00 INFO User in action: 55: Order id: 128, Wallet updated: 
+2025-01-30T19:22:38+00:00 INFO User in action: 55: Wallet id: 78

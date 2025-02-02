@@ -1,129 +1,71 @@
 <?php
-
 /**
-     * Plugin Name: Display All Users
-     * Description: A simple plugin to display all registered users using a shortcode.
-     * Version: 1.0
-     * Author: Your Name
-*/
+ * Plugin Name: Custom Rewrite Rule and Page
+ * Description: A custom plugin to create a URL rewrite rule and custom page template in an OOP style.
+ * Version: 1.0
+ * Author: Your Name
+ */
 
-
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
 }
 
-class mlmExtension {
-    
-    public function __construct()
-    {
+class Custom_Rewrite_Rule {
 
-        // Register the shortcode
-        add_shortcode('display_all_users', array($this,'dau_display_all_users_with_profiles' ));
-        
-        add_action('init', array($this,'dau_add_rewrite_rules'));
+    public function __construct() {
+        // Register activation hook to flush rewrite rules on activation
+        register_activation_hook( __FILE__, array( $this, 'flush_rewrite_rules' ) );
 
-        add_filter('query_vars', array($this,'dau_add_query_vars' ));
+        // Add the rewrite rule and query variable
+        add_action( 'init', array( $this, 'add_rewrite_rule' ) );
+        add_filter( 'query_vars', array( $this, 'add_custom_query_var' ) );
 
-        add_action('template_redirect', array($this, 'dau_template_redirect'));
-
-        register_activation_hook(__FILE__, array($this,'dau_flush_rewrite_rules' ));
-
-        register_deactivation_hook(__FILE__, array($this,'dau_remove_rewrite_rules' ));
-
-        add_action('mlm_extension_menu',array($this,'mlm_extension_menu'));
-
+        // Handle the custom page template
+        add_action( 'template_include', array( $this, 'load_custom_page_template' ) );
     }
 
-    public function mlm_extension_menu(){
-        
-        $links=array(
-            'marketing-crm-link' => 'Marketing CRM Links',
-            'social-media-kit' => 'Social Media Kit',
-            'training-resources' => 'Training Resources'
+    /**
+     * Add custom rewrite rule for our custom URL
+     */
+    public function add_rewrite_rule() {
+        add_rewrite_rule(
+            '^personal-information/([^/]+)/?$',
+            'index.php?custom_page_param=$matches[1]', // The URL is passed to the 'custom_page_param' query var
+            'top'
         );
-        $menu = "";
-        foreach($links as $slug => $link){
-            $menu .="<li class='woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--".$slug."'><a href='#'>".$link."</a>";
-        }
-        echo $menu;
     }
 
-    // Shortcode to display all users
-    public function dau_display_all_users_with_profiles() {
-        // Get all users
-        $users = get_users();
-        if (empty($users)) {
-            return '<p>No users found.</p>';
-        }
-
-        // Start output buffering
-        ob_start();
-
-        echo '<ul>';
-        foreach ($users as $user) {
-            $profile_url = site_url('/sponsor/?sponsor=' . $user->ID); // Generate profile URL
-            echo '<li>';
-            echo '<a href="' . esc_url($profile_url) . '">' . esc_html($user->display_name) . '</a>';
-            echo '</li>';
-        }
-        echo '</ul>';
-
-        // Return the buffered output
-        return ob_get_clean();
-    }
-
-    // Register the custom rewrite rule for profile pages
-    public function dau_add_rewrite_rules() {
-        add_rewrite_rule('^sponsor/([0-9]+)/?$', 'index.php?user_id=$matches[1]', 'top');
-    }
-
-    // Add query variable for user ID
-    public function dau_add_query_vars($vars) {
-        $vars[] = 'user_id';
+    /**
+     * Register custom query variable for the custom URL
+     */
+    public function add_custom_query_var( $vars ) {
+        $vars[] = 'custom_page_param'; // Register the custom query var
         return $vars;
     }
 
-    // Template redirect for profile pages
-    public function dau_template_redirect() {
-        $user_id = get_query_var('user_id');
-        if ($user_id) {
-            // Check if user exists
-            $user = get_user_by('ID', $user_id);
-            if ($user) {
-                // Display user profile
-                include plugin_dir_path(__FILE__) . 'templates/user-profile.php';
-                exit;
-            } else {
-                wp_die('User not found.');
+    /**
+     * Flush rewrite rules on plugin activation
+     */
+    public function flush_rewrite_rules() {
+        flush_rewrite_rules();
+    }
+
+    /**
+     * Load the custom page template when the custom URL is accessed
+     */
+    public function load_custom_page_template( $template ) {
+        if ( get_query_var( 'custom_page_param' ) ) {
+            // Load custom page template
+            $new_template = plugin_dir_path( __FILE__ ) . 'templates/user-profile.php';
+
+            if ( file_exists( $new_template ) ) {
+                return $new_template;
             }
         }
-    }
-    // Flush rewrite rules on plugin activation
-    public function dau_flush_rewrite_rules() {
-        dau_add_rewrite_rules();
-        flush_rewrite_rules();
-    }
 
-    
-
-    // Flush rewrite rules on plugin deactivation
-    public function dau_remove_rewrite_rules() {
-        flush_rewrite_rules();
+        return $template;
     }
-
 }
 
-new mlmExtension;
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Initialize the plugin class
+new Custom_Rewrite_Rule();

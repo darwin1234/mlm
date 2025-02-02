@@ -362,6 +362,7 @@ button#headerbtn {
 
 #logo {
     width:250px;
+    margin-left:17px;
 }
 .ds-dblock {
     display:block!important;
@@ -541,7 +542,6 @@ button#headerbtn {
         overflow: auto;
   }
  .woocommerce-MyAccount-navigation{
-    width: 25%!important;
     margin-right:20px;
     border-right:1px solid #ccc;
     padding: 10px;
@@ -577,7 +577,7 @@ button#headerbtn {
 .container  {width:400px;}
 
 .woocommerce-account .woocommerce-MyAccount-navigation{
-    width:25%!important;
+    width:21%!important;
 }
 #loginform .woocommerce .col2-set .col-2 {
   float: inherit;
@@ -1004,5 +1004,90 @@ table.woocommerce-table--order-details{
 
 
 body.my-account #registration_client_form{
-	display:none;
-  }
+	 display:none;
+}
+
+#ds_dashboard{
+  font-family: Montserrat;
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color:#000!important;
+  margin-top:20px;
+  margin-bottom:15px;
+}
+
+#ds_dashboard a{
+  color:#000!important;
+} 
+.bmlm-btn-action {
+  width:100%!important;
+  border-radius:0!important;
+  background-color:#fff!important;
+  border:1px solid #ccc!important;
+  color:#000!important;
+}
+.bmlm-front-action-container .col-md-4{
+  padding:0!important;
+  margin:0!important;
+}
+.bmlm-front-action-container{
+  width:500px!important;
+}
+
+#becomeAmemberbtn {
+  background-color:#000;
+  color:#fff!important;
+  border:0!important;
+}
+
+#becomeAmemberWrap{
+  margin-top:200px!important;
+}
+.woocommerce-MyAccount-navigation{
+  height:1000px;
+}
+
+.woocommerce-MyAccount-navigation-link--customer-logout{
+  position:fixed;
+  bottom:40px;
+}
+
+.woocommerce-MyAccount-navigation-link--customer-user{
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  bottom: 30px;
+}
+
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--customer-user a{
+  font-size:15px!important;
+}
+
+.woocommerce-MyAccount-navigation-link--customer-email {
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  bottom: 20px;
+}
+
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--customer-email a {
+  font-size:12px!important;
+}
+
+.woocommerce-MyAccount-navigation-link--customer-logout span {
+  background: url(../icons/Arrowoutward@2x.svg);
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right: 10px;
+  float: right;
+}
+.woocommerce-MyAccount-navigation-link--customer-user{
+  border:1px solid #ccc;
+}
