@@ -310,10 +310,11 @@ class ProductHelper implements Service, HelperNotificationInterface {
 		$mc_product_id_tokens = explode( ':', $mc_product_id );
 		$mc_product_id        = end( $mc_product_id_tokens );
 
+		// Support a fully numeric ID both with and without the `gla_` prefix.
 		$wc_product_id = 0;
-		$pattern       = '/' . preg_quote( $this->get_slug(), '/' ) . '_(\d+)$/';
+		$pattern       = '/^(' . preg_quote( $this->get_slug(), '/' ) . '_)?(\d+)$/';
 		if ( preg_match( $pattern, $mc_product_id, $matches ) ) {
-			$wc_product_id = (int) $matches[1];
+			$wc_product_id = (int) $matches[2];
 		}
 
 		/**

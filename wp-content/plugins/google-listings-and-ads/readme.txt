@@ -5,7 +5,7 @@ Requires at least: 6.1
 Tested up to: 6.7
 Requires PHP: 7.4
 Requires PHP Architecture: 64 Bits
-Stable tag: 2.9.6
+Stable tag: 2.9.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -140,6 +140,10 @@ To allow your products to appear in all relevant locations, make sure you’ve c
 
 == Changelog ==
 
+= 2.9.7 - 2025-01-28 =
+* Tweak - Adjust some query and table functions.
+* Tweak - Allow mapping of a Google ID without a prefix.
+
 = 2.9.6 - 2025-01-21 =
 * Tweak - Resolve some of the plugin check errors and warnings.
 * Tweak - Set specific flags for html_entity_decode.
@@ -160,10 +164,5 @@ To allow your products to appear in all relevant locations, make sure you’ve c
 * Update - Drop support for WordPress < 6.1.
 * Update - Move tax rate setup from the Edit free listings page to the Settings page.
 * Update - Move the Edit free listings page to a dedicated page and rename the page to Shipping.
-
-= 2.9.4 - 2024-12-25 =
-* Fix - Clear previous errors after completing sync.
-* Tweak - Adjust conditions for MCM.
-* Update - Google Ads API to v18.
 
 [See changelog for all versions](https://raw.githubusercontent.com/woocommerce/google-listings-and-ads/trunk/changelog.txt).
