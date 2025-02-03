@@ -76,31 +76,54 @@ class dsMLM {
 		add_filter( 'woocommerce_account_menu_items', array($this, 'ak_remove_my_account_links' ));
 
 		add_action( 'woocommerce_register_form_start', array($this,'woocoomerce_extended_registration'));
-
-		add_action('woocommerce_created_customer', array($this, 'register_as_client'),10, 3);
-
-		add_action('init', array($this,'register_client_1' ));
-
-		add_action('init', array($this,'register_dealer' ));
-		
-		add_filter( 'woocommerce_registration_redirect', array($this, 'custom_redirection_after_registration'), 10, 1 );
 	
 		add_filter('woocommerce_checkout_fields', array($this, 'addBootstrapToCheckoutFields' ));
 
 		add_filter('woocommerce_checkout_fields', array($this,  'custom_reorder_checkout_fields'));
 
 		add_filter( 'woocommerce_checkout_fields', array($this,'custom_remove_woocommerce_checkout_fields'));
+		// WooCommerce created customer action
+		add_action('woocommerce_created_customer', array($this, 'register_as_client'), 10, 3);
+		
+		//add_action('init', array($this, 'register_as_client'), 10, 3);
+		// Register the client (executed first in the 'init' hook)
+		add_action('init', array($this, 'register_client_1'), 5);  // Priority 5 for first execution
 
-		// Hook to add product to the cart after WooCommerce initializes
-		add_action('wp_loaded',array($this, 'empty_the_cart'));
+		// Register the dealer (executed second in the 'init' hook)
+		add_action('init', array($this, 'register_dealer'), 15);  // Priority 15 for second execution
 
-		// Add Admin Menu
+		// Empty the cart action after everything is loaded
+		add_action('wp_loaded', array($this, 'empty_the_cart'), 20);  // Priority 20 for wp_loaded
+
+
+		
 		add_action('admin_menu', array($this,'ghl_plugin_menu'));
 
-		add_action('woocommerce_order_status_completed', array($this,'ds_order_completed' ), 10, 1);
+		add_action( 'woocommerce_before_checkout_form', array($this, 'add_product_to_cart_before_checkout'), 10 ,1);
+
+	
+		add_filter( 'woocommerce_registration_redirect', array($this, 'custom_redirection_after_registration'), 10, 2 );
+
 		
+		add_action('woocommerce_order_status_completed', array($this,'ds_order_completed' ), 10, 3);
 
 	}
+	
+
+
+	public function add_product_to_cart_before_checkout() {
+		
+		$user_id = get_current_user_id();
+		if ($user_id > 0) {
+			$product_id = 76; // Replace with the product ID you want to add
+			$quantity = 1; // Set the quantity
+			if ( ! WC()->cart->find_product_in_cart( WC()->cart->generate_cart_id( $product_id ) ) ) {
+				WC()->cart->add_to_cart( $product_id, $quantity );
+			}
+		}
+	
+	}
+
 
 	/**
 	 * Helper function to send API requests
@@ -223,19 +246,24 @@ class dsMLM {
 		add_menu_page('GHL Sub-Account Creator', 'GHL Creator', 'manage_options', 'ghl_creator', array($this, 'ghl_plugin_page'));
 	}
 
-	public function empty_the_cart(){
+	public function empty_the_cart() {
 		$user_id = get_current_user_id();
-
-		if ($user_id && get_transient('add_product_to_cart_for_user_' . $user_id)) {
-				WC()->cart->empty_cart();
-				$product_id = 76;
-				$quantity = 1;
-				WC()->cart->add_to_cart($product_id, $quantity);
-				// Clear the transient
-				delete_transient('add_product_to_cart_for_user_' . $user_id);
+	
+	
+		// Check if the user has a valid ID and the transient is set
+		if ($user_id) {
+			// Empty the cart first
+			WC()->cart->empty_cart();
+	
+			// Add product to the cart
+			$product_id = 76; // Replace with the desired product ID
+			$quantity = 1;    // Quantity to add
+	
+			// Add product to the cart
+			$added = WC()->cart->add_to_cart($product_id, $quantity);
+	
 		}
 	}
-	
 
 	public function custom_remove_woocommerce_checkout_fields( $fields ) 
 	{
@@ -506,6 +534,7 @@ class dsMLM {
 	
 	public function register_as_client($user_id)
 	{		
+		global $_POST;
 		if (!is_user_logged_in()) {
 			if (isset($_POST['register_client'])) {
 				add_user_meta($user_id , 'account_type', 'ds_client');	
@@ -593,35 +622,14 @@ class dsMLM {
 
 				// Add product to cart and redirect
 				if (class_exists('WooCommerce')) {
-
-					// Product ID to be ordered
-					$product_id = 76; 
-					$quantity = 1;
-			
-					// Ensure the product exists
-					$product = wc_get_product($product_id);
-					if (!$product) {
-							wc_add_notice(__('Invalid product.', 'woocommerce'), 'error');
-							return;
-					}
-			
-					if (!$user_id) {
-							wc_add_notice(__('You must be logged in to place an order.', 'woocommerce'), 'error');
-							return;
-					}
-				
-					// Create a new WooCommerce order
-					$order = wc_create_order();
-					$order->add_product($product, $quantity);
-					$order->set_customer_id($user_id);
 					// Set a flag to add the product to the cart
-					//set_transient('add_product_to_cart_for_user_' . $user_id, true, 10);
+					set_transient('add_product_to_cart_for_user_' . $user_id, true, 10);
 					// Redirect user to WooCommerce Checkout Page
 					$redirect_url = wc_get_checkout_url();
 					wp_safe_redirect($redirect_url);
 					exit; // Ensure the script stops here
 				} else {
-					wp_die('WooCommerce is not active. Please enable WooCommerce.');
+						wp_die('WooCommerce is not active. Please enable WooCommerce.');
 				}
 			}
 		}
