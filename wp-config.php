@@ -77,8 +77,8 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define('WP_DEBUG', true);
-define('WP_DEBUG_LOG', true);
+define('WP_DEBUG', false);
+define('WP_DEBUG_LOG', false);
 
 /* That's all, stop editing! Happy publishing. */
 
@@ -86,6 +86,8 @@ define('WP_DEBUG_LOG', true);
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
 }
+
+if ( ! defined( 'FS_METHOD' ) ) define( 'FS_METHOD', 'direct' );
 
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
