@@ -75,6 +75,8 @@ class dsMLM {
 		
 		add_filter( 'woocommerce_account_menu_items', array($this, 'ak_remove_my_account_links' ));
 
+		add_action( 'woocommerce_register_form_start', array($this,'woocoomerce_extended_registration'));
+
 		add_action('woocommerce_created_customer', array($this, 'register_as_client'),10, 3);
 
 		add_action('init', array($this,'register_client_1' ));
@@ -503,30 +505,125 @@ class dsMLM {
 
 	
 	public function register_as_client($user_id)
-	{
-		global $_POST;
+	{		
+		if (!is_user_logged_in()) {
+			if (isset($_POST['register_client'])) {
+				add_user_meta($user_id , 'account_type', 'ds_client');	
+				$first_name = sanitize_text_field($_POST['first_name']);
+				$last_name = sanitize_text_field($_POST['last_name']);
+				$email_address = sanitize_email($_POST['email']);
+				$password = sanitize_text_field($_POST['password']);
+				$company_name =  sanitize_text_field($_POST['company_name']);
+				$business_name =  sanitize_text_field($_POST['business_name']);
+				$company_name =  sanitize_text_field($_POST['company_name']);
+				$phone =  sanitize_text_field($_POST['phone']);
+				$address =  sanitize_text_field($_POST['address']);
+				$city  =  sanitize_text_field($_POST['city']);
+				$state  =  sanitize_text_field($_POST['state']);
+				$postal_code  =  sanitize_text_field($_POST['postal_code']);
+				$country =  sanitize_text_field($_POST['country']);
+				$bmlm_refferal_id = sanitize_text_field($_POST['bmlm_refferal_id']);
+				$ds_password= $password;
 
-		add_user_meta($user_id , 'account_type', 'ds_client');
-		
-		// Assign role
-		$user = new WP_User($user_id );
-		$user->set_role('bmlm_sponsor');
-	
-		//Auto Login
-		wp_clear_auth_cookie();
-		wp_set_current_user($user_id );
-		wp_set_auth_cookie($user_id );
-		
-		// Add product to cart and redirect
-		if (class_exists('WooCommerce')) {
-			// Set a flag to add the product to the cart
-			set_transient('add_product_to_cart_for_user_' . $user_id, true, 10);
-			// Redirect user to WooCommerce Checkout Page
-			$redirect_url = wc_get_checkout_url();
-			wp_safe_redirect($redirect_url);
-			exit; // Ensure the script stops here
-		} else {
-			wp_die('WooCommerce is not active. Please enable WooCommerce.');
+				// Validate email
+				if (!is_email($email_address)) {
+					wp_die('Invalid email address.');
+				}
+
+				// Check if the email already exists
+				if (email_exists($email_address)) {
+					wc_add_notice('Email already exists.', 'error');
+				}
+
+				
+
+				// Create user
+				$user_id = wp_create_user($email_address, $password, $email_address);
+
+				if (is_wp_error($user_id)) {
+					// Handle errors
+					wp_die($user_id->get_error_message());
+				}
+
+				// Update user meta
+				wp_update_user([
+					'ID' => $user_id,
+					'first_name' => $first_name,
+					'last_name' => $last_name,
+					'billing_first_name' => $first_name,
+					'billing_last_name' => $last_name,
+					
+				]);
+
+				add_user_meta($user_id, 'account_type', 'ds_client');
+
+				$bmlm_sponsor_id = $this->generate_random_string(10);
+
+				add_user_meta($user_id, 'bmlm_sponsor_id', $bmlm_sponsor_id);
+				
+				add_user_meta($user_id, 'bmlm_refferal_id', $bmlm_refferal_id);
+
+				add_user_meta($user_id, 'ds_business_name', $business_name);
+
+				add_user_meta($user_id, 'ds_company_name', $company_name);
+
+				add_user_meta($user_id, 'ds_phone', $phone);
+				
+				add_user_meta($user_id, 'ds_address', $address);
+				
+				add_user_meta($user_id, 'ds_city', $city);
+				
+				add_user_meta($user_id, 'ds_state', $state);
+				
+				add_user_meta($user_id, 'ds_postal_code', $postal_code);
+				
+				add_user_meta($user_id, 'ds_country', $country);
+				
+				add_user_meta($user_id, 'ds_password', $ds_password);
+				
+				
+				// Assign role
+				$user = new WP_User($user_id);
+				$user->set_role('bmlm_sponsor');
+
+				// Auto-login the user
+				wp_clear_auth_cookie();
+				wp_set_current_user($user_id);
+				wp_set_auth_cookie($user_id);
+
+				// Add product to cart and redirect
+				if (class_exists('WooCommerce')) {
+
+					// Product ID to be ordered
+					$product_id = 76; 
+					$quantity = 1;
+			
+					// Ensure the product exists
+					$product = wc_get_product($product_id);
+					if (!$product) {
+							wc_add_notice(__('Invalid product.', 'woocommerce'), 'error');
+							return;
+					}
+			
+					if (!$user_id) {
+							wc_add_notice(__('You must be logged in to place an order.', 'woocommerce'), 'error');
+							return;
+					}
+				
+					// Create a new WooCommerce order
+					$order = wc_create_order();
+					$order->add_product($product, $quantity);
+					$order->set_customer_id($user_id);
+					// Set a flag to add the product to the cart
+					//set_transient('add_product_to_cart_for_user_' . $user_id, true, 10);
+					// Redirect user to WooCommerce Checkout Page
+					$redirect_url = wc_get_checkout_url();
+					wp_safe_redirect($redirect_url);
+					exit; // Ensure the script stops here
+				} else {
+					wp_die('WooCommerce is not active. Please enable WooCommerce.');
+				}
+			}
 		}
 	}
 
@@ -846,6 +943,316 @@ class dsMLM {
 		return str_replace( 'class="comment-edit-link"', 'class="comment-edit-link badge bg-secondary"', $link );
 	}
 
+
+	public function woocoomerce_extended_registration()
+	{
+	?>
+		<div id="sponsorFrm">
+		<div class="mt-5">
+				<div class="form-row form-row-first">
+					<label for="reg_billing_first_name"><span class="required">*</span><?php _e( 'First name', 'woocommerce' ); ?></label>
+					<input type="text" class="form-control input-text" name="first_name" id="reg_billing_first_name" value="<?php if ( ! empty( $_POST['billing_first_name'] ) ) esc_attr_e( $_POST['billing_first_name'] ); ?>" />
+				</div>
+				<div class="form-row form-row-last">
+					<label for="reg_billing_last_name"><span class="required">*</span><?php _e( 'Last name', 'woocommerce' ); ?></label>
+					<input type="text" class="form-control input-text" name="last_name" id="reg_billing_last_name" value="<?php if ( ! empty( $_POST['billing_last_name'] ) ) esc_attr_e( $_POST['billing_last_name'] ); ?>" />
+				</div>
+				<div class="form-row form-row-first">
+					<label for="reg_company_name"><span class="required">*</span><?php _e( 'Company Name', 'woocommerce' ); ?></label>
+					<input type="text" class="form-control" id="company_name" name="company_name" placeholder="" aria-describedby="email address">
+				</div>
+				<div class="form-row form-row-last">
+					<label for="reg_business_name"><span class="required">*</span><?php _e( 'Business Name', 'woocommerce' ); ?></label>
+					<input type="text" class="form-control" id="business_name" name="business_name" placeholder="" aria-describedby="email address">
+				</div>
+				<div class="form-row form-row-first">
+					<label for="reg_phone_number"><span class="required">*</span><?php _e( 'Phone Number', 'woocommerce' ); ?></label>
+					<input type="text" class="form-control" id="phone_number" name="phone" placeholder="" aria-describedby="Phone Number">
+				</div>
+				<div class="form-row form-row-last">
+					<label for="reg_address"><span class="required">*</span><?php _e( 'Address', 'woocommerce' ); ?></label>
+					<input type="text" class="form-control" id="address" name="address" placeholder="" aria-describedby="">
+				</div>
+				<div class="form-row form-row-first">
+					<label for="reg_address"><span class="required">*</span><?php _e( 'City', 'woocommerce' ); ?></label>
+					<input type="text" class="form-control" id="city" name="city" placeholder="" aria-describedby="City">
+				</div>
+				<div class="form-row form-row-last">
+					<label for="reg_state"><span class="required">*</span><?php _e( 'State', 'woocommerce' ); ?></label>
+					<input type="text" class="form-control" id="state" name="state" placeholder="" aria-describedby="State">
+				</div>
+				<div class="form-row form-row-first">
+					<label for="reg_postal_code"><span class="required">*</span><?php _e( 'Postal code', 'woocommerce' ); ?></label>
+					<input type="text" class="form-control" id="postalCode" name="postal_code" placeholder="" aria-describedby="postal_code">
+				</div>
+				<div class="form-row form-row-last">
+					<label for="reg_country"><span class="required">*</span><?php _e( 'Country', 'woocommerce' ); ?></label>
+					<select class="form-select form-control" autocomplete="country" id="country" name="country">
+						<option value="">Select Country</option>
+						<option value="AF">Afghanistan</option>
+						<option value="AX">Åland Islands</option>
+						<option value="AL">Albania</option>
+						<option value="DZ">Algeria</option>
+						<option value="AS">American Samoa</option>
+						<option value="AD">Andorra</option>
+						<option value="AO">Angola</option>
+						<option value="AI">Anguilla</option>
+						<option value="AQ">Antarctica</option>
+						<option value="AG">Antigua and Barbuda</option>
+						<option value="AR">Argentina</option>
+						<option value="AM">Armenia</option>
+						<option value="AW">Aruba</option>
+						<option value="AU">Australia</option>
+						<option value="AT">Austria</option>
+						<option value="AZ">Azerbaijan</option>
+						<option value="BS">Bahamas</option>
+						<option value="BH">Bahrain</option>
+						<option value="BD">Bangladesh</option>
+						<option value="BB">Barbados</option>
+						<option value="BY">Belarus</option>
+						<option value="BE">Belgium</option>
+						<option value="BZ">Belize</option>
+						<option value="BJ">Benin</option>
+						<option value="BM">Bermuda</option>
+						<option value="BT">Bhutan</option>
+						<option value="BO">Bolivia (Plurinational State of)</option>
+						<option value="BA">Bosnia and Herzegovina</option>
+						<option value="BW">Botswana</option>
+						<option value="BV">Bouvet Island</option>
+						<option value="BR">Brazil</option>
+						<option value="IO">British Indian Ocean Territory</option>
+						<option value="BN">Brunei Darussalam</option>
+						<option value="BG">Bulgaria</option>
+						<option value="BF">Burkina Faso</option>
+						<option value="BI">Burundi</option>
+						<option value="CV">Cabo Verde</option>
+						<option value="KH">Cambodia</option>
+						<option value="CM">Cameroon</option>
+						<option value="CA">Canada</option>
+						<option value="BQ">Caribbean Netherlands</option>
+						<option value="KY">Cayman Islands</option>
+						<option value="CF">Central African Republic</option>
+						<option value="TD">Chad</option>
+						<option value="CL">Chile</option>
+						<option value="CN">China</option>
+						<option value="CX">Christmas Island</option>
+						<option value="CC">Cocos (Keeling) Islands</option>
+						<option value="CO">Colombia</option>
+						<option value="KM">Comoros</option>
+						<option value="CG">Congo</option>
+						<option value="CD">Congo, Democratic Republic of the</option>
+						<option value="CK">Cook Islands</option>
+						<option value="CR">Costa Rica</option>
+						<option value="HR">Croatia</option>
+						<option value="CU">Cuba</option>
+						<option value="CW">Curaçao</option>
+						<option value="CY">Cyprus</option>
+						<option value="CZ">Czech Republic</option>
+						<option value="CI">Côte d'Ivoire</option>
+						<option value="DK">Denmark</option>
+						<option value="DJ">Djibouti</option>
+						<option value="DM">Dominica</option>
+						<option value="DO">Dominican Republic</option>
+						<option value="EC">Ecuador</option>
+						<option value="EG">Egypt</option>
+						<option value="SV">El Salvador</option>
+						<option value="GQ">Equatorial Guinea</option>
+						<option value="ER">Eritrea</option>
+						<option value="EE">Estonia</option>
+						<option value="SZ">Eswatini (Swaziland)</option>
+						<option value="ET">Ethiopia</option>
+						<option value="FK">Falkland Islands (Malvinas)</option>
+						<option value="FO">Faroe Islands</option>
+						<option value="FJ">Fiji</option>
+						<option value="FI">Finland</option>
+						<option value="FR">France</option>
+						<option value="GF">French Guiana</option>
+						<option value="PF">French Polynesia</option>
+						<option value="TF">French Southern Territories</option>
+						<option value="GA">Gabon</option>
+						<option value="GM">Gambia</option>
+						<option value="GE">Georgia</option>
+						<option value="DE">Germany</option>
+						<option value="GH">Ghana</option>
+						<option value="GI">Gibraltar</option>
+						<option value="GR">Greece</option>
+						<option value="GL">Greenland</option>
+						<option value="GD">Grenada</option>
+						<option value="GP">Guadeloupe</option>
+						<option value="GU">Guam</option>
+						<option value="GT">Guatemala</option>
+						<option value="GG">Guernsey</option>
+						<option value="GN">Guinea</option>
+						<option value="GW">Guinea-Bissau</option>
+						<option value="GY">Guyana</option>
+						<option value="HT">Haiti</option>
+						<option value="HM">Heard Island and Mcdonald Islands</option>
+						<option value="HN">Honduras</option>
+						<option value="HK">Hong Kong</option>
+						<option value="HU">Hungary</option>
+						<option value="IS">Iceland</option>
+						<option value="IN">India</option>
+						<option value="ID">Indonesia</option>
+						<option value="IR">Iran</option>
+						<option value="IQ">Iraq</option>
+						<option value="IE">Ireland</option>
+						<option value="IM">Isle of Man</option>
+						<option value="IL">Israel</option>
+						<option value="IT">Italy</option>
+						<option value="JM">Jamaica</option>
+						<option value="JP">Japan</option>
+						<option value="JE">Jersey</option>
+						<option value="JO">Jordan</option>
+						<option value="KZ">Kazakhstan</option>
+						<option value="KE">Kenya</option>
+						<option value="KI">Kiribati</option>
+						<option value="KP">Korea, North</option>
+						<option value="KR">Korea, South</option>
+						<option value="XK">Kosovo</option>
+						<option value="KW">Kuwait</option>
+						<option value="KG">Kyrgyzstan</option>
+						<option value="LA">Lao People's Democratic Republic</option>
+						<option value="LV">Latvia</option>
+						<option value="LB">Lebanon</option>
+						<option value="LS">Lesotho</option>
+						<option value="LR">Liberia</option>
+						<option value="LY">Libya</option>
+						<option value="LI">Liechtenstein</option>
+						<option value="LT">Lithuania</option>
+						<option value="LU">Luxembourg</option>
+						<option value="MO">Macao</option>
+						<option value="MK">Macedonia North</option>
+						<option value="MG">Madagascar</option>
+						<option value="MW">Malawi</option>
+						<option value="MY">Malaysia</option>
+						<option value="MV">Maldives</option>
+						<option value="ML">Mali</option>
+						<option value="MT">Malta</option>
+						<option value="MH">Marshall Islands</option>
+						<option value="MQ">Martinique</option>
+						<option value="MR">Mauritania</option>
+						<option value="MU">Mauritius</option>
+						<option value="YT">Mayotte</option>
+						<option value="MX">Mexico</option>
+						<option value="FM">Micronesia</option>
+						<option value="MD">Moldova</option>
+						<option value="MC">Monaco</option>
+						<option value="MN">Mongolia</option>
+						<option value="ME">Montenegro</option>
+						<option value="MS">Montserrat</option>
+						<option value="MA">Morocco</option>
+						<option value="MZ">Mozambique</option>
+						<option value="MM">Myanmar (Burma)</option>
+						<option value="NA">Namibia</option>
+						<option value="NR">Nauru</option>
+						<option value="NP">Nepal</option>
+						<option value="NL">Netherlands</option>
+						<option value="AN">Netherlands Antilles</option>
+						<option value="NC">New Caledonia</option>
+						<option value="NZ">New Zealand</option>
+						<option value="NI">Nicaragua</option>
+						<option value="NE">Niger</option>
+						<option value="NG">Nigeria</option>
+						<option value="NU">Niue</option>
+						<option value="NF">Norfolk Island</option>
+						<option value="MP">Northern Mariana Islands</option>
+						<option value="NO">Norway</option>
+						<option value="OM">Oman</option>
+						<option value="PK">Pakistan</option>
+						<option value="PW">Palau</option>
+						<option value="PS">Palestine</option>
+						<option value="PA">Panama</option>
+						<option value="PG">Papua New Guinea</option>
+						<option value="PY">Paraguay</option>
+						<option value="PE">Peru</option>
+						<option value="PH">Philippines</option>
+						<option value="PN">Pitcairn Islands</option>
+						<option value="PL">Poland</option>
+						<option value="PT">Portugal</option>
+						<option value="PR">Puerto Rico</option>
+						<option value="QA">Qatar</option>
+						<option value="RE">Reunion</option>
+						<option value="RO">Romania</option>
+						<option value="RU">Russian Federation</option>
+						<option value="RW">Rwanda</option>
+						<option value="BL">Saint Barthelemy</option>
+						<option value="SH">Saint Helena</option>
+						<option value="KN">Saint Kitts and Nevis</option>
+						<option value="LC">Saint Lucia</option>
+						<option value="MF">Saint Martin</option>
+						<option value="PM">Saint Pierre and Miquelon</option>
+						<option value="VC">Saint Vincent and the Grenadines</option>
+						<option value="WS">Samoa</option>
+						<option value="SM">San Marino</option>
+						<option value="ST">Sao Tome and Principe</option>
+						<option value="SA">Saudi Arabia</option>
+						<option value="SN">Senegal</option>
+						<option value="RS">Serbia</option>
+						<option value="CS">Serbia and Montenegro</option>
+						<option value="SC">Seychelles</option>
+						<option value="SL">Sierra Leone</option>
+						<option value="SG">Singapore</option>
+						<option value="SX">Sint Maarten</option>
+						<option value="SK">Slovakia</option>
+						<option value="SI">Slovenia</option>
+						<option value="SB">Solomon Islands</option>
+						<option value="SO">Somalia</option>
+						<option value="ZA">South Africa</option>
+						<option value="GS">South Georgia and the South Sandwich Islands</option>
+						<option value="SS">South Sudan</option>
+						<option value="ES">Spain</option>
+						<option value="LK">Sri Lanka</option>
+						<option value="SD">Sudan</option>
+						<option value="SR">Suriname</option>
+						<option value="SJ">Svalbard and Jan Mayen</option>
+						<option value="SE">Sweden</option>
+						<option value="CH">Switzerland</option>
+						<option value="SY">Syria</option>
+						<option value="TW">Taiwan</option>
+						<option value="TJ">Tajikistan</option>
+						<option value="TZ">Tanzania</option>
+						<option value="TH">Thailand</option>
+						<option value="TL">Timor-Leste</option>
+						<option value="TG">Togo</option>
+						<option value="TK">Tokelau</option>
+						<option value="TO">Tonga</option>
+						<option value="TT">Trinidad and Tobago</option>
+						<option value="TN">Tunisia</option>
+						<option value="TR">Turkey (Türkiye)</option>
+						<option value="TM">Turkmenistan</option>
+						<option value="TC">Turks and Caicos Islands</option>
+						<option value="TV">Tuvalu</option>
+						<option value="UM">U.S. Outlying Islands</option>
+						<option value="UG">Uganda</option>
+						<option value="UA">Ukraine</option>
+						<option value="AE">United Arab Emirates</option>
+						<option value="GB">United Kingdom</option>
+						<option value="US">United States</option>
+						<option value="UY">Uruguay</option>
+						<option value="UZ">Uzbekistan</option>
+						<option value="VU">Vanuatu</option>
+						<option value="VA">Vatican City Holy See</option>
+						<option value="VE">Venezuela</option>
+						<option value="VN">Vietnam</option>
+						<option value="VG">Virgin Islands, British</option>
+						<option value="VI">Virgin Islands, U.S</option>
+						<option value="WF">Wallis and Futuna</option>
+						<option value="EH">Western Sahara</option>
+						<option value="YE">Yemen</option>
+						<option value="ZM">Zambia</option>
+						<option value="ZW">Zimbabwe</option>
+					</select>
+					<!-- total - 252 -->
+	
+				</div>
+				<input type="hidden" name="register_client" value="1">
+				<div class="clear"></div>
+			  </div>
+		 	 
+		
+		
+		<?php
+	}
 	
 }
 
