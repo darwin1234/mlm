@@ -1,9 +1,11 @@
-<IfModule mod_rewrite.c>
+# BEGIN WordPress
+
 RewriteEngine On
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-RewriteBase /mlm/
+RewriteBase /
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /mlm/index.php [L]
-</IfModule>
+RewriteRule . /index.php [L]
+
+# END WordPress
