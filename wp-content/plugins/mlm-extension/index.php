@@ -22,6 +22,8 @@ class Custom_Rewrite_Rule {
 
         // Handle the custom page template
         add_action( 'template_include', array( $this, 'load_custom_page_template' ) );
+   
+        add_shortcode('ds_registration_form', array($this, 'ds_registration_form'));
     }
 
     /**
@@ -65,6 +67,84 @@ class Custom_Rewrite_Rule {
 
         return $template;
     }
+
+    public function ds_registration_form(){
+        ?>
+        <form id="registration_client_form" style="display:block!important;">
+        <div class="container">
+            <div id="sponsorFrm" class="row">
+                <div class="col-md-8 m-auto block">
+                        <img  class="w-60 m-auto" src="<?php echo  bloginfo('template_url');?>/assets/images/logo.png">
+                        <h2 class="text-center">Dealer's Registration</h2>
+                        <div class="row">
+                            <div class="col">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" placeholder="First name">
+                            </div>
+                            <div class="col">
+                                 <label>Last Name</label>
+                                <input type="text" class="form-control" placeholder="Last name">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Company Name</label>
+                                <input type="text" class="form-control" placeholder="First name">
+                            </div>
+                            <div class="col">
+                                <label>Business Name</label>
+                                <input type="text" class="form-control" placeholder="Last name">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Phone Number</label>
+                                <input type="text" class="form-control" placeholder="First name">
+                            </div>
+                            <div class="col">
+                                <label>Address</label>
+                                <input type="text" class="form-control" placeholder="Last name">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>City</label>
+                                <input type="text" class="form-control" placeholder="First name">
+                            </div>
+                            <div class="col">
+                                <label>State</label>
+                                <input type="text" class="form-control" placeholder="Last name">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Postal Code</label>
+                                <input type="text" class="form-control" placeholder="First name">
+                            </div>
+                            <div class="col">
+                                <label>Country</label>
+                                <input type="text" class="form-control" placeholder="Last name">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Email Address</label> 
+                                <input type="email" class="form-control">   
+                                <label>Password</label> 
+                                <input type="password" class="form-control woocommerce-Input woocommerce-Input--text input--text">   
+                            </div>
+                        </div>
+                        <div class="woocommerce-form-row form-row">
+                            <button type="submit" class="woocommerce-Button woocommerce-button button woocommerce-form-register__submit">Register Now</button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+        <?php 
+    }
+
 }
 
 // Initialize the plugin class

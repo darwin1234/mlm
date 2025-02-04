@@ -21,7 +21,6 @@ if ( is_readable( $custom_walker_footer ) ) {
 }
 
 
-
 class dsMLM {
 
 
@@ -93,9 +92,7 @@ class dsMLM {
 		add_action('init', array($this, 'register_dealer'), 15);  // Priority 15 for second execution
 
 		// Empty the cart action after everything is loaded
-		add_action('wp_loaded', array($this, 'empty_the_cart'), 20);  // Priority 20 for wp_loaded
-
-
+		//add_action('wp_loaded', array($this, 'empty_the_cart'), 20);  // Priority 20 for wp_loaded
 		
 		add_action('admin_menu', array($this,'ghl_plugin_menu'));
 

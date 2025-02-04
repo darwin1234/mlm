@@ -87,7 +87,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
 }
 
-//if ( ! defined( 'FS_METHOD' ) ) define( 'FS_METHOD', 'direct' );
+if ( ! defined( 'FS_METHOD' ) ) define( 'FS_METHOD', 'direct' );
 
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
