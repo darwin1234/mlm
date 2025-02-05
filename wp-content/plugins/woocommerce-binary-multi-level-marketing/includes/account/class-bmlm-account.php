@@ -221,6 +221,12 @@ if ( ! class_exists( 'BMLM_Account' ) ) {
 					case 'refferal':
 						$title = esc_html__( "Dealer's Affiliate Link", 'binary-mlm' );
 						break;
+					case 'client-refferal':
+							$title = esc_html__( "Product to Sell", 'binary-mlm' );
+						break;	
+					case 'clients':
+							$title = esc_html__( "Clients", 'binary-mlm' );
+						break;		
 					case 'wallet':
 						$title = esc_html__( 'Wallet', 'binary-mlm' );
 						break;
@@ -258,17 +264,14 @@ if ( ! class_exists( 'BMLM_Account' ) ) {
 
 					if($account_type ==="ds_dealer"){
 						$new_items['../' . $page_name . '/dashboard'] = esc_html__( 'Dashboard', 'binary-mlm' );
-						$new_items['../' . $page_name . '/ads']   = esc_html__( 'Sponsor Ads', 'binary-mlm' );
+						//$new_items['../' . $page_name . '/ads']   = esc_html__( 'Sponsor Ads', 'binary-mlm' );
 						$new_items['../' . $page_name . '/genealogy']   = esc_html__('Genealogy Tree', 'binary-mlm' );
 						$new_items['../' . $page_name . '/commission']  = esc_html__('Commissions', 'binary-mlm' );
 						$new_items['../' . $page_name . '/refferal']  = esc_html__( "Dealer's Affiliate Link", 'binary-mlm' );
-						//$new_items['../' . $page_name . '/client-refferal']  = esc_html__( "Client Affiliate Link", 'binary-mlm' );
+						$new_items['../' . $page_name . '/client-referral']  = esc_html__( "Sell the Product", 'binary-mlm' );
+						$new_items['../' . $page_name . '/clients']  = esc_html__( "Your clients", 'binary-mlm' );
 					}
 			
-					/*if($account_type ==="ds_client")
-					{	
-						$new_items['../' . $page_name . '/become-a-dealer']  = esc_html__( "Become a Dealer", 'binary-mlm' );
-					}*/
 					$new_items['../' . $page_name . '/marketing-crm-link']  = esc_html__( "Marketing CRM Link", 'binary-mlm' );
 					$new_items['../' . $page_name . '/social-media-kit']  = esc_html__( "Social Media Kit", 'binary-mlm' );
 					$new_items['../' . $page_name . '/training-resources']  = esc_html__( "Training Resources", 'binary-mlm' );

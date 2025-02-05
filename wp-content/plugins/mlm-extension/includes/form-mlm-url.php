@@ -1,33 +1,9 @@
-<?php
-/**
- * Plugin Name: RealCallerAi Extension
- * Description: MLM Extension
- * Version: 1.0
- * Author: Darwin Sese
- */
+<?php 
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
 
-define("DSPATH", plugin_dir_path(__FILE__));
-define("pluginsurl", plugins_url() . '/mlm-extension');
-
-require_once(DSPATH . 'includes/registration.php');   
-
-class RealCallerAiExtension {
-
-    public function __construct() {
-        register_activation_hook( __FILE__, array( $this, 'flush_rewrite_rules' ) );
-        add_action('init', array( $this, 'mlm_rewrite_rule' ) );
-        add_filter('query_vars', array( $this, 'dealers_link_var' ) );
-        add_filter('query_vars', array( $this, 'client_link_var' ) );
-        add_action('template_include', array( $this, 'registration_form' ) );
-        add_action('init', array(new mlmregistration, 'ProcessRegistration'));
-        add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount' ), 10, 3);
-      
-    }
-    
+class form_mlm_url 
+{
+       
     public function mlm_rewrite_rule() {
         add_rewrite_rule(
             '^dealer/([^/]+)/?$',
@@ -77,8 +53,4 @@ class RealCallerAiExtension {
         }
         return $template;
     }
-
 }
-
-// Initialize the plugin class
-new RealCallerAiExtension;

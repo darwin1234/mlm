@@ -71,7 +71,7 @@ if ( ! class_exists( 'BMLM_Refferal' ) ) {
 															<td>
 																<?php  
 																$user_id = get_current_user_id();
-																$profile_url = site_url('/sponsor/?sponsor=' . $user_id); // Generate profile UR ?>
+																$profile_url = site_url('/dealer/dealers-form/?sponsor=' . $user_id); // Generate profile UR ?>
 																<label><?php esc_html_e( 'Sponsor ID', 'binary-mlm' ); ?></label>
 																<input type="text" value="<?php echo $profile_url ?>" class="bmlm-input form-control">
 																<div class="bmlm-tooltip w-100 mt-3">
