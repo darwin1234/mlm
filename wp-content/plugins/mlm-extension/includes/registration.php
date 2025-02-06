@@ -241,6 +241,8 @@ class mlmregistration
 				'parent' => $parent_id,
 				'order_id' => $order_id
 			));
+
+			//FIRST
 			$wpdb->insert($wpdb->prefix . 'bmlm_commission', array(
 				'user_id' => $parent_id,
 				'type' => 'joining',
@@ -249,6 +251,32 @@ class mlmregistration
 				'date'=> date("Y-m-d h:i:s"),
 				'paid' => 'unpaid'
 			));
+
+			$dealers = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}bmlm_gtree_nodes WHERE child = {$parent_id}");
+
+			foreach ($dealers as $dealer) {
+				// Fetch commissions for this dealer's parent
+				$commissions = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}bmlm_commission WHERE user_id = {$dealer->parent}");
+				
+				$count = count($commissions);
+				if ($count < 5) {
+					// Insert new commission if the count is less than 5
+					$wpdb->insert(
+						"{$wpdb->prefix}bmlm_commission", 
+						array(
+							'user_id' => $dealer->parent,
+							'type' => 'joining',
+							'description' => '',
+							'commission' => $order->get_total() * 0.10,
+							'date' => date("Y-m-d H:i:s"), // 24-hour format
+							'paid' => 'unpaid'
+						)
+					);
+				}
+}
+
+
+
 		}
 		
 		// Prepare API data
