@@ -372,4 +372,62 @@ class mlmregistration
     	return json_decode(wp_remote_retrieve_body($response), true);
 	}
 
+	public function register_dealer_no_tree(){
+		if(isset($_POST['register_dealer_no_tree'])){
+			
+			$email_address = sanitize_email($_POST['email_address']);
+                
+			$password = sanitize_text_field($_POST['password']);
+			
+			$user_id = wp_create_user($email_address, $password,$email_address);
+
+			add_user_meta($user_id , 'account_type', "ds_dealer");
+
+			if(isset($_POST['first_name'])){
+				$first_name = sanitize_text_field($_POST['first_name']);
+				update_user_meta($user_id, 'first_name',$first_name);
+				$data['first_name'] = $first_name;
+			}   
+
+			if(isset($_POST['last_name'])){
+				$last_name = sanitize_text_field($_POST['last_name']);
+				update_user_meta($user_id, 'last_name',$last_name);
+				$data['last_name'] = $last_name;
+			}
+
+			if(isset($_POST['ds_company_name'])){
+				$company_name = sanitize_text_field($_POST['ds_company_name']);
+				add_user_meta($user_id, 'ds_company_name',$last_name);
+				$data['ds_company_name'] = $company_name;
+			}
+
+			if(isset($_POST['ds_business_name'])){
+				$business_name = sanitize_text_field($_POST['ds_business_name']);
+				add_user_meta($user_id, 'ds_business_name',$last_name);
+				$data['ds_business_name'] = $business_name;
+			}
+			
+			if(isset($_POST['ds_phone'])){
+				$phone = sanitize_text_field($_POST['ds_phone']);
+				add_user_meta($user_id, 'ds_phone',$phone);
+				$data['ds_phone'] = $phone;
+			}
+			
+			 // Assign role
+			 $user = new WP_User($user_id);
+			 $user->set_role('bmlm_sponsor');
+
+			 $bmlm_sponsor_id = $this->generate_random_string(10);
+			 add_user_meta($user_id, 'bmlm_sponsor_id', $bmlm_sponsor_id);
+			 // Auto-login the user
+			 wp_clear_auth_cookie();
+			 wp_set_current_user($user_id);
+			 wp_set_auth_cookie($user_id);
+			 
+			 $this->add_to_cart($user_id, "ds_dealer", $data);
+		
+
+		}
+	}
+
 }

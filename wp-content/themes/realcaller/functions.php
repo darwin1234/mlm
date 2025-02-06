@@ -86,24 +86,7 @@ class dsMLM {
 		add_menu_page('GHL Sub-Account Creator', 'GHL Creator', 'manage_options', 'ghl_creator', array($this, 'ghl_plugin_page'));
 	}
 
-	/*public function empty_the_cart() {
-		$user_id = get_current_user_id();
 	
-	
-		// Check if the user has a valid ID and the transient is set
-		if ($user_id) {
-			// Empty the cart first
-			WC()->cart->empty_cart();
-	
-			// Add product to the cart
-			$product_id = 76; // Replace with the desired product ID
-			$quantity = 1;    // Quantity to add
-	
-			// Add product to the cart
-			$added = WC()->cart->add_to_cart($product_id, $quantity);
-	
-		}
-	}*/
 
 	public function custom_remove_woocommerce_checkout_fields( $fields ) 
 	{

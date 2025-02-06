@@ -24,6 +24,8 @@ class RealCallerAiExtension {
         add_filter('query_vars', array( $this, 'client_link_var' ) );
         add_action('template_include', array( $this, 'registration_form' ) );
         add_action('init', array(new mlmregistration, 'ProcessRegistration'));
+        add_action('init', array(new mlmregistration ,'register_dealer_no_tree'));
+        
         add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount' ), 10, 3);
       
     }
