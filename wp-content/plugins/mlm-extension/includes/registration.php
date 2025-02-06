@@ -273,9 +273,7 @@ class mlmregistration
 						)
 					);
 				}
-}
-
-
+		}
 
 		}
 		
