@@ -96,7 +96,7 @@ class mlmregistration
 
 				if(isset($_POST['parent_id'])){
 					$parent_id =  sanitize_text_field($_POST['parent_id']);
-					add_user_meta($user_id, 'ds_parent_id',$country);
+					add_user_meta($user_id, 'ds_parent_id',$parent_id);
 				}
               
                 $bmlm_sponsor_id = $this->generate_random_string(10);
@@ -141,16 +141,7 @@ class mlmregistration
 				'parent' => $parent,
 				'nrow' => 1
 			));
-		}
-
-		if($account_type === "ds_client")
-		{
-			$wpdb->insert($wpdb->prefix . 'ds_clients', array(
-				'child' => $child,
-				'parent' => $parent,
-			));
-		}
-			
+		}			
 	}
     
     public function add_to_cart($user_id, $membership_type,$address){
@@ -215,6 +206,8 @@ class mlmregistration
 
     public function processGHLAccount($order_id)
 	{
+		global $wpdb;
+
 		$order = wc_get_order($order_id);
 		$customer_id = $order->get_user_id();
 
@@ -236,6 +229,17 @@ class mlmregistration
 		$postal_code  = get_user_meta($customer_id, 'ds_postal_code', true);
 		$country =   get_user_meta($customer_id, 'ds_country', true);	
 		$password =  get_user_meta($customer_id, 'ds_password', true);
+		$account_type =  get_user_meta($customer_id, 'account_type', true);
+		$parent_id =  get_user_meta($customer_id, 'ds_parent_id', true);
+		
+		if($account_type === "ds_client")
+		{
+			$wpdb->insert($wpdb->prefix . 'ds_clients', array(
+				'child' => $customer_id,
+				'parent' => $parent_id,
+				'order_id' => $order_id
+			));
+		}
 		
 		// Prepare API data
 		/*$business_data = [

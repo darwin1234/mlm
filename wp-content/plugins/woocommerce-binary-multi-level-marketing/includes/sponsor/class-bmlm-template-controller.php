@@ -178,6 +178,10 @@ if ( ! class_exists( 'BMLM_Template_Controller' ) ) {
 			$referral = new Front\Sponsor\Refferal\BMLM_ClientRefferal( $this->sponsor );
 			$referral->get_template();
 		}
+		public function bmlm_sponsor_clients(){
+			$referral = new Front\Sponsor\Clients\BMLM_Clients_Table( $this->sponsor );
+			$referral->get_template();
+		}	
 
 		public function bmlm_sponsor_client_invoice(){
 			$referral = new Front\Sponsor\Invoice\BMLM_Invoice( $this->sponsor );
@@ -188,7 +192,7 @@ if ( ! class_exists( 'BMLM_Template_Controller' ) ) {
 			$referral = new Front\Sponsor\Dealer\BMLM_BecomeADealer( $this->sponsor );
 			$referral->get_template();
 		}
-			
+
 		
 		
 	}

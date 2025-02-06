@@ -98,6 +98,9 @@ if ( ! class_exists( 'BMLM_Account' ) ) {
 					case 'client-refferal':
 						add_shortcode( 'sponsor', array( $this->sponsor_template, 'bmlm_sponsor_client_refferal_links' ), 'clientrefferal' );
 						break;
+					case 'clients':
+						add_shortcode( 'sponsor', array( $this->sponsor_template, 'bmlm_sponsor_clients' ), 'clients' );
+						break;	
 					case 'invoice':
 						add_shortcode( 'sponsor', array( $this->sponsor_template, 'bmlm_sponsor_client_invoice' ), 'invoice' );
 						break;	
@@ -268,8 +271,8 @@ if ( ! class_exists( 'BMLM_Account' ) ) {
 						$new_items['../' . $page_name . '/genealogy']   = esc_html__('Genealogy Tree', 'binary-mlm' );
 						$new_items['../' . $page_name . '/commission']  = esc_html__('Commissions', 'binary-mlm' );
 						$new_items['../' . $page_name . '/refferal']  = esc_html__( "Dealer's Affiliate Link", 'binary-mlm' );
-						$new_items['../' . $page_name . '/client-referral']  = esc_html__( "Sell the Product", 'binary-mlm' );
-						$new_items['../' . $page_name . '/clients']  = esc_html__( "Your clients", 'binary-mlm' );
+						$new_items['../' . $page_name . '/client-refferal']  = esc_html__( "Sell a Product", 'binary-mlm' );
+						$new_items['../' . $page_name . '/clients']  = esc_html__( "Your Clients", 'binary-mlm' );
 					}
 			
 					$new_items['../' . $page_name . '/marketing-crm-link']  = esc_html__( "Marketing CRM Link", 'binary-mlm' );

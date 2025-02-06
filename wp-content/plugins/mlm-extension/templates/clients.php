@@ -1,6 +1,6 @@
 <?php get_header('registration');?>
 <div>
-<form id="registration_client_form" style="display:block!important;" method="POST">
+<form id="registration_client_form" style="display:block!important; margin-bottom:50px;" method="POST">
         <div class="container">
             <div id="sponsorFrm" class="row">
                 <div class="col-md-8 m-auto block">
@@ -59,9 +59,11 @@
                         <div class="row">
                             <div class="col">
                                 <label>Email Address</label> 
-                                    <input type="email" name="email_address" class="form-control">   
+                                <input type="email" name="email_address" class="form-control">   
+                            </div>
+                            <div class="col">
                                 <label>Password</label> 
-                                    <input type="password" name="password" class="form-control woocommerce-Input woocommerce-Input--text input--text">   
+                                <input type="password" name="password" class="form-control woocommerce-Input woocommerce-Input--text input--text">       
                             </div>
                         </div>
                         <input type="hidden" name="client_form_xxxx" value="1">
@@ -71,20 +73,14 @@
                                 $refferal_id = get_user_meta((int)$_GET['sponsor'], 'bmlm_sponsor_id', true );
                             }
 		                ?>
-                        <input type="text" name="parent_id" value="<?php echo $parent_id; ?>">
+                        <input type="hidden" name="parent_id" value="<?php echo $parent_id; ?>">
                         <div class="bmlm-sponsor-registration-fields">
                             <div>
                                 <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                     <label for="bmlm-refferal_id hidden" style="display:none!important;"><span class="required">*</span><?php esc_html_e( 'Sponsor Referral ID', 'binary-mlm' ); ?></label>
-                                    <input type="text" class="input-text form-control" name="bmlm_refferal_id" id="bmlm-refferal_id" value="<?php echo $refferal_id; ?>" />
+                                    <input type="hidden" class="input-text form-control" name="bmlm_refferal_id" id="bmlm-refferal_id" value="<?php echo $refferal_id; ?>" />
                                 </p>
                             
-                            </div>
-                            <div class="woocommerce-sponsor-terms-text">
-                                <label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-                                <input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="sponsor_terms" id="terms">
-                                    <span class="woocommerce-terms-and-conditions-checkbox-text"><span class="required">*</span>&nbsp;<?php esc_html_e( 'I accept website', 'binary-mlm' ); ?>&nbsp;<a href="<?php echo esc_url( $terms_link ); ?>" class="woocommerce-terms-and-conditions-link" target="_blank"><?php esc_html_e( 'terms and conditions', 'binary-mlm' ); ?></a>&nbsp;<?php esc_html_e( 'for becoming a sponsor', 'binary-mlm' ); ?></span>
-                                </label>
                             </div>
                             <input type="hidden" name="role" value="bmlm_sponsor">
                         </div>
