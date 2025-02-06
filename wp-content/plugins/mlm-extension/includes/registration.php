@@ -146,7 +146,7 @@ class mlmregistration
     
     public function add_to_cart($user_id, $membership_type,$address){
         // Product ID to be ordered
-		$product_id = 76; 
+		$product_id = 74; 
 		$quantity = 1;
         if($membership_type==="ds_dealer")
 		{
@@ -423,10 +423,8 @@ class mlmregistration
 			 wp_clear_auth_cookie();
 			 wp_set_current_user($user_id);
 			 wp_set_auth_cookie($user_id);
-			 
 			 $this->add_to_cart($user_id, "ds_dealer", $data);
-		
-
+	
 		}
 	}
 
