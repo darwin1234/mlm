@@ -93,7 +93,7 @@ if ( ! class_exists( 'BMLM_Graph' ) ) {
 							</form>
 						</div>
 					</div>
-			<div class="bmlm-sponsor-histograms">
+			<div class="bmlm-sponsor-histograms" style="display:none!important;">
 				<div class="bmlm-mixed-histogram">
 					<div class="bmlm-graph-card">
 						<div class="bmlm-graph-card-header">

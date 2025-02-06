@@ -1124,3 +1124,19 @@ body.my-account #registration_client_form{
 .woocommerce-MyAccount-navigation-link--customer-user{
   border:1px solid #ccc;
 }
+.bmlm-sponsor-search {
+  display:none!important;
+}
+.bmlm-sponsor-ingredients{
+  display:none;
+}
+.bmlm-badge-history{
+  display:none;
+}
+.bmlm-member-activities{
+  display:none;
+}
+
+.member-level{
+  display:none!important;
+}
