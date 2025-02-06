@@ -20,6 +20,8 @@ class mlmregistration
 
                 $account_type ="";
 
+				$parent_id = 0;
+
                 $data = [];
                 
                 if(isset($_POST['dealer_form_xxxx'])){$account_type ="ds_dealer";}
@@ -102,8 +104,6 @@ class mlmregistration
                 $bmlm_sponsor_id = $this->generate_random_string(10);
                 add_user_meta($user_id, 'bmlm_sponsor_id', $bmlm_sponsor_id);
 
-            
-            
                 if(isset($_POST['bmlm_refferal_id'])){
                     $bmlm_refferal_id = sanitize_text_field($_POST['bmlm_refferal_id']);
                     add_user_meta($user_id, 'bmlm_refferal_id', $bmlm_refferal_id);
@@ -150,6 +150,7 @@ class mlmregistration
 		$quantity = 1;
         if($membership_type==="ds_dealer")
 		{
+		
 			// Ensure the product exists
 			$product = wc_get_product($product_id);
 			if (!$product) {
@@ -175,7 +176,8 @@ class mlmregistration
             $order->calculate_totals();
             $order->set_status('completed');
             $order->save();    
-            wp_safe_redirect(site_url() . '/my-account');
+            wp_safe_redirect(site_url() . '/sponsor/dashboard/');
+			exit;
         }
 
         if($membership_type==="ds_client"){
@@ -238,6 +240,14 @@ class mlmregistration
 				'child' => $customer_id,
 				'parent' => $parent_id,
 				'order_id' => $order_id
+			));
+			$wpdb->insert($wpdb->prefix . 'bmlm_commission', array(
+				'user_id' => $parent_id,
+				'type' => 'joining',
+				'description' => '',
+				'commission' => $order->get_total() * 0.10,
+				'date'=> date("Y-m-d h:i:s"),
+				'paid' => 'unpaid'
 			));
 		}
 		
@@ -333,7 +343,5 @@ class mlmregistration
 
     	return json_decode(wp_remote_retrieve_body($response), true);
 	}
-
-
 
 }

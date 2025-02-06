@@ -5,7 +5,7 @@
             <div id="sponsorFrm" class="row">
                 <div class="col-md-8 m-auto block">
                 <img  class="w-60 m-auto" src="<?php echo  bloginfo('template_url');?>/assets/images/logo.png">
-                        <h2 class="text-center">Client's Registration</h2>
+                        <h2 class="text-center">RealCallerAI: Your All-in-One AI-Driven Call and Chat Support for Every Business.</h2>
                         <div class="row">
                             <div class="col">
                                 <label>First Name</label>

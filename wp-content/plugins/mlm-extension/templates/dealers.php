@@ -5,7 +5,7 @@
             <div id="sponsorFrm" class="row">
                 <div class="col-md-8 m-auto block">
                         <img  class="w-60 m-auto" src="<?php echo  bloginfo('template_url');?>/assets/images/logo.png">
-                        <h2 class="text-center">Dealer's Registration</h2>
+                        <h2 class="text-center">Dealer's Registration form</h2>
                         <div class="row">
                             <div class="col">
                                 <label>First Name</label>
@@ -56,22 +56,35 @@
                                 <input type="text" class="form-control" name="ds_country">
                             </div>
                         </div>
+                    
                         <div class="row">
                             <div class="col">
                                 <label>Email Address</label> 
-                                    <input type="email" name="email_address" class="form-control">   
+                                <input type="email" name="email_address" class="form-control">
+                            </div>
+                            <div class="col">
                                 <label>Password</label> 
-                                    <input type="password" name="password" class="form-control woocommerce-Input woocommerce-Input--text input--text">   
+                                <input type="password" name="password" class="form-control woocommerce-Input woocommerce-Input--text input--text">   
                             </div>
                         </div>
+                        <input type="hidden" name="dealer_form_xxxx" value="1">
                         <?php
                             if(isset($_GET['sponsor'])){
                                 $parent_id = (int)sanitize_text_field($_GET['sponsor']);
                                 $refferal_id = get_user_meta((int)$_GET['sponsor'], 'bmlm_sponsor_id', true );
                             }
 		                ?>
-                        <inpuy type="text" name="parent_id" value="<?php echo $parent_id; ?>">
-                        <input type="hidden" name="dealer_form_xxxx" value="1">
+                        <input type="hidden" name="parent_id" value="<?php echo $parent_id; ?>">
+                        <div class="bmlm-sponsor-registration-fields">
+                            <div>
+                                <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                    <label for="bmlm-refferal_id hidden" style="display:none!important;"><span class="required">*</span><?php esc_html_e( 'Sponsor Referral ID', 'binary-mlm' ); ?></label>
+                                    <input type="hidden" class="input-text form-control" name="bmlm_refferal_id" id="bmlm-refferal_id" value="<?php echo $refferal_id; ?>" />
+                                </p>
+                            
+                            </div>
+                            <input type="hidden" name="role" value="bmlm_sponsor">
+                        </div>
                         <div class="woocommerce-form-row form-row">
                             <button type="submit" name="submit"  class="woocommerce-Button woocommerce-button button woocommerce-form-register__submit">Register Now</button>
                         </div>

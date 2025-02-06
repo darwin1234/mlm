@@ -67,11 +67,10 @@ if ( ! class_exists( 'BMLM_Clients_Table' ) ) {
 								<table class="table">
 								<thead>
 									<tr>
-									<th scope="col">Order ID</th>
-									<th scope="col">Product Name</th>
-									<th scope="col">First Name</th>
-									<th scope="col">Last Name</th>
-									<th scope="col">Order Total</th>
+										<th scope="col">Order ID</th>
+										<th scope="col">Product Name</th>
+										<th scope="col">First Name</th>
+										<th scope="col">Last Name</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -91,7 +90,6 @@ if ( ! class_exists( 'BMLM_Clients_Table' ) ) {
 										</th>
 										<td><?php echo  $order->get_billing_first_name() ;?></td>
 										<td><?php echo  $order->get_billing_last_name() ;?></td>
-										<td><?php echo  $order->get_currency() . $order->get_total() ;?></td>
 									</tr>
 									<?php } ?>
 								</tbody>
