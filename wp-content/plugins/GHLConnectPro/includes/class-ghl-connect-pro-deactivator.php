@@ -4,7 +4,7 @@
  * Fired during plugin deactivation
  *
  * @link       https://https://www.ibsofts.com
- * @since      2.0.2
+ * @since      2.0.4
  *
  * @package    GHLCONNECTPRO
  * @subpackage GHLCONNECTPRO/includes
@@ -15,7 +15,7 @@
  *
  * This class defines all code necessary to run during the plugin's deactivation.
  *
- * @since      2.0.2
+ * @since      2.0.4
  * @package    GHLCONNECTPRO
  * @subpackage GHLCONNECTPRO/includes
  * @author     iB Softs <ibsofts@gmail.com>
@@ -27,7 +27,7 @@ class GHLCONNECTPRO_Deactivator {
 	 *
 	 * Long Description.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 */
 	public static function deactivate() {
 

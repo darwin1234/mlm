@@ -7,7 +7,7 @@
  * public-facing side of the site and the admin area.
  *
  * @link       https://https://www.ibsofts.com
- * @since      2.0.2
+ * @since      2.0.4
  *
  * @package    GHLCONNECTPRO
  * @subpackage GHLCONNECTPRO/includes
@@ -22,7 +22,7 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since      2.0.2
+ * @since      2.0.4
  * @package    GHLCONNECTPRO
  * @subpackage GHLCONNECTPRO/includes
  * @author     iB Softs <ibsofts@gmail.com>
@@ -33,7 +33,7 @@ class GHLCONNECTPRO {
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 * @access   protected
 	 * @var      GHLCONNECTPRO_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
@@ -42,7 +42,7 @@ class GHLCONNECTPRO {
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 * @access   protected
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
@@ -51,7 +51,7 @@ class GHLCONNECTPRO {
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 * @access   protected
 	 * @var      string    $version    The current version of the plugin.
 	 */
@@ -64,13 +64,13 @@ class GHLCONNECTPRO {
 	 * Load the dependencies, define the locale, and set the hooks for the admin area and
 	 * the public-facing side of the site.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 */
 	public function __construct() {
 		if ( defined( 'GHLCONNECTPRO_VERSION' ) ) {
 			$this->version = GHLCONNECTPRO_VERSION;
 		} else {
-			$this->version = '2.0.2';
+			$this->version = '2.0.4';
 		}
 		$this->plugin_name = 'ghl-connect-pro';
 
@@ -94,7 +94,7 @@ class GHLCONNECTPRO {
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 * @access   private
 	 */
 	private function load_dependencies() {
@@ -143,7 +143,7 @@ class GHLCONNECTPRO {
 	 * Uses the GHLCONNECTPRO_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 * @access   private
 	 */
 	private function set_locale() {
@@ -158,7 +158,7 @@ class GHLCONNECTPRO {
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
@@ -170,17 +170,17 @@ class GHLCONNECTPRO {
 
 		$updater = new GHLConnectPro_Updater();
 
-       
-        $this->loader->add_filter('site_transient_update_plugins', $updater,'ghlconnectpro_update');
+
+		$this->loader->add_filter('site_transient_update_plugins', $updater, 'ghlconnectpro_update');
 		$this->loader->add_action('in_plugin_update_message-' . GHLCONNECTPRO_PATH, $updater, 'ghlconnectpro_update_message', 10, 2);
-		$this->loader->add_action( 'wp_ajax_ghl_check_sync_data', $plugin_admin, 'ghl_check_sync_data' );
+		$this->loader->add_action('wp_ajax_ghl_check_sync_data', $plugin_admin, 'ghl_check_sync_data');
 	}
 
 	/**
 	 * Register all of the hooks related to the public-facing functionality
 	 * of the plugin.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 * @access   private
 	 */
 	private function define_public_hooks() {
@@ -195,7 +195,7 @@ class GHLCONNECTPRO {
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 */
 	public function run() {
 		$this->loader->run();
@@ -205,7 +205,7 @@ class GHLCONNECTPRO {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     2.0.2
+	 * @since     2.0.4
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_plugin_name() {
@@ -215,7 +215,7 @@ class GHLCONNECTPRO {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since     2.0.2
+	 * @since     2.0.4
 	 * @return    GHLCONNECTPRO_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
@@ -225,11 +225,10 @@ class GHLCONNECTPRO {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     2.0.2
+	 * @since     2.0.4
 	 * @return    string    The version number of the plugin.
 	 */
 	public function get_version() {
 		return $this->version;
 	}
-
 }

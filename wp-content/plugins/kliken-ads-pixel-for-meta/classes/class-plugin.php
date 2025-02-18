@@ -327,6 +327,16 @@ class Plugin {
 
 		// Initialize tracker.
 		new Tracker();
+
+		// Add support for WooCommerce MCM.
+		add_filter(
+			'woocommerce_marketing_channels',
+			function ( $channels ) {
+				$marketing_channels = [ new Kliken_Marketing_Channel() ];
+
+				return array_merge( $marketing_channels, $channels );
+			}
+		);
 	}
 
 	/**

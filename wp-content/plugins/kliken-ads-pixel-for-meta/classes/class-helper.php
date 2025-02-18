@@ -107,7 +107,7 @@ class Helper {
 	 * Get plugin page URL.
 	 */
 	public static function get_plugin_page() {
-		return menu_page_url( KK_FB_WC_MAIN_PAGE_SLUG, false );
+		return admin_url( 'admin.php?page=' . KK_FB_WC_MAIN_PAGE_SLUG );
 	}
 
 	/**
@@ -273,7 +273,7 @@ class Helper {
 				[
 					'timeout' => 30,
 					'headers' => [
-						'Authorization' => 'Basic ' . base64_encode( $settings['account_id'] . ':' . $settings['app_token'] ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+						'Authorization' => self::get_authorization_header_for_api( $settings ),
 						'Accept'        => 'application/json',
 					],
 				]
@@ -290,6 +290,16 @@ class Helper {
 		} catch ( \Exception $ex ) {
 			self::wc_log( 'error', 'Failed to make request to get Pixel data. Error: ' . $ex->getMessage() );
 		}
+	}
+
+	/**
+	 * Get authorization header for API calls.
+	 *
+	 * @param array $settings Plugin settings.
+	 * @return string
+	 */
+	public static function get_authorization_header_for_api( $settings ) {
+		return 'Basic ' . base64_encode( $settings['account_id'] . ':' . $settings['app_token'] ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 	}
 
 	/**

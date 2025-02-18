@@ -20,7 +20,7 @@
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
  * @link      https://www.ibsofts.com
- * @since      2.0.2
+ * @since      2.0.4
  *
  * @package    GHLCONNECTPRO
  */

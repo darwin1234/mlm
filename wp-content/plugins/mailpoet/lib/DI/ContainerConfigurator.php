@@ -355,6 +355,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Preprocessors\Typography_Preprocessor::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Engine\Renderer\Renderer::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Engine\Templates\Templates::class)->setPublic(true);
+    $container->autowire(\MailPoet\EmailEditor\Engine\Templates\Templates_Registry::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Engine\Patterns\Patterns::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Content_Renderer::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Engine\Renderer\ContentRenderer\Blocks_Registry::class)->setPublic(true);
@@ -363,6 +364,10 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\EmailEditor\Integrations\MailPoet\Cli::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Integrations\MailPoet\EmailEditor::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Integrations\MailPoet\EditorPageRenderer::class)->setPublic(true);
+    $container->register(\MailPoet\EmailEditor\Engine\Renderer\Css_Inliner::class)
+      ->setPublic(true)
+      ->setFactory([\MailPoet\EmailEditor\Integrations\MailPoet\MailpoetCssInlinerFactory::class, 'create']);
+    $container->autowire(\MailPoet\EmailEditor\Integrations\MailPoet\MailPoetCssInliner::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Integrations\MailPoet\EmailApiController::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Integrations\MailPoet\EmailEditorPreviewEmail::class)->setPublic(true);
     $container->autowire(\MailPoet\EmailEditor\Integrations\MailPoet\DependencyNotice::class)->setPublic(true);

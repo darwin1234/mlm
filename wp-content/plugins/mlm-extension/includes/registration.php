@@ -145,12 +145,11 @@ class mlmregistration
 	}
     
     public function add_to_cart($user_id, $membership_type,$address){
-        // Product ID to be ordered
-		$product_id = 74; 
-		$quantity = 1;
+		
         if($membership_type==="ds_dealer")
 		{
-		
+			$product_id = 193; 
+			$quantity = 1;
 			// Ensure the product exists
 			$product = wc_get_product($product_id);
 			if (!$product) {
@@ -181,6 +180,8 @@ class mlmregistration
         }
 
         if($membership_type==="ds_client"){
+			$product_id = 74; 
+			$quantity = 1;
 			WC()->cart->empty_cart();	
 			// Add product to the cart
 			$added = WC()->cart->add_to_cart($product_id, $quantity);

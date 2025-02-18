@@ -3,7 +3,7 @@ Contributors: mailpoet, woocommerce, automattic
 Tags: email marketing, post notification, woocommerce emails, email automation, newsletter
 Requires at least: 6.6
 Tested up to: 6.7
-Stable tag: 5.6.3
+Stable tag: 5.7.0
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -218,15 +218,15 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 3. MailPoet email types
 4. Newsletter stats (Premium)
 5. Subscriber import (via a CSV file or directly from MailChimp)
-6. WooCommerce emails
+6. Automation editor (Premium)
 
 == Changelog ==
 
-= 5.6.3 - 2025-01-27 =
-* Improved: Purchased-related automation templates;
-* Fixed: Removed some unwanted templates from the template selector;
-* Fixed: The new email editor is not working on some web hostings;
-* Fixed: Inserting personalization tags attributes;
-* Fixed: The swap template behaviour.
+= 5.7.0 - 2025-02-11 =
+* Improved: Rename Review Trigger in Automations;
+* Changed: minimum required WooCommerce is 9.5;
+* Fixed: Automation UI shows wrong saved status after failed activation;
+* Fixed: Email preview does not work with sent emails;
+* Fixed: email content patterns are mixed with page starter patterns.
 
 [See the changelog for all versions.](https://github.com/mailpoet/mailpoet/blob/trunk/mailpoet/changelog.txt)

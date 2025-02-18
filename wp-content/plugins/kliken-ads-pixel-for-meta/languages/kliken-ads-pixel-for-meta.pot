@@ -1,15 +1,15 @@
-# Copyright (C) 2024 Kliken
+# Copyright (C) 2025 Kliken
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kliken: Ads + Pixel for Meta 1.0.0\n"
+"Project-Id-Version: Kliken: Ads + Pixel for Meta 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/src\n"
 "Last-Translator: SiteWit <wordpress@sitewit.com>\n"
 "Language-Team: SiteWit <wordpress@sitewit.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-29T20:27:47+00:00\n"
+"POT-Creation-Date: 2025-01-31T21:52:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: kliken-ads-pixel-for-meta\n"
@@ -22,9 +22,9 @@ msgstr ""
 #: classes/class-plugin.php:250
 #: classes/class-plugin.php:261
 #: classes/class-plugin.php:287
-#: classes/class-plugin.php:369
-#: classes/class-plugin.php:370
-#: classes/class-plugin.php:481
+#: classes/class-plugin.php:379
+#: classes/class-plugin.php:380
+#: classes/class-plugin.php:491
 msgid "Kliken: Ads + Pixel for Meta"
 msgstr ""
 
@@ -46,6 +46,21 @@ msgstr ""
 #. Author URI of the plugin
 #: kliken-ads-pixel-for-meta.php
 msgid "https://kliken.com/"
+msgstr ""
+
+#. translators: Facebook, Instagram are brand names. Do not translate.
+#: classes/class-kliken-marketing-channel.php:105
+msgid "Reach millions of shoppers on Facebook and Instagram. Complete setup in just 5 minutes to start driving traffic and sales today!"
+msgstr ""
+
+#. translators: Facebook, Instagram are brand names. Do not translate.
+#: classes/class-kliken-marketing-channel.php:260
+msgid "Facebook and Instagram Ads"
+msgstr ""
+
+#. translators: Facebook, Instagram are brand names. Do not translate.
+#: classes/class-kliken-marketing-channel.php:262
+msgid "Reach millions of shoppers on Facebook and Instagram with Meta Advantage+. Drive sales effortlessly with powerful AI optimization."
 msgstr ""
 
 #. translators: %s: Plugin name. Do not translate.
@@ -81,7 +96,7 @@ msgid "An older version of \"%1$s\" plugin is active. For \"%2$s\" to work, plea
 msgstr ""
 
 #. translators: %s: Plugin name. %s: A hyperlink. Do not translate.
-#: classes/class-plugin.php:475
+#: classes/class-plugin.php:485
 msgid "<strong>%1$s plugin is almost ready.</strong> <a href=\"%2$s\">Click here</a> to get started."
 msgstr ""
 
