@@ -148,10 +148,10 @@ class mlmregistration
 		
         if($membership_type==="ds_dealer")
 		{
-			$product_id = 193; 
+			$dealer_product_id = get_option('mlm_dealer_product');
 			$quantity = 1;
 			// Ensure the product exists
-			$product = wc_get_product($product_id);
+			$product = wc_get_product($dealer_product_id);
 			if (!$product) {
 				wc_add_notice(__('Invalid product.', 'woocommerce'), 'error');
 				return;
@@ -180,11 +180,12 @@ class mlmregistration
         }
 
         if($membership_type==="ds_client"){
-			$product_id = 74; 
 			$quantity = 1;
+			$client_product_id = get_option('mlm_client_product');
+			
 			WC()->cart->empty_cart();	
 			// Add product to the cart
-			$added = WC()->cart->add_to_cart($product_id, $quantity);
+			$added = WC()->cart->add_to_cart($client_product_id, $quantity);
 
             $redirect_url = wc_get_checkout_url();
             wp_safe_redirect($redirect_url);

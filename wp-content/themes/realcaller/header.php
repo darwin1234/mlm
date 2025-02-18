@@ -38,7 +38,7 @@
     <p class="text-center text-white">Pharetra pulvinar sed velit suscipit lobortis. Posuere vitae lorem mauris nulla massa urna eu. Porta interdum aliquam vivamus.</p>
   </div>
 <main>
-  <div id="mainWrapper" class="container-fluid py-4">
+  <div id="mainWrapper" class=" container-fluid py-4">
     <header class="container ">
       <!-- Bootstrap Nav -->
       <nav class="navbar navbar-expand-lg navbar-light">
@@ -68,7 +68,7 @@
         </div>
       </nav>
     </header>
-	<main id="main" class="container"<?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' style="padding-top: 100px;"'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' style="padding-bottom: 100px;"'; endif; ?>>
+	<main id="main" class=" <?php echo is_front_page() ? 'bghome' : ''; ?>  container"<?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' style="padding-top: 100px;"'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' style="padding-bottom: 100px;"'; endif; ?>>
 		<?php
 			// If Single or Archive (Category, Tag, Author or a Date based page).
 			if ( is_single() || is_archive() ) :

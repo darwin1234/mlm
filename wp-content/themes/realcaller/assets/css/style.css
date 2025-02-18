@@ -300,9 +300,7 @@ p{
     background-color:#8c52ff;   
     padding:10px;
 }
-#header{
-    background:#000;
-}
+
 #main {
     max-width: 100%!important;
     padding: 0;
@@ -312,8 +310,10 @@ p{
     padding:0!important;
     margin:0!important;
 }
-#mainWrapper #header{
-    background-image: url('../../assets/images/header.png');
+#mainWrapper .bghome{
+    background-image: url('../../assets/images/home-bg.jpg');
+    background-repeat:no-repeat;
+    background-size:100%;
 }
 #realcaller{
     width:750px;
@@ -390,10 +390,6 @@ button#headerbtn {
   background-image: url('../../assets/images/vector8.png');
   background-repeat:no-repeat;
   background-position: center;
-}
-
-#section2 {
-    background-color:#000000;
 }
 
 .content {

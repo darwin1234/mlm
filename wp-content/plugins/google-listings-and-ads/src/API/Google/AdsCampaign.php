@@ -462,7 +462,7 @@ class AdsCampaign implements ContainerAwareInterface, OptionsAwareInterface {
 				'status'                    => CampaignStatus::number( 'enabled' ),
 				'campaign_budget'           => $this->budget->temporary_resource_name(),
 				'maximize_conversion_value' => new MaximizeConversionValue(),
-				'url_expansion_opt_out'     => true,
+				'url_expansion_opt_out'     => false,
 				'shopping_setting'          => new ShoppingSetting(
 					[
 						'merchant_id' => $this->options->get_merchant_id(),

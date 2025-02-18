@@ -14,6 +14,7 @@ define("DSPATH", plugin_dir_path(__FILE__));
 define("pluginsurl", plugins_url() . '/mlm-extension');
 
 require_once(DSPATH . 'includes/registration.php');   
+require_once(DSPATH . 'admin/admin.php');   
 
 class RealCallerAiExtension {
 
@@ -26,6 +27,8 @@ class RealCallerAiExtension {
         add_action('init', array(new mlmregistration, 'ProcessRegistration'));
         add_action('init', array(new mlmregistration ,'register_dealer_no_tree'));
         
+        add_action( 'admin_menu', array(new MLMExtensionAdminMenu,'mlm_admin_control_menu'), 60);
+
         add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount' ), 10, 3);
       
     }
