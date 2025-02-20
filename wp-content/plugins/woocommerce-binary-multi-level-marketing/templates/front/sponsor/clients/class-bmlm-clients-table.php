@@ -64,13 +64,14 @@ if ( ! class_exists( 'BMLM_Clients_Table' ) ) {
 						<div class="row">
 							<h3>Client Lists</h3>
 							<div class="col-md-12">
-								<table class="table">
+							<table class="table">
 								<thead>
 									<tr>
-										<th scope="col">Order ID</th>
-										<th scope="col">Product Name</th>
-										<th scope="col">First Name</th>
-										<th scope="col">Last Name</th>
+										<th scope="col" style="font-weight: 100;">Name</th>
+										<th scope="col" style="font-weight: 100;">Products</th>
+										<th scope="col" style="font-weight: 100;">Business Name</th>
+										<th scope="col" style="font-weight: 100;">Address</th>
+										<th scope="col" style="font-weight: 100;">Email Address</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -79,17 +80,19 @@ if ( ! class_exists( 'BMLM_Clients_Table' ) ) {
 										$order = wc_get_order($client->order_id);	
 									?>
 									<tr>
-										<th scope="row"><?php echo $order->get_id();?></th>
-										<th>
+										<td><strong><?php echo  $order->get_billing_first_name() ;?> <?php echo  $order->get_billing_last_name() ;?></strong></td>
+										<td>
 									 	<?php 
 											 foreach ($order->get_items() as $item) {
-												echo $item->get_name(); // Get product name
+												echo $item->get_id(); // Get product name
 												
 											}
 										?>
-										</th>
-										<td><?php echo  $order->get_billing_first_name() ;?></td>
-										<td><?php echo  $order->get_billing_last_name() ;?></td>
+										</td>
+										
+										<td><?php echo get_post_meta($client->order_id, '_business_name',true);   ?></td>
+										<td><?php echo get_post_meta($client->order_id, '_billing_address_1',true);   ?></td>
+										<td><?php echo $order->get_billing_email();?></td>
 									</tr>
 									<?php } ?>
 								</tbody>

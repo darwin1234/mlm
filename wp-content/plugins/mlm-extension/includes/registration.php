@@ -256,7 +256,8 @@ class mlmregistration
 
 			$dealers = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}bmlm_gtree_nodes WHERE child = {$parent_id}");
 
-			foreach ($dealers as $dealer) {
+			foreach ($dealers as $dealer) 
+			{
 				// Fetch commissions for this dealer's parent
 				$commissions = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}bmlm_commission WHERE user_id = {$dealer->parent}");
 				
@@ -275,8 +276,21 @@ class mlmregistration
 						)
 					);
 				}
-		}
+			}
 
+			  // Update the order meta with new values
+			  //BILLING
+			  update_post_meta($order_id, '_billing_phone', $billing_phone);
+			  update_post_meta($order_id, '_billing_address_1', $address);
+			  update_post_meta($order_id, '_billing_city', $city);
+
+			  update_post_meta($order_id, '_shipping_phone', $billing_phone);
+			  update_post_meta($order_id, '_shipping_address_1', $address);
+			  update_post_meta($order_id, '_shipping_city', $city);
+			  
+			  //Company Name // Business Name
+			  add_post_meta($order_id, '_company_name',$ds_company_name);
+			  add_post_meta($order_id, '_business_name',$ds_business_name);
 		}
 		
 		// Prepare API data
