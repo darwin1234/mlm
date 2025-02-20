@@ -929,8 +929,8 @@ span.woocommerce-MyAccount-navigation-link--Accountdetails{
   float: left;
 }
 
-span.woocommerce-MyAccount-navigation-link--SellaProduct {
-  background: url(../icons/Permmedia@2x.svg);
+span.woocommerce-MyAccount-navigation-link--Products {
+  background: url(../icons/products.svg);
   width: 25px;
   height: 25px;
   padding: 0;
@@ -938,6 +938,7 @@ span.woocommerce-MyAccount-navigation-link--SellaProduct {
   margin-top: 12px;
   margin-right: 10px;
   float: left;
+  background-size:100%;
 }
 
 span.woocommerce-MyAccount-navigation-link--YourClients{

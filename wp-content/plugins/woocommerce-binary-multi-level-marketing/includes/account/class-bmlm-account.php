@@ -269,10 +269,10 @@ if ( ! class_exists( 'BMLM_Account' ) ) {
 						$new_items['../' . $page_name . '/dashboard'] = esc_html__( 'Dashboard', 'binary-mlm' );
 						//$new_items['../' . $page_name . '/ads']   = esc_html__( 'Sponsor Ads', 'binary-mlm' );
 						$new_items['../' . $page_name . '/genealogy']   = esc_html__('Genealogy Tree', 'binary-mlm' );
-						$new_items['../' . $page_name . '/commission']  = esc_html__('Commissions', 'binary-mlm' );
+						//$new_items['../' . $page_name . '/commission']  = esc_html__('Commissions', 'binary-mlm' );
 						$new_items['../' . $page_name . '/refferal']  = esc_html__( "Dealer's Affiliate Link", 'binary-mlm' );
-						$new_items['../' . $page_name . '/client-refferal']  = esc_html__( "Sell a Product", 'binary-mlm' );
-						$new_items['../' . $page_name . '/clients']  = esc_html__( "Your Clients", 'binary-mlm' );
+						$new_items['../' . $page_name . '/client-refferal']  = esc_html__( "Products", 'binary-mlm' );
+						//$new_items['../' . $page_name . '/clients']  = esc_html__( "Your Clients", 'binary-mlm' );
 					}
 			
 					$new_items['../' . $page_name . '/marketing-crm-link']  = esc_html__( "Marketing CRM Link", 'binary-mlm' );
