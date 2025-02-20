@@ -34,9 +34,6 @@
     $slug = basename(get_permalink());
   ?>
   <body class="<?php echo $slug; ?>">
-  <div class="top">
-    <p class="text-center text-white">Pharetra pulvinar sed velit suscipit lobortis. Posuere vitae lorem mauris nulla massa urna eu. Porta interdum aliquam vivamus.</p>
-  </div>
 <main>
   <div id="mainWrapper" class=" container-fluid py-4">
     <header class="container ">
