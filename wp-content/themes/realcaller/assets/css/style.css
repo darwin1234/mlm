@@ -348,48 +348,56 @@ button#headerbtn {
   background-image: url('../../assets/images/vector1.png');
   background-repeat:no-repeat;
   background-position: center;
+  background-size:100%;
 }
 
 #grid span.vector2 {
   background-image: url('../../assets/images/vector2.png');
   background-repeat:no-repeat;
   background-position: center;
+  background-size:100%;
 }
 
 #grid span.vector3 {
   background-image: url('../../assets/images/vector3.png');
   background-repeat:no-repeat;
   background-position: center;
+  background-size:100%;
 }
 
 #grid span.vector4 {
   background-image: url('../../assets/images/vector4.png');
   background-repeat:no-repeat;
   background-position: center;
+  background-size:100%;
 }
 
 #grid span.vector5 {
   background-image: url('../../assets/images/vector5.png');
   background-repeat:no-repeat;
   background-position: center;
+  background-size:100%;
 }
 
 #grid span.vector6 {
   background-image: url('../../assets/images/vector6.png');
   background-repeat:no-repeat;
   background-position: center;
+  background-size:100%;
 }
 
 #grid span.vector7 {
   background-image: url('../../assets/images/vector7.png');
   background-repeat:no-repeat;
   background-position: center;
+  background-size:100%;
 }
 
 #grid span.vector8 {
   background-image: url('../../assets/images/vector8.png');
   background-repeat:no-repeat;
   background-position: center;
+  background-size:100%;
 }
 
 .content {

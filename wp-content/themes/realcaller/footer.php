@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-md-8">
                 <img src="<?php echo bloginfo('template_url');?>/assets/images/logo.png" style="width:250px;">
-                <p class="text-black">Copyright © 2025 realcoller.ai.</p>
+                <p class="text-black">Copyright © 2025 RealCaller.ai.</p>
                 <a href="#"><img src="<?php echo bloginfo('template_url');?>/assets/images/FB.png"></a>
                 <a href="#"><img src="<?php echo bloginfo('template_url');?>/assets/images/x.png"></a>
                 <a href="#"><img src="<?php echo bloginfo('template_url');?>/assets/images/instagram.png"></a>
