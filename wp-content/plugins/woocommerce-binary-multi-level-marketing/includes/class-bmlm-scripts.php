@@ -43,6 +43,7 @@ if ( ! class_exists( 'BMLM_Scripts' ) ) {
 				$json_data    = $this->bmlm_get_sponsor_childrens( get_current_user_id() );
 				$sponsor_data = $this->bmlm_get_sposnors_miscellaneous( $json_data );
 				$sponsors     = $this->bmlm_format_sponsor_data( $sponsor_data );
+				$sponsors     = $this->getChildren($sponsors);
 				wp_enqueue_script( 'bmlm-d3', BMLM_PLUGIN_URL . 'assets/js/d3.min.js', array(), BMLM_SCRIPT_VERSION, true );
 				wp_enqueue_script( 'bmlm-gtree', BMLM_PLUGIN_URL . 'assets/js/gtree.js', array( 'bmlm-d3' ), BMLM_SCRIPT_VERSION, true );
 				wp_localize_script(
@@ -73,5 +74,47 @@ if ( ! class_exists( 'BMLM_Scripts' ) ) {
 				<?php
 			}
 		}
+
+		//Darwin Modification
+		public function getChildren($sponsor)
+		{
+			// Make a copy of the sponsor array
+			$sponsorParent = $sponsor;
+
+			// Check if the sponsor has children
+			if (isset($sponsor['children']) && is_array($sponsor['children'])) {
+				$newChildren = [];
+				
+				foreach ($sponsor['children'] as $child) {
+					// Process the child recursively if it has its own children
+					if (isset($child['children']) && is_array($child['children'])) {
+						// Recursively process the child's children, regardless of downline_member value
+						$child = $this->getChildren($child);
+					}
+					
+					// If the child has downline members, update its data using your helper functions
+					if ($child['downline_member'] > 0) {
+						$jsonData    = $this->bmlm_get_sponsor_childrens($child['ID']);
+						$sponsorData = $this->bmlm_get_sposnors_miscellaneous($jsonData);
+						$formattedChild = $this->bmlm_format_sponsor_data($sponsorData);
+						
+						// Recursively process this formatted child's children too
+						$formattedChild = $this->getChildren($formattedChild);
+						$newChildren[] = $formattedChild;
+					} else {
+						// Append the child as is (it has already been processed for any nested children)
+						$newChildren[] = $child;
+					}
+				}
+				
+				// Update the parent's children array
+				$sponsorParent['children'] = $newChildren;
+			}
+
+			return $sponsorParent;
+		}
+
+		
+
 	}
 }

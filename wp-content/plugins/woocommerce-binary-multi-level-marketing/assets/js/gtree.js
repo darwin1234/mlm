@@ -437,6 +437,7 @@ var bmlm = jQuery.noConflict();
 
           // Toggle children on click.
           function click(d) {
+            console.log(d);
              d3.select(this)
                 .select("text")
                 .text(function (dv) {

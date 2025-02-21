@@ -716,6 +716,8 @@ if ( ! class_exists( 'BMLM_Sponsor' ) ) {
 		 */
 		public function bmlm_get_sponsor_childrens( $sponsor_user_id ) {
 			$wpdb_obj     = $this->wpdb;
+
+			//wp_die($sponsor_user_id);
 			$current_user = array( 'id' => strval( $sponsor_user_id ) );
 			$query        = $wpdb_obj->prepare( "SELECT DISTINCT(child) as id FROM {$wpdb_obj->prefix}bmlm_gtree_nodes WHERE parent=%d", intval( $sponsor_user_id ) );
 			$users        = $wpdb_obj->get_results( $query, ARRAY_A );
