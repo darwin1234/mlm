@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @link       https://https://www.ibsofts.com
- * @since      2.0.2
+ * @since      2.0.4
  *
  * @package    GHLCONNECTPRO
  * @subpackage GHLCONNECTPRO/admin
@@ -25,7 +25,7 @@ class GHLCONNECTPRO_Admin {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
@@ -34,7 +34,7 @@ class GHLCONNECTPRO_Admin {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -43,7 +43,7 @@ class GHLCONNECTPRO_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
@@ -57,7 +57,7 @@ class GHLCONNECTPRO_Admin {
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 */
 	public function enqueue_styles() {
 
@@ -81,7 +81,7 @@ class GHLCONNECTPRO_Admin {
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @since    2.0.2
+	 * @since    2.0.4
 	 */
 	public function enqueue_scripts() {
 
@@ -98,19 +98,16 @@ class GHLCONNECTPRO_Admin {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ghl-connect-pro-admin.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( 'select2', plugins_url( 'js/select2.min.js', __FILE__ ) , array('jquery'), '2.0.2', true );
-        wp_enqueue_script( 'ghlconnectpro_admin_script', plugins_url( 'js/admin-scripts.js', __FILE__ ) , array('jquery'), '2.0.2', true );
-	    wp_localize_script($this->plugin_name, 'ghl_woo_sync', array('ajaxurl' => admin_url( 'admin-ajax.php' )));
-	
+		wp_enqueue_script('select2', plugins_url('js/select2.min.js', __FILE__), array('jquery'), '2.0.4', true);
+		wp_enqueue_script('ghlconnectpro_admin_script', plugins_url('js/admin-scripts.js', __FILE__), array('jquery'), '2.0.4', true);
+		wp_localize_script($this->plugin_name, 'ghl_woo_sync', array('ajaxurl' => admin_url('admin-ajax.php')));
 	}
-	public function ghl_check_sync_data(){
-		$sync_complete=get_option('sync_complete');
-        if(!empty($sync_complete)){  
-            wp_send_json_success(array("success" => true, 'sync_status' => $sync_complete));
-        }
-        wp_send_json_success(array("success" => false));
-    }
-
-	
-
+	public function ghl_check_sync_data()
+	{
+		$sync_complete = get_option('sync_complete');
+		if (!empty($sync_complete)) {
+			wp_send_json_success(array("success" => true, 'sync_status' => $sync_complete));
+		}
+		wp_send_json_success(array("success" => false));
+	}
 }

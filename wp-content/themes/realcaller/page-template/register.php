@@ -23,10 +23,10 @@
                 <form method="POST">
                 <div class="row">   
                     <div class="col mb-3">
-                        <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Company Name" aria-describedby="email address" required>
+                        <input type="text" class="form-control" id="company_name" name="ds_company_name" placeholder="Company Name" aria-describedby="email address" required>
                     </div>
                     <div class="col mb-3">
-                        <input type="text" class="form-control" id="business_name" name="business_name" placeholder="Business Name" aria-describedby="email address" required>
+                        <input type="text" class="form-control" id="business_name" name="ds_business_name" placeholder="Business Name" aria-describedby="email address" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -46,15 +46,11 @@
                     <div class="col mb-3">
                         <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                     </div>
-                    <div class="col mb-3">
-                        <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
-                    </div>
                 </div>
-
                 <div class="mb-3">
-                    <input type="text" class="form-control" name="contact_no" id="contact_no" placeholder="Contact Number">
+                    <input type="text" class="form-control" name="ds_phone" id="ds_phone" placeholder="Contact Number">
                 </div>
-                <button id="register_dealer" type="submit" name="register_dealer" class="w-100 btn btn-primary">Register</button>
+                <button id="register_dealer" type="submit" name="register_dealer_no_tree" class="w-100 btn btn-primary">Register</button>
                 </form>
             </div>
         </div>

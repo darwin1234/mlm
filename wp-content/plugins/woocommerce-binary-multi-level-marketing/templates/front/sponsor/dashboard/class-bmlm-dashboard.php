@@ -95,6 +95,9 @@ if ( ! class_exists( 'BMLM_Dashboard' ) ) {
 			$badge->get_template();
 		}
 
+		
+
+
 		/**
 		 * Dashboard member ingredient template controller
 		 *

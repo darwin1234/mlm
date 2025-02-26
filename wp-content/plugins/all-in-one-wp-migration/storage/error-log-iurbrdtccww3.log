@@ -1,0 +1,15 @@
+Feb 18 2025 13:13:18
+{"Number":2,"Message":"rmdir(C:\\xampp\\htdocs\\mlm\\wp-content\\plugins\\all-in-one-wp-migration\\storage\\iurbrdtccww3): Directory not empty","File":"C:\\xampp\\htdocs\\mlm\\wp-content\\plugins\\all-in-one-wp-migration\\lib\\vendor\\servmask\\filesystem\\class-ai1wm-directory.php","Line":72}
+
+Feb 18 2025 13:13:19
+{"Number":2,"Message":"unlink(C:\\xampp\\htdocs\\mlm\\wp-content\\plugins\\all-in-one-wp-migration\\storage\\iurbrdtccww3\\localhost-mlm-20250218-130930-mh7jb8v7xm6b.wpress): Permission denied","File":"C:\\xampp\\htdocs\\mlm\\wp-content\\plugins\\all-in-one-wp-migration\\lib\\vendor\\servmask\\filesystem\\class-ai1wm-directory.php","Line":66}
+
+Feb 18 2025 13:13:19
+{"Number":2,"Message":"unlink(C:\\xampp\\htdocs\\mlm\\wp-content\\plugins\\all-in-one-wp-migration\\storage\\iurbrdtccww3\\plugins.list): Permission denied","File":"C:\\xampp\\htdocs\\mlm\\wp-content\\plugins\\all-in-one-wp-migration\\lib\\vendor\\servmask\\filesystem\\class-ai1wm-directory.php","Line":66}
+
+Feb 18 2025 13:13:19
+{"Number":2,"Message":"rmdir(C:\\xampp\\htdocs\\mlm\\wp-content\\plugins\\all-in-one-wp-migration\\storage\\iurbrdtccww3): Directory not empty","File":"C:\\xampp\\htdocs\\mlm\\wp-content\\plugins\\all-in-one-wp-migration\\lib\\vendor\\servmask\\filesystem\\class-ai1wm-directory.php","Line":72}
+
+Feb 18 2025 13:13:20
+{"Number":2,"Message":"filesize(): stat failed for C:\\xampp\\htdocs\\mlm\\wp-content\\plugins\\all-in-one-wp-migration\\storage\\iurbrdtccww3\\localhost-mlm-20250218-130930-mh7jb8v7xm6b.wpress","File":"C:\\xampp\\htdocs\\mlm\\wp-content\\plugins\\all-in-one-wp-migration\\lib\\vendor\\servmask\\archiver\\class-ai1wm-archiver.php","Line":231}
+

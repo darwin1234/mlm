@@ -1,71 +1,89 @@
 <?php
 /**
- * Plugin Name: Custom Rewrite Rule and Page
- * Description: A custom plugin to create a URL rewrite rule and custom page template in an OOP style.
+ * Plugin Name: RealCallerAi Extension
+ * Description: MLM Extension
  * Version: 1.0
- * Author: Your Name
+ * Author: Darwin Sese
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-class Custom_Rewrite_Rule {
+define("DSPATH", plugin_dir_path(__FILE__));
+define("pluginsurl", plugins_url() . '/mlm-extension');
+
+require_once(DSPATH . 'includes/registration.php');   
+require_once(DSPATH . 'admin/admin.php');   
+
+class RealCallerAiExtension {
 
     public function __construct() {
-        // Register activation hook to flush rewrite rules on activation
         register_activation_hook( __FILE__, array( $this, 'flush_rewrite_rules' ) );
+        add_action('init', array( $this, 'mlm_rewrite_rule' ) );
+        add_filter('query_vars', array( $this, 'dealers_link_var' ) );
+        add_filter('query_vars', array( $this, 'client_link_var' ) );
+        add_action('template_include', array( $this, 'registration_form' ) );
+        add_action('init', array(new mlmregistration, 'ProcessRegistration'));
+        add_action('init', array(new mlmregistration ,'register_dealer_no_tree'));
+        
+        add_action( 'admin_menu', array(new MLMExtensionAdminMenu,'mlm_admin_control_menu'), 60);
 
-        // Add the rewrite rule and query variable
-        add_action( 'init', array( $this, 'add_rewrite_rule' ) );
-        add_filter( 'query_vars', array( $this, 'add_custom_query_var' ) );
-
-        // Handle the custom page template
-        add_action( 'template_include', array( $this, 'load_custom_page_template' ) );
+        add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount' ), 10, 3);
+      
     }
-
-    /**
-     * Add custom rewrite rule for our custom URL
-     */
-    public function add_rewrite_rule() {
+    
+    public function mlm_rewrite_rule() {
         add_rewrite_rule(
-            '^personal-information/([^/]+)/?$',
-            'index.php?custom_page_param=$matches[1]', // The URL is passed to the 'custom_page_param' query var
+            '^dealer/([^/]+)/?$',
+            'index.php?dealers-form=$matches[1]', // The URL is passed to the 'dealers-form' query var
+            'top'
+        );
+
+        add_rewrite_rule(
+            '^client/([^/]+)/?$',
+            'index.php?clients-form=$matches[1]', // The URL is passed to the 'clients-form' query var
             'top'
         );
     }
-
-    /**
-     * Register custom query variable for the custom URL
-     */
-    public function add_custom_query_var( $vars ) {
-        $vars[] = 'custom_page_param'; // Register the custom query var
+   
+    public function dealers_link_var( $vars ) {
+        $vars[] = 'dealers-form'; // Register the Dealers var
         return $vars;
     }
 
-    /**
-     * Flush rewrite rules on plugin activation
-     */
+  
+    public function client_link_var( $vars ) {
+        $vars[] = 'clients-form'; // Register the Dealers var
+        return $vars;
+    }
+
+
     public function flush_rewrite_rules() {
         flush_rewrite_rules();
     }
 
-    /**
-     * Load the custom page template when the custom URL is accessed
-     */
-    public function load_custom_page_template( $template ) {
-        if ( get_query_var( 'custom_page_param' ) ) {
-            // Load custom page template
-            $new_template = plugin_dir_path( __FILE__ ) . 'templates/user-profile.php';
+    public function registration_form( $template ) {
 
+        if ( get_query_var( 'dealers-form' ) ) {
+            // Load custom page template for dealers
+            $new_template = plugin_dir_path( __FILE__ ) . 'templates/dealers.php';
             if ( file_exists( $new_template ) ) {
                 return $new_template;
             }
         }
 
+        if ( get_query_var( 'clients-form' ) ) {
+            // Load custom page template for dealers
+            $new_template = plugin_dir_path( __FILE__ ) . 'templates/clients.php';
+            if ( file_exists( $new_template ) ) {
+                return $new_template;
+            }
+        }
         return $template;
     }
+
 }
 
 // Initialize the plugin class
-new Custom_Rewrite_Rule();
+new RealCallerAiExtension;

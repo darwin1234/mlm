@@ -300,9 +300,7 @@ p{
     background-color:#8c52ff;   
     padding:10px;
 }
-#header{
-    background:#000;
-}
+
 #main {
     max-width: 100%!important;
     padding: 0;
@@ -312,8 +310,10 @@ p{
     padding:0!important;
     margin:0!important;
 }
-#mainWrapper #header{
-    background-color:#121217!important;
+#mainWrapper .bghome{
+    background-image: url('../../assets/images/home-bg.jpg');
+    background-repeat:no-repeat;
+    background-size:100%;
 }
 #realcaller{
     width:750px;
@@ -336,16 +336,68 @@ button#headerbtn {
     line-height:60px;
 }
 #grid span{
-    width:100px;
-    height:100px;
-    background-color:#F2F2F2;
+    width:80px;
+    height:80px;
+    background-color:#563a9c;
+
     display:block;
     margin:auto;
     border-radius:50%;
 }
+#grid span.vector1 {
+  background-image: url('../../assets/images/vector1.png');
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size:100%;
+}
 
-#section2 {
-    background-color:#563a9c;
+#grid span.vector2 {
+  background-image: url('../../assets/images/vector2.png');
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size:100%;
+}
+
+#grid span.vector3 {
+  background-image: url('../../assets/images/vector3.png');
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size:100%;
+}
+
+#grid span.vector4 {
+  background-image: url('../../assets/images/vector4.png');
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size:100%;
+}
+
+#grid span.vector5 {
+  background-image: url('../../assets/images/vector5.png');
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size:100%;
+}
+
+#grid span.vector6 {
+  background-image: url('../../assets/images/vector6.png');
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size:100%;
+}
+
+#grid span.vector7 {
+  background-image: url('../../assets/images/vector7.png');
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size:100%;
+}
+
+#grid span.vector8 {
+  background-image: url('../../assets/images/vector8.png');
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size:100%;
 }
 
 .content {
@@ -605,9 +657,11 @@ p{
 .woocommerce-form-register__submit{
   background-color:#8c52ff!important;
   width:100%;
-  padding:15px!important;
+  padding:8px!important;
   color:#ffffff!important;
   font-family: 'Inter';
+  border-radius:20px;
+  border:0px;
 }
 #register_dealer{
 	background-color:#8C52FF!important;
@@ -875,6 +929,29 @@ span.woocommerce-MyAccount-navigation-link--Accountdetails{
   float: left;
 }
 
+span.woocommerce-MyAccount-navigation-link--Products {
+  background: url(../icons/products.svg);
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right: 10px;
+  float: left;
+  background-size:100%;
+}
+
+span.woocommerce-MyAccount-navigation-link--YourClients{
+  background: url(../icons/Group2@2x.svg);
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  margin-top: 12px;
+  margin-right: 10px;
+  float: left;
+}
+
 span.woocommerce-MyAccount-navigation-link--MyWallet{
   background:url('../icons/Accountbalancewallet@2x.svg');
   width: 25px;
@@ -970,26 +1047,35 @@ table.woocommerce-table--order-details{
 }
 
 #registration_client_form input[type="text"] {
-  height: 60px;
+  height: 50px;
   border-radius: 40px;
   border: 1px solid #ccc;
   padding-left: 30px;
 }
 #registration_client_form input[type="email"] {
-  height: 60px;
+  height: 50px;
   border-radius: 40px;
   border: 1px solid #ccc;
   padding-left: 30px;
 }
 
 #registration_client_form input[type="password"] {
-  height: 60px;
+  height: 50px;
   border-radius: 40px;
   border: 1px solid #ccc;
   padding-left: 30px;
 }
 
-
+#registration_client_form label{
+  padding:10px  0;
+  font-family: 'DroidSans';
+  font-weight: bold;
+}
+#sponsorFrm img{
+  margin:auto; 
+  width:400px;
+  display:block;
+}
 #registration_client_form select {
   height: 60px;
   border-radius: 40px;
@@ -1090,4 +1176,20 @@ body.my-account #registration_client_form{
 }
 .woocommerce-MyAccount-navigation-link--customer-user{
   border:1px solid #ccc;
+}
+.bmlm-sponsor-search {
+  display:none!important;
+}
+.bmlm-sponsor-ingredients{
+  display:none;
+}
+.bmlm-badge-history{
+  display:none;
+}
+.bmlm-member-activities{
+  display:none;
+}
+
+.member-level{
+  display:none!important;
 }

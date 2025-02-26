@@ -9,6 +9,7 @@ class ComposerStaticInit32ebb10b34e2538443cca5eb2da982da
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Kliken\\FbWcPlugin\\Helper' => __DIR__ . '/../..' . '/classes/class-helper.php',
+        'Kliken\\FbWcPlugin\\Kliken_Marketing_Channel' => __DIR__ . '/../..' . '/classes/class-kliken-marketing-channel.php',
         'Kliken\\FbWcPlugin\\Message' => __DIR__ . '/../..' . '/classes/class-message.php',
         'Kliken\\FbWcPlugin\\Plugin' => __DIR__ . '/../..' . '/classes/class-plugin.php',
         'Kliken\\FbWcPlugin\\REST_Misc_Controller' => __DIR__ . '/../..' . '/classes/class-rest-misc-controller.php',

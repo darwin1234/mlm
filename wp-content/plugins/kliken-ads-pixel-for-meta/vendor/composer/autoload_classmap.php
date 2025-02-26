@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Kliken\\FbWcPlugin\\Helper' => $baseDir . '/classes/class-helper.php',
+    'Kliken\\FbWcPlugin\\Kliken_Marketing_Channel' => $baseDir . '/classes/class-kliken-marketing-channel.php',
     'Kliken\\FbWcPlugin\\Message' => $baseDir . '/classes/class-message.php',
     'Kliken\\FbWcPlugin\\Plugin' => $baseDir . '/classes/class-plugin.php',
     'Kliken\\FbWcPlugin\\REST_Misc_Controller' => $baseDir . '/classes/class-rest-misc-controller.php',

@@ -2,7 +2,7 @@
 Contributors: sitewit
 Tags: woocommerce, facebook ads, instagram ads, meta pixel, facebook post
 Tested up to: 6.7
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -124,10 +124,6 @@ Setting up a Meta Advantage+ shopping campaign can be accomplished in just a few
 
 == Changelog ==
 
-= 1.0.2 =
-* Updated help center links.
+= 1.1.0 =
+* Support WooCommerce Multi-Channel Marketing hub, being one of the channels there.
 
-== Upgrade Notice ==
-
-= 1.0.0 =
-* Initial release, no upgrades yet.

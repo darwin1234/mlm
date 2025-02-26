@@ -354,47 +354,12 @@ p.woocommerce-thankyou-order-received{
 	font-size:30px;
 }
 
-#registration_client_form input[type="text"] {
-    height: 60px;
-    border-radius: 40px;
-    border: 1px solid #ccc;
-    padding-left: 30px;
+#registration_client_form select {
+	height: 60px;
+	border-radius: 40px;
+	border: 1px solid #ccc;
+	padding-left: 30px;
 }
-
-#registration_client_form input[type="email"] {
-    height: 60px;
-    border-radius: 40px;
-    border: 1px solid #ccc;
-    padding-left: 30px;
-}
-
-#registration_client_form input[type="text"] {
-	height: 60px;
-	border-radius: 40px;
-	border: 1px solid #ccc;
-	padding-left: 30px;
-  }
-  #registration_client_form input[type="email"] {
-	height: 60px;
-	border-radius: 40px;
-	border: 1px solid #ccc;
-	padding-left: 30px;
-  }
-  
-  #registration_client_form input[type="password"] {
-	height: 60px;
-	border-radius: 40px;
-	border: 1px solid #ccc;
-	padding-left: 30px;
-  }
-  
-  
-  #registration_client_form select {
-	height: 60px;
-	border-radius: 40px;
-	border: 1px solid #ccc;
-	padding-left: 30px;
-  }
 
   #loginform .woocommerce .col2-set .col-2{
 	width:800px!important;

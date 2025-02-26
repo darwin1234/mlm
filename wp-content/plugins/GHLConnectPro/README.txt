@@ -1,10 +1,10 @@
-=== GHL Connect for WooCommerce -Pro===
+=== GHL Connect for WooCommerce Pro ===
 Contributors: ibsofts, laddoo
 Donate link: https://donate.stripe.com/14keXEbyJ2xp43SdQR
 Tags: ghl,GoHighLevel,Highlevel,crm,woocommerce
 Requires at least: 4.0
 Tested up to: 6.5.3
-Stable tag: 2.0.2
+Stable tag: 2.0.4
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-**GHL Connect for WooCommerce -Pro** is a plugin that connects the WordPress/WooCommerce with Go High Level CRM.
+**GHL Connect for WooCommerce Pro** is a plugin that connects the WordPress/WooCommerce with Go High Level CRM.
 
 == Features ==
 
@@ -59,6 +59,10 @@ Its an option where you can select your order status based on that after purches
 4. Help/Support page.
 
 == Changelog ==
+= 2.0.4 =
+Bugs Fixed.
+= 2.0.3 =
+Variation Product Specific Tags.
 = 2.0.2 =
 Bugs Fixed.
 = 2.0.1 =
