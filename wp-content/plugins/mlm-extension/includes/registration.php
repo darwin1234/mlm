@@ -105,7 +105,7 @@ class mlmregistration
                 add_user_meta($user_id, 'bmlm_sponsor_id', $bmlm_sponsor_id);
 
                 if(isset($_POST['bmlm_refferal_id'])){
-                    $bmlm_refferal_id = sanitize_text_field($_POST['bmlm_refferal_id']);
+                    $bmlm_refferal_id = $_POST['bmlm_refferal_id'];
                     add_user_meta($user_id, 'bmlm_refferal_id', $bmlm_refferal_id);
                 }
                 // Assign role

@@ -55,6 +55,9 @@ if ( ! class_exists( 'BMLM_Scripts' ) ) {
 			} elseif ( 'sponsor' === $page_name && 'genealogy' === $main_page ) {
 				$json_data    = $this->bmlm_get_sponsor_childrens( get_current_user_id() );
 				$sponsor_data = $this->bmlm_get_sposnors_miscellaneous( $json_data );
+				//echo "<pre>";
+				//var_dump($sponsor_data );
+				//echo "</pre>";
 				$sponsors     = $this->bmlm_format_sponsor_data( $sponsor_data );
 				$sponsors     = $this->getChildren($sponsors,false);
 				wp_enqueue_script('ds-scripts', BMLM_PLUGIN_URL . 'assets/js/ds-scripts.js', array(), BMLM_SCRIPT_VERSION, true);

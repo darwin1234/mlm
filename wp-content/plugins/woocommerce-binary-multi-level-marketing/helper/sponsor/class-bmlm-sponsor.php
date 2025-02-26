@@ -757,17 +757,16 @@ if ( ! class_exists( 'BMLM_Sponsor' ) ) {
 		 */
 		public function bmlm_get_sposnors_miscellaneous( $user_ids ) {
 			$primary_data = $this->bmlm_get_sposnors_primary( $user_ids );
-
 			$primary_data = json_decode( wp_json_encode( $primary_data ), true );
 
 			foreach ( $primary_data as $key => $user ) {
 				$profile_image                           = md5( strtolower( trim( $user['user_email'] ) ) );
 				$member_count                            = $this->bmlm_sponsor_get_downline_member_count( $user['ID'] );
 				$primary_data[ $key ]['downline_member'] = $member_count;
-				$primary_data[ $key ]['refferal_id']     = $this->bmlm_get_sponsor_user_id( $primary_data[ $key ]['refferal_id'] ) > 0 ?  $this->bmlm_get_sponsor_user_id( $primary_data[ $key ]['refferal_id'] ) : 143;
+				$primary_data[ $key ]['refferal_id']     = $this->bmlm_get_sponsor_user_id(get_user_meta($user['ID'],'bmlm_refferal_id', true) );
 				$primary_data[ $key ]['profileUrl']      = $this->is_admin ? admin_url( 'admin.php?page=bmlm_sponsors&section=sponsor-general&action=manage&sponsor_id=' . $user['ID'] ) : '';
 				$primary_data[ $key ]['imageUrl']        = ( $user['status'] ) ? 'https://www.gravatar.com/avatar/' . $profile_image . '?s=58' : BMLM_PLUGIN_URL . 'assets/images/ban-user.png';
-				
+				$primary_data[ $key ]['testt']  		 = get_user_meta($user['ID'],'bmlm_refferal_id', true);
 			}
 
 			return $primary_data;
