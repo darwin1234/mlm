@@ -719,7 +719,13 @@ if ( ! class_exists( 'BMLM_Sponsor' ) ) {
 
 			//wp_die($sponsor_user_id);
 			$current_user = array( 'id' => strval( $sponsor_user_id ) );
-			$query        = $wpdb_obj->prepare( "SELECT DISTINCT(child) as id FROM {$wpdb_obj->prefix}bmlm_gtree_nodes WHERE parent=%d", intval( $sponsor_user_id ) );
+			$query = $wpdb_obj->prepare(
+				"SELECT DISTINCT(child) as id 
+				 FROM {$wpdb_obj->prefix}bmlm_gtree_nodes 
+				 WHERE parent = %d AND child > 0",
+				intval( $sponsor_user_id )
+			);
+			
 			$users        = $wpdb_obj->get_results( $query, ARRAY_A );
 
 			if ( ! empty( $users ) ) {
@@ -758,14 +764,16 @@ if ( ! class_exists( 'BMLM_Sponsor' ) ) {
 				$profile_image                           = md5( strtolower( trim( $user['user_email'] ) ) );
 				$member_count                            = $this->bmlm_sponsor_get_downline_member_count( $user['ID'] );
 				$primary_data[ $key ]['downline_member'] = $member_count;
-				$primary_data[ $key ]['refferal_id']     = $this->bmlm_get_sponsor_user_id( $primary_data[ $key ]['refferal_id'] );
+				$primary_data[ $key ]['refferal_id']     = $this->bmlm_get_sponsor_user_id( $primary_data[ $key ]['refferal_id'] ) > 0 ?  $this->bmlm_get_sponsor_user_id( $primary_data[ $key ]['refferal_id'] ) : 143;
 				$primary_data[ $key ]['profileUrl']      = $this->is_admin ? admin_url( 'admin.php?page=bmlm_sponsors&section=sponsor-general&action=manage&sponsor_id=' . $user['ID'] ) : '';
 				$primary_data[ $key ]['imageUrl']        = ( $user['status'] ) ? 'https://www.gravatar.com/avatar/' . $profile_image . '?s=58' : BMLM_PLUGIN_URL . 'assets/images/ban-user.png';
+				
 			}
 
 			return $primary_data;
 		}
 
+	
 		/**
 		 * Format Sponsors data.
 		 *

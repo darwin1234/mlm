@@ -125,10 +125,11 @@ var bmlm = jQuery.noConflict();
           d3.select(attrs.selector).style("height", attrs.height);
 
           function update(source, param) {
+           
              // Compute the new tree layout.
              var nodes = tree.nodes(attrs.root).reverse(),
                 links = tree.links(nodes);
-
+          
              // Normalize for fixed-depth.
              nodes.forEach(function (d) {
                 d.y = d.depth * attrs.linkLineSize;
@@ -436,8 +437,9 @@ var bmlm = jQuery.noConflict();
           }
 
           // Toggle children on click.
-          function click(d) {
-            console.log(d);
+          function click(d) 
+          {
+           // console.log(JSON.parse(bmlm_gtree.gtree));
              d3.select(this)
                 .select("text")
                 .text(function (dv) {
@@ -450,17 +452,40 @@ var bmlm = jQuery.noConflict();
                    }
                    return dv.collapseText;
                 });
-
-             if (d.children) {
-                d._children = d.children;
-                d.children = null;
-             } else {
-                d.children = d._children;
-                d._children = null;
-             }
-             update(d);
+                
+                if (d.children) 
+                  {
+                  d._children = d.children;
+                  d.children = null;
+                  update(d)         
+                }else {
+                  
+                  d.children = d._children;
+                  d._children = null;
+                  update(d)         
+                  jQuery.ajax({
+                     url: ds_bmlm.ajax_url,
+                     type: 'POST',
+                     data: {
+                         action: 'get_data', // Must match the PHP hook names
+                         ds_sponsor_id: d['ID']
+                     },
+                     success: function(response) {
+                        var dd = JSON.parse(response);
+                        if (dd.children) {dd._children = dd.children;}
+                        else{dd.children = dd._children;}
+                        console.log(dd);
+                        update(dd)   
+                      
+                     },
+                     error: function(error) {
+                         console.log(error);
+      
+                     }
+                  });
+                }
+                  
           }
-
           //########################################################
 
           //Redraw for zoom
