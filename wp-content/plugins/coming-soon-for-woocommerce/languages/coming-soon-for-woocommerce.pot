@@ -1,0 +1,227 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Coming Soon for WooCommerce\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-13 22:48+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.4.6; wp-5.6-RC5-49768"
+
+#: inc/admin-pane.php:135
+msgid "(NO BADGE)"
+msgstr ""
+
+#: inc/admin-pane.php:175
+msgid "Background color:"
+msgstr ""
+
+#: inc/admin-pane.php:197
+msgid "Background size:"
+msgstr ""
+
+#: inc/admin-pane.php:78 inc/admin-pane.php:83
+msgid "Badge on loop"
+msgstr ""
+
+#: inc/admin-pane.php:79 inc/admin-pane.php:86
+msgid "Badge on product page"
+msgstr ""
+
+#: inc/admin-pane.php:146
+msgid "BADGE PREVIEW"
+msgstr ""
+
+#: inc/admin-pane.php:93
+msgid "Badge style"
+msgstr ""
+
+#: inc/admin-pane.php:233
+msgid "Border radius:"
+msgstr ""
+
+#: inc/admin-pane.php:227
+msgid "Bottom"
+msgstr ""
+
+#: inc/admin-pane.php:216
+msgid "Center"
+msgstr ""
+
+#: inc/admin-pane.php:98
+msgid "CIRCLE TEXT"
+msgstr ""
+
+#: coming-soon-for-woocommerce.php:119 coming-soon-for-woocommerce.php:142
+#: inc/admin-pane.php:33 inc/admin-pane.php:157
+msgid "COMING SOON"
+msgstr ""
+
+#: coming-soon-for-woocommerce.php:329
+msgid "Coming Soon config"
+msgstr ""
+
+#. Name of the plugin
+msgid "Coming Soon for WooCommerce"
+msgstr ""
+
+#: coming-soon-for-woocommerce.php:329 inc/admin-pane.php:72
+msgid "Coming Soon for WooCommerce configuration"
+msgstr ""
+
+#: coming-soon-for-woocommerce.php:350
+msgid "Configure"
+msgstr ""
+
+#: inc/admin-pane.php:129
+msgid "CUSTOM IMAGE"
+msgstr ""
+
+#: inc/admin-pane.php:266
+msgid "Custom image"
+msgstr ""
+
+#: inc/admin-pane.php:167
+msgid "Font size:"
+msgstr ""
+
+#: inc/admin-pane.php:169
+msgid "Font weight:"
+msgstr ""
+
+#: inc/admin-pane.php:181
+msgid "Height:"
+msgstr ""
+
+#: inc/admin-pane.php:84
+msgid ""
+"Here you can set the badge over coming soon products on loops: shop homepage,"
+" categories, tags, results, etc."
+msgstr ""
+
+#: inc/admin-pane.php:87
+msgid "Here you can set the badge over the product image on the product page."
+msgstr ""
+
+#: inc/admin-pane.php:213
+msgid "Horizontal align:"
+msgstr ""
+
+#: inc/admin-pane.php:219
+msgid "Horizontal margin:"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.wp-centrics.com"
+msgstr ""
+
+#: inc/admin-pane.php:201
+msgid "Image size"
+msgstr ""
+
+#: inc/admin-pane.php:215
+msgid "Left"
+msgstr ""
+
+#: inc/admin-pane.php:110
+msgid "LINE TEXT"
+msgstr ""
+
+#: inc/admin-pane.php:226
+msgid "Middle"
+msgstr ""
+
+#: inc/admin-pane.php:135
+msgid "OFF"
+msgstr ""
+
+#: inc/admin-pane.php:187
+msgid "Padding bottom:"
+msgstr ""
+
+#: inc/admin-pane.php:191
+msgid "Padding left:"
+msgstr ""
+
+#: inc/admin-pane.php:193
+msgid "Padding right:"
+msgstr ""
+
+#: inc/admin-pane.php:185
+msgid "Padding top:"
+msgstr ""
+
+#: inc/admin-pane.php:277
+msgid "Remove image"
+msgstr ""
+
+#: inc/admin-pane.php:238
+msgid "Reset badge loop values"
+msgstr ""
+
+#: inc/admin-pane.php:217
+msgid "Right"
+msgstr ""
+
+#: coming-soon-for-woocommerce.php:273
+msgid "Show Coming Soon badge"
+msgstr ""
+
+#. Description of the plugin
+msgid "Show coming soon over products"
+msgstr ""
+
+#: inc/admin-pane.php:104
+msgid "SQUARE TEXT"
+msgstr ""
+
+#: inc/admin-pane.php:173
+msgid "Text color:"
+msgstr ""
+
+#: inc/admin-pane.php:156
+msgid "Text:"
+msgstr ""
+
+#: inc/admin-pane.php:244
+msgid "Thanks, but I will create my own CSS styles"
+msgstr ""
+
+#: inc/admin-pane.php:225
+msgid "Top"
+msgstr ""
+
+#: inc/admin-pane.php:276
+msgid "Upload image"
+msgstr ""
+
+#: inc/admin-pane.php:246
+msgid "Use this classnames:"
+msgstr ""
+
+#: inc/admin-pane.php:223
+msgid "Vertical align:"
+msgstr ""
+
+#: inc/admin-pane.php:229
+msgid "Vertical margin:"
+msgstr ""
+
+#: inc/admin-pane.php:179
+msgid "Width:"
+msgstr ""
+
+#. Author of the plugin
+msgid "wpcentrics"
+msgstr ""
+
+#: inc/admin-pane.php:65
+msgid "Your preferences has been saved."
+msgstr ""

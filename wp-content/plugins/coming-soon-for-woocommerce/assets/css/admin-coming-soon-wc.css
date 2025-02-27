@@ -1,0 +1,222 @@
+/* product page */
+
+.misc-pub-section.coming-soon-wc:before {
+    content: "\f469";
+    position: relative;
+    top: -1px;
+    font: normal 20px/1 dashicons;
+    speak: never;
+    display: inline-block;
+    margin-left: -1px;
+    padding-right: 3px;
+    vertical-align: top;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	color:#7f54b3;
+}
+
+/* pane options */
+
+.coming-soon-wc-columns {
+	display: flex;
+	flex-wrap: wrap;
+}
+.coming-soon-wc-columns .col {
+	padding: 10px;
+	margin: 5px;
+	border: #aaa 1px solid;
+	text-align: center;
+}
+
+#coming_soon_wc_loop_icon_style th,
+#coming_soon_wc_text th,
+#coming_soon_wc_styles th {
+	width: auto;
+	min-width: 130px;
+	padding-right: 10px;
+}
+#coming_soon_wc_text td,
+#coming_soon_wc_styles td {
+	padding-right: 40px;
+}
+#coming_soon_wc_styles .wp-picker-holder {
+	position: absolute;
+}
+
+.coming-soon-wc-second_col {
+	padding-right: 30px;
+}
+
+/* badges preview */
+.badge_sel_preview {
+	background: rgba(0,0,0,0.1);
+	width: 125px;
+	height: 125px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+	margin-bottom: 10px;
+}
+.badge_sel_preview.has_icon {
+	flex-flow: column;
+}
+.badge_sel_preview.has_icon .dashicons {
+    margin: 30px 0 0 -10px;
+    font-size: 30px;
+}
+#coming_soon_wc_loop_icon_style .badge_sel_preview {
+	cursor: pointer;
+}
+.coming-soon-wc-preview.long,
+.coming-soon-wc-preview.square,
+.coming-soon-wc-preview.circle {
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+    border-radius: 5px;
+    box-sizing: border-box;
+	line-height:1.1em;
+    overflow: hidden;
+    font-weight: bold;
+	text-align: center;
+
+	width:60px;
+	height:60px;
+    left: 10px;
+    top: 10px;
+
+	font-size:12px;
+	padding-top:0;
+    background: #555;
+    color: #fff;
+}
+.coming-soon-wc-preview.circle {
+    border-radius: 50%;
+}
+.coming-soon-wc-preview.long {
+	height: 20px;
+	width: auto;
+	padding: 0 10px;
+}
+.coming-soon-wc-preview.off {
+	color: #aaa;
+	text-align: center;
+	margin:auto;
+	display:inline-block;
+}
+
+.coming-soon-wc-preview img {
+	display: block;
+	width: 125px;
+	height: auto;
+}
+#coming_soon_wc_text,
+#coming_soon_wc_styles {
+	display: none;
+	width: auto;
+	margin-right: 250px;
+}
+body.rtl #coming_soon_wc_text,
+body.rtl #coming_soon_wc_styles {
+	margin-left: 250px;
+	margin-right: 0;
+}
+
+/* Loop floating preview */
+
+#coming_soon_wc_loop_preview_wrap {
+	position:sticky;
+	top: 60px;
+	height: 1px;
+	text-align:right;
+}
+body.rtl #coming_soon_wc_loop_preview_wrap {
+	text-align:left;
+}
+
+#coming_soon_wc_loop_preview {
+	text-align:center;
+	display: inline-block;
+}
+#coming_soon_wc_loop_preview .badge_sel_preview {
+	width: 200px;
+	height: 200px;
+	background: #eee url(../img/product-demo.png) no-repeat center center;
+	background-size:cover;
+	border: #aaa 1px solid;
+	position: relative;
+}
+.tab-product #coming_soon_wc_loop_preview .badge_sel_preview {
+	width: 400px;
+	height: 400px;
+}
+@media (max-width: 1180px) {
+	#coming_soon_wc_loop_preview_wrap.tab-product {
+		zoom: 0.66;
+	}
+}
+@media (max-width: 1000px) {
+	#coming_soon_wc_loop_preview_wrap.tab-product {
+		position: fixed;
+		top: auto;
+		bottom: 40px;
+		height: auto;
+		right: 20px;
+	}
+	body.rtl #coming_soon_wc_loop_preview_wrap.tab-product {
+		left: 20px;
+		right: auto;
+	}
+}
+#coming_soon_wc_loop_preview .coming-soon-wc-img-preview {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background: url(../img/coming_soon_1.png) no-repeat left top;
+	background-size: contain;
+}
+#coming_soon_wc_loop_preview .coming-soon-wc-preview {
+
+	/* user configurable settings */
+	font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: #8d734a;
+	width: 70px;
+	/*height: 70px;*/
+	padding: 5px 5px;
+	left: 10px;
+	top: 10px;
+	border-radius: 50%;
+
+	/* common settings */
+	position:absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	z-index: 1;
+    box-sizing: border-box;
+
+	line-height:1.1em;
+    overflow: hidden;
+}
+#coming-soon-wc_loop_custom_image {
+	width: auto;
+	display: none;
+}
+#coming_soon_wc_img_loop_preview img {
+	width:200px;
+	height: auto;
+}
+#coming-soon-wc_css_helper {
+	display:none;
+}
+#coming-soon-wc_css_helper code {
+	display:block;
+}

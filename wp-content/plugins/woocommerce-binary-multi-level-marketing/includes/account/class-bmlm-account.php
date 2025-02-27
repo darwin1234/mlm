@@ -276,8 +276,8 @@ if ( ! class_exists( 'BMLM_Account' ) ) {
 					}
 			
 					$new_items['../' . $page_name . '/marketing-crm-link']  = esc_html__( "Marketing CRM Link", 'binary-mlm' );
-					$new_items['../' . $page_name . '/social-media-kit']  = esc_html__( "Social Media Kit", 'binary-mlm' );
-					$new_items['../' . $page_name . '/training-resources']  = esc_html__( "Training Resources", 'binary-mlm' );
+					//$new_items['../' . $page_name . '/social-media-kit']  = esc_html__( "Social Media Kit", 'binary-mlm' );
+					//$new_items['../' . $page_name . '/training-resources']  = esc_html__( "Training Resources", 'binary-mlm' );
 					
 					$new_items = apply_filters( 'bmlm_woocommerce_account_menu_options', $new_items );
 
