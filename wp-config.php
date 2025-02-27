@@ -23,10 +23,10 @@
 define( 'DB_NAME', 'staging_realcaller' );
 
 /** MySQL database username */
-define( 'DB_USER', 'root' );
+define( 'DB_USER', 'staging_realcaller' );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', '' );
+define( 'DB_PASSWORD', 'nGuGWK7l}51a' );
 
 /** MySQL hostname */
 define( 'DB_HOST', 'localhost' );
