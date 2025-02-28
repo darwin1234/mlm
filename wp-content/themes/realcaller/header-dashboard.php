@@ -42,6 +42,41 @@
 	    .woocommerce-MyAccount-navigation-link--customer-email{
 	         width:200px;
 	    } 
+      .dsfooter .fluid-container {
+        margin-top:20px;
+      }
+      .dsfooter .fluid-container p.text-right{
+        text-align:right;
+      }
+      .dslogout{
+        position:fixed;
+        left:30px;
+        bottom:10px;
+        font-size:12px;
+        width:100%;
+      }
+      .dslogout p{
+        line-height:20px;
+        padding:0;
+        margin:0;
+        font-weight:normal;
+      }
+      .dslogout  .box {
+        position:relative;
+        border:1px solid #ccc;
+        width:240px;
+        padding:15px;
+        padding-top:10px;
+      }
+      .dslogout  .box span.woocommerce-MyAccount-navigation-link--MarketingCRMLink{
+        width: 25px;
+        height: 25px;
+        padding: 0;
+        margin: 0;
+        margin-top: -67px;
+        margin-right: -14px;
+        float: right;
+      }
 	</style>
 	<?php wp_head();?>
   </head>

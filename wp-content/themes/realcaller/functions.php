@@ -79,6 +79,8 @@ class dsMLM {
 
 		add_action('admin_menu', array($this,'ghl_plugin_menu'));
 
+		add_action('wp_footer', array($this, 'customer_profile_menu'));
+
 	}
 	
 	
@@ -128,6 +130,38 @@ class dsMLM {
 		return $fields;
 	}
 
+	public function customer_profile_menu()
+	{
+		$user_id = get_current_user_id();
+		$user = get_user_by('id', $user_id);
+		if($user){
+			$first_name = get_user_meta($user_id, 'first_name', true);
+			$last_name  = get_user_meta($user_id, 'last_name', true);
+			$account_type =  get_user_meta($user_id, 'account_type', true);
+		
+		?>
+			<footer id="dsfooter">
+				<div class="dslogout">
+					<div class="box">
+						<p><strong><a href="<?php echo site_url(); ?>/my-account/edit-account/"><?php echo $first_name . " " . $last_name?></a></strong></p>
+						<p><a href="<?php echo site_url(); ?>/my-account/edit-account/"><?php echo $user->user_email;?></a></p>
+						<p style="color:#1230AE; margin-top:5px;"><strong><?php echo $account_type === "ds_dealer" ? "Dealer" : "Member";?></strong></p>
+						<a href="<?php echo wp_logout_url(); ?>"><span class="woocommerce-MyAccount-navigation-link--MarketingCRMLink"></span></a>
+					</div>
+					<br><br><br>
+					<div class="fluid-container">
+						<div class="row">
+							<div class="col-md-6"><p class="text-left">Copyright © 2025 RealCaller.ai.</p></div>
+							<div class="col-md-6"><p class="text-right">help@desk.com</p></div>
+						</div>
+					</div>
+				</div>
+				
+				
+			</footer>
+		<?php 
+		}
+	}
 
 	public function ak_remove_my_account_links( $menu_links )
 	{
@@ -138,15 +172,15 @@ class dsMLM {
 		unset( $menu_links[ 'payment-methods' ] );
 		unset( $menu_links[ 'downloads' ] );
 		unset( $menu_links[ 'wkwc_wallet' ] );
-		
+		unset( $menu_links[ 'customer-logout' ] );
 		$user_id = get_current_user_id();
 		$user = get_user_by('id', $user_id);
 		if($user){
-			$first_name = get_user_meta($user_id, 'first_name', true);
-			$last_name  = get_user_meta($user_id, 'last_name', true);
-			$menu_links['customer-user'] = __( $first_name . "  " . $last_name, 'modifications');
-			$menu_links['customer-email'] = __($user->user_email, 'modifications');
-			$menu_links['customer-logout'] = __("", "modifications");
+			//$first_name = get_user_meta($user_id, 'first_name', true);
+			//$last_name  = get_user_meta($user_id, 'last_name', true);
+			//$menu_links['customer-user'] = __( $first_name . "  " . $last_name, 'modifications');
+			//$menu_links['customer-email'] = __($user->user_email, 'modifications');
+			//$menu_links['customer-logout'] = __("", "modifications");
 		}
 	
 	
