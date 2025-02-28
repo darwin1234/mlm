@@ -20,10 +20,10 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'staging_realcaller' );
+define( 'DB_NAME', 'realcaller' );
 
 /** MySQL database username */
-define( 'DB_USER', 'staging_realcaller' );
+define( 'DB_USER', 'realcaller' );
 
 /** MySQL database password */
 define( 'DB_PASSWORD', 'nGuGWK7l}51a' );
