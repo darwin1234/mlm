@@ -26,6 +26,7 @@ define( 'DB_NAME', 'realcaller' );
 define( 'DB_USER', 'realcaller' );
 
 /** MySQL database password */
+//define( 'DB_PASSWORD', '' );
 define( 'DB_PASSWORD', 'nGuGWK7l}51a' );
 
 /** MySQL hostname */
