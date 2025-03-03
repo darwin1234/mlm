@@ -141,7 +141,18 @@ if ( ! class_exists( 'BMLM_Statistics' ) ) {
 									</div>
 									<div class="bmlm-col-auto">
 										<div class="bmlm-earning-avatar">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users align-middle"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+											
+										<svg width="24" height="24" viewBox="0 0 73 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_1219_28397)">
+										<path d="M66.9168 33.4583V9.125H45.6252V18.25H27.3752V9.125H6.0835V33.4583H27.3752V24.3333H33.4585V54.75H45.6252V63.875H66.9168V39.5417H45.6252V48.6667H39.5418V24.3333H45.6252V33.4583H66.9168ZM21.2918 27.375H12.1668V15.2083H21.2918V27.375ZM51.7085 45.625H60.8335V57.7917H51.7085V45.625ZM51.7085 15.2083H60.8335V27.375H51.7085V15.2083Z" fill="#B5B5B5"/>
+										</g>
+										<defs>
+										<clipPath id="clip0_1219_28397">
+										<rect width="73" height="73" fill="white"/>
+										</clipPath>
+										</defs>
+										</svg>
+
 										</div>
 									</div>
 								</div>

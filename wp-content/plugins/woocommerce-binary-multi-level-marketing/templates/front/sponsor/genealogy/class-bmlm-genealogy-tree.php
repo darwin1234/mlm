@@ -33,8 +33,7 @@ if ( ! class_exists( 'BMLM_Genealogy_Tree' ) ) {
                     <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
-                                    <h3>Amet eleifend urna diam ut</h3>
-                                    <p>Morbi risus non nulla morbi nulla dolor. Lorem iaculis nec.</p>
+                                  
                                 </div>
                                 <div class="col-md-6">
                                     <div class="search-container">

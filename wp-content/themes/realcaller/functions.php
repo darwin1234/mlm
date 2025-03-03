@@ -78,8 +78,10 @@ class dsMLM {
 		add_filter( 'woocommerce_checkout_fields', array($this,'custom_remove_woocommerce_checkout_fields'));
 
 		add_action('admin_menu', array($this,'ghl_plugin_menu'));
-
-		add_action('wp_footer', array($this, 'customer_profile_menu'));
+		if(!is_front_page()){
+			add_action('wp_footer', array($this, 'customer_profile_menu'));
+		}
+		
 
 	}
 	
@@ -138,6 +140,7 @@ class dsMLM {
 			$first_name = get_user_meta($user_id, 'first_name', true);
 			$last_name  = get_user_meta($user_id, 'last_name', true);
 			$account_type =  get_user_meta($user_id, 'account_type', true);
+			if($account_type  === "ds_dealer" || $account_type ==="ds_client" && !is_home()) {
 		
 		?>
 			<footer id="dsfooter">
@@ -160,6 +163,7 @@ class dsMLM {
 				
 			</footer>
 		<?php 
+			}
 		}
 	}
 

@@ -19,7 +19,6 @@
         <div class="row ">
             <div class="col-md-7 m-auto py-5">
                 <h1 class="pb-4">Dealer Registration</h1>
-                <p>Nisl blandit molestie aliquam viverra sapien congue odio.</p>
                 <form method="POST">
                 <div class="row">   
                     <div class="col mb-3">

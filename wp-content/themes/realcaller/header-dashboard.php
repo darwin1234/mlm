@@ -61,9 +61,8 @@
         margin:0;
         font-weight:normal;
       }
-      .dslogout  .box {
+      .dslogout .box {
         position:relative;
-        border:1px solid #ccc;
         width:240px;
         padding:15px;
         padding-top:10px;

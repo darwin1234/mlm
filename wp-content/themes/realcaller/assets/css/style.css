@@ -790,6 +790,10 @@ span.woocommerce-MyAccount-navigation-link--Dashboard {
   margin-right:10px;
   float: left;
 }
+li.is-active span.woocommerce-MyAccount-navigation-link--Dashboard {
+  background:url('../icons/store-white.png');
+  background-repeat: no-repeat;
+}
 
 span.woocommerce-MyAccount-navigation-link--SponsorAds{
   background:url('../icons/uil_megaphone@2x.svg');
@@ -814,6 +818,11 @@ span.woocommerce-MyAccount-navigation-link--GenealogyTree{
   float: left;
 }
 
+li.is-active  span.woocommerce-MyAccount-navigation-link--GenealogyTree{
+  background:url('../icons/Group2@2x-white.png');
+  background-repeat:no-repeat;
+}
+
 span.woocommerce-MyAccount-navigation-link--Commissions{
   background:url('../icons/Attachmoney@2x.svg');
   width: 25px;
@@ -826,7 +835,7 @@ span.woocommerce-MyAccount-navigation-link--Commissions{
 }
 
 span.woocommerce-MyAccount-navigation-link--Dealer039sAffiliateLink{
-  background:url('../icons/users@2x.svg');
+  background:url('../icons/dealer.png');
   width: 25px;
   height: 25px;
   padding: 0;
@@ -834,6 +843,17 @@ span.woocommerce-MyAccount-navigation-link--Dealer039sAffiliateLink{
   margin-top: 12px;
   margin-right:10px;
   float: left;
+  background-repeat:no-repeat;
+}
+
+.bmlm-earning-avatar svg{
+  color: #B5B5B5!important;
+}
+
+
+li.is-active  span.woocommerce-MyAccount-navigation-link--Dealer039sAffiliateLink{
+  background:url('../icons/dealer-white.png');
+  background-repeat:no-repeat;
 }
 span.woocommerce-MyAccount-navigation-link--ClientAffiliateLink{
   background:url('../icons/users@2x.svg');
@@ -930,15 +950,21 @@ span.woocommerce-MyAccount-navigation-link--Accountdetails{
 }
 
 span.woocommerce-MyAccount-navigation-link--Products {
-  background: url(../icons/products.svg);
+  background: url(../icons/product-black.png);
+
   width: 25px;
   height: 25px;
   padding: 0;
   margin: 0;
   margin-top: 12px;
-  margin-right: 10px;
+  margin-right:10px;
   float: left;
-  background-size:100%;
+  background-repeat:no-repeat;
+
+}
+li.is-active span.woocommerce-MyAccount-navigation-link--Products {
+  background: url(../icons/products-white.png);
+  background-repeat:no-repeat;
 }
 
 span.woocommerce-MyAccount-navigation-link--YourClients{
@@ -1192,4 +1218,15 @@ body.my-account #registration_client_form{
 
 .member-level{
   display:none!important;
+}
+
+.dslogout .box span.woocommerce-MyAccount-navigation-link--MarketingCRMLink{
+  background: url(../icons/logout-icon.png)!important;
+  width: 30px!important;
+  height: 30px!important;
+}
+
+.woocommerce form .show-password-input, .woocommerce-page form .show-password-input{
+  font-size:30px;
+
 }
