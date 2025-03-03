@@ -37,8 +37,7 @@ if ( ! class_exists( 'BMLM_Genealogy_Tree' ) ) {
                                 </div>
                                 <div class="col-md-6">
                                     <div class="search-container">
-                                        <input type="text" class="form-control search-input" placeholder="Search...">
-                                        <i class="fas fa-search search-icon"></i>
+                                       
                                     </div>
                                 </div>
                             </div>

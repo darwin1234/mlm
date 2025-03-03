@@ -12,7 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo bloginfo('template_url');?>/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css?v=<?php echo filemtime(get_template_directory() . '/assets/css/style.css'); ?>" rel="stylesheet">
+    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/style.css?v=<?php echo strtotime("now"); ?><?php echo rand(0,199999);?>" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
