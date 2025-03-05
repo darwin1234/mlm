@@ -628,7 +628,7 @@ button#headerbtn {
 .container  {width:400px;}
 
 .woocommerce-account .woocommerce-MyAccount-navigation{
-    width:18%!important;
+    width:19%!important;
 }
 #loginform .woocommerce .col2-set .col-2 {
   float: inherit;
@@ -775,7 +775,7 @@ p{
   margin:0!important;
 }
 .woocommerce-MyAccount-navigation-link{
-  width:280px;
+  width:100%;
   margin:auto;
 }
 
