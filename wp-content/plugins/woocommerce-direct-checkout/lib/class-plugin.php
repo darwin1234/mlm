@@ -35,11 +35,10 @@ final class Plugin {
 	 */
 	private function __construct() {
 		new Install();
-
 		/**
 		 * Load plugin textdomain.
 		 */
-		load_plugin_textdomain( 'woocommerce-direct-checkout', false, QLWCDC_PLUGIN_DIR . '/languages/' );
+		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action(
 			'woocommerce_init',
 			function () {
@@ -56,6 +55,10 @@ final class Plugin {
 				do_action( 'wcdc_init' );
 			}
 		);
+	}
+
+	public function load_textdomain() {
+		load_plugin_textdomain( 'woocommerce-direct-checkout', false, QLWCDC_PLUGIN_DIR . '/languages/' );
 	}
 
 	/**

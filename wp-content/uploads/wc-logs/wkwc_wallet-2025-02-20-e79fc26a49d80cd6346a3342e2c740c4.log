@@ -90,3 +90,25 @@
 
 2025-02-20T17:49:07+00:00 INFO User in action: 136: Order id: 188, Wallet updated: 
 2025-02-20T17:49:07+00:00 INFO User in action: 136: Wallet id: 78
+2025-02-20T18:08:17+00:00 INFO User in action: 134: Order id: 186, Wallet updated: 
+2025-02-20T18:08:17+00:00 INFO User in action: 134: Wallet id: 78
+2025-02-20T18:09:40+00:00 INFO User in action: 135: Order id: 187, Checkout order processing, transaction data: Array
+(
+    [order_id] => 187
+    [sender] => 1
+    [customer] => 135
+    [transaction_type] => debit
+    [transaction_date] => 2025-02-20 18:09:40
+    [transaction_status] => used
+)
+2025-02-20T18:09:40+00:00 INFO User in action: 135: Order id: 187, Checkout order processing, transaction data: Array
+(
+    [order_id] => 187
+    [sender] => 1
+    [customer] => 135
+    [transaction_type] => debit
+    [transaction_date] => 2025-02-20 18:09:40
+    [transaction_status] => used
+)
+2025-02-20T18:10:16+00:00 INFO User in action: 135: Order id: 187, Wallet updated: 
+2025-02-20T18:10:16+00:00 INFO User in action: 135: Wallet id: 78
