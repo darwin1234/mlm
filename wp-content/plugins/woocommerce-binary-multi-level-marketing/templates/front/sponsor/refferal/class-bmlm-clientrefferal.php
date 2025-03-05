@@ -76,13 +76,7 @@ if ( ! class_exists( 'BMLM_ClientRefferal' ) ) {
 											</div>
 										</td>
 									</tr>
-									<tr>
-									<td colspan="2">
-										<i class="bmlm-info">
-											<abbr class="required" title="required">*</abbr>&nbsp;&nbsp;<?php esc_html_e( 'You can only add upto 2 sponsors under you, further you can also read ', 'binary-mlm' ); ?> <a href="<?php echo esc_url( $terms_link ); ?>" class="woocommerce-terms-and-conditions-link" target="_blank"><?php esc_html_e( 'terms and conditions', 'binary-mlm' ); ?></a>
-										</i>
-									</td>
-									</tr>
+		
 									</tbody>
 									</table>
 								</div>

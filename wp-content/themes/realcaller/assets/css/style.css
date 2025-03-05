@@ -596,7 +596,6 @@ button#headerbtn {
  .woocommerce-MyAccount-navigation{
     margin-right:20px;
     border-right:1px solid #ccc;
-    padding: 10px;
   }
 
 .woocommerce-MyAccount-content{
@@ -629,7 +628,7 @@ button#headerbtn {
 .container  {width:400px;}
 
 .woocommerce-account .woocommerce-MyAccount-navigation{
-    width:21%!important;
+    width:18%!important;
 }
 #loginform .woocommerce .col2-set .col-2 {
   float: inherit;
@@ -1229,4 +1228,10 @@ body.my-account #registration_client_form{
 .woocommerce form .show-password-input, .woocommerce-page form .show-password-input{
   font-size:30px;
 
+}
+
+#copy_url:before{
+  background: url(../icons/logout-icon.png)!important;
+  width: 30px!important;
+  height: 30px!important;
 }
