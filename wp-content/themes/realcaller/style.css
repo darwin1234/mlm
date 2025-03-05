@@ -318,6 +318,8 @@ End of comment */
 
 .woocommerce-MyAccount-navigation {
 	float:left !important;
+	width:21%;
+	padding:0 10px;
 }
 
 #register_client_1{

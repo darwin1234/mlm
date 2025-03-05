@@ -619,6 +619,7 @@ button#headerbtn {
 }
 .woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link  {
     padding-left:30px!important;
+    border-radius: 10px;;
 }
 .woocommerce-account .woocommerce-MyAccount-content {
     padding-top:5%!important;
@@ -628,7 +629,8 @@ button#headerbtn {
 .container  {width:400px;}
 
 .woocommerce-account .woocommerce-MyAccount-navigation{
-    width:19%!important;
+    width:21%!important;
+    padding:0 10px;
 }
 #loginform .woocommerce .col2-set .col-2 {
   float: inherit;
