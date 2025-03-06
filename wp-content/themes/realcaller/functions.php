@@ -81,9 +81,27 @@ class dsMLM {
 		if(!is_front_page()){
 			add_action('wp_footer', array($this, 'customer_profile_menu'));
 		}
-		
+		$current_url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
+		add_action('template_redirect', array($this,'custom_redirect_my_account_page'));
+	}	
+
+
+	function custom_redirect_my_account_page() {
+		// Get the URL of the WooCommerce My Account page
+		$dashboard_url = get_permalink(get_option('woocommerce_myaccount_page_id'));
+	
+		// Get the current URL
+		$current_url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	
+		// Check if the current URL is the same as the WooCommerce My Account page
+		if ($dashboard_url == $current_url) {
+			// Perform the redirect
+			wp_redirect(site_url() . '/sponsor/dashboard/');  // Change this to the URL you want to redirect to
+			exit(); // Always call exit after wp_redirect to prevent further code execution
+		}
 	}
+	
 	
 	
 	public function ghl_plugin_menu() {
@@ -155,7 +173,7 @@ class dsMLM {
 					<div class="fluid-container">
 						<div class="row">
 							<div class="col-md-6"><p class="text-left">Copyright © 2025 RealCaller.ai.</p></div>
-							<div class="col-md-6"><p class="text-right">help@desk.com</p></div>
+							<div class="col-md-6"><p class="text-right" style="display:none;">help@desk.com</p></div>
 						</div>
 					</div>
 				</div>

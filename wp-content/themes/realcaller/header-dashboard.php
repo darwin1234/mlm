@@ -42,8 +42,10 @@
 	    .woocommerce-MyAccount-navigation-link--customer-email{
 	         width:200px;
 	    } 
+    
       .dsfooter .fluid-container {
         margin-top:20px;
+        display:block;
       }
       .dsfooter .fluid-container p.text-right{
         text-align:right;

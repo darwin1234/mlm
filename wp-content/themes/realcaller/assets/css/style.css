@@ -868,7 +868,6 @@ span.woocommerce-MyAccount-navigation-link--ClientAffiliateLink{
 }
 
 .woocommerce-MyAccount-navigation-link--sponsormarketing-crm-link{
-  border-top: 1px solid #ccc;
   margin-top: 20px;
   padding-top: 10px;
 }
@@ -1236,4 +1235,16 @@ body.my-account #registration_client_form{
   background: url(../icons/logout-icon.png)!important;
   width: 30px!important;
   height: 30px!important;
+}
+
+#dsfooter {
+  display: none;
+}
+body.sponsor  #dsfooter {
+  display: block;
+}
+
+
+body.my-account  #dsfooter {
+  display: block;
 }

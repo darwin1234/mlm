@@ -82,7 +82,7 @@ if ( ! class_exists( 'BMLM_Refferal' ) ) {
 																</div>
 
 																<div class="bmlm-tooltip w-100 mt-3">
-																	<button class="bmlm-tooltip-btn w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button" style="width:100%; display:block; padding:10px; background-color:#8c52ff; color:#ffffff; border-color:#8c52ff; border-radius:10px;">
+																	<button class="bmlm-tooltip-btn w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button" style="width:100%; display:block; padding:10px; background-color:#8c52ff; color:#ffffff; border-color:#8c52ff; border-radius:10px; display:none;">
 																		<span class="bmlm-tooltiptext">
 																			<?php esc_html_e( 'Invite via Email', 'binary-mlm' ); ?>
 																		</span>
