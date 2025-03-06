@@ -85,7 +85,7 @@ class dsMLM {
 
 		add_action('template_redirect', array($this,'custom_redirect_my_account_page'));
 	}	
-
+ 
 
 	function custom_redirect_my_account_page() {
 		// Get the URL of the WooCommerce My Account page
