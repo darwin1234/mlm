@@ -5,7 +5,7 @@ class mlmregistration
 {
     private $ghl_endpoint = "https://rest.gohighlevel.com";
 
-	private $api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6ImpZNWwyOWRBa2E0NnB3U0VyTmJ5IiwidmVyc2lvbiI6MSwiaWF0IjoxNzM4MjI4NjQ5OTgxLCJzdWIiOiJUTkNOcmk2RHN0NjlUc2RlcW41OSJ9.7MHwX4_ZHQWMoABZIyP8h9eL8lNwbaEelHGSwz0ojjc';
+	private $api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55X2lkIjoiZGNCY0g4enRsRE8zcWZ3QmV2M3oiLCJ2ZXJzaW9uIjoxLCJpYXQiOjE3NDEyOTM1Nzg4NzksInN1YiI6IkhKR1djblpzbUprN3FBdjI2bG9YIn0.KIHdY6KdpDR_mGi8ldMumd2Vy7bGE6-YqPB6kohvAZE';
 
 	private $bmlm_gtree_nodes;
 
