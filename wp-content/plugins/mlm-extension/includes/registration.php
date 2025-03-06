@@ -294,7 +294,7 @@ class mlmregistration
 		}
 		
 		// Prepare API data
-		/*$business_data = [
+		$business_data = [
 			"businessName" => $ds_business_name,
 			"companyName" => $ds_company_name,
 			"email" => $email,
@@ -314,11 +314,11 @@ class mlmregistration
 			return;
 		}
 
-		$location_id = $response['id'];*/
+		$location_id = $response['id'];
 
 		// Prepare admin user data
 		$user_data = [
-			"locationIds" =>'VxgP7Rj68WYNIXhMQsb5',
+			"locationIds" =>$location_id,
 			"firstName" => $first_name,
 			"lastName" => $last_name,
 			"email" => $email,
