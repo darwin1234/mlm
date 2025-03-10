@@ -317,7 +317,7 @@ class mlmregistration
 
 		// Prepare admin user data
 		$user_data = [
-			"locationIds" => ['VxgP7Rj68WYNIXhMQsb5' ,  $location_id ],//$location_id,
+			"locationIds" => $location_id,//['VxgP7Rj68WYNIXhMQsb5' ,  $location_id ],//$location_id,
 			"firstName" => $first_name,
 			"lastName" => $last_name,
 			"email" => $email,
