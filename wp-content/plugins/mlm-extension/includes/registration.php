@@ -5,7 +5,7 @@ class mlmregistration
 {
     private $ghl_endpoint = "https://rest.gohighlevel.com";
 
-	private $api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55X2lkIjoiZGNCY0g4enRsRE8zcWZ3QmV2M3oiLCJ2ZXJzaW9uIjoxLCJpYXQiOjE3NDEyOTM1Nzg4NzksInN1YiI6IkhKR1djblpzbUprN3FBdjI2bG9YIn0.KIHdY6KdpDR_mGi8ldMumd2Vy7bGE6-YqPB6kohvAZE';
+	private $api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55X2lkIjoiZGNCY0g4enRsRE8zcWZ3QmV2M3oiLCJ2ZXJzaW9uIjoxLCJpYXQiOjE3NDE1OTUwNzUwMDMsInN1YiI6IkhKR1djblpzbUprN3FBdjI2bG9YIn0.OXlDtQunS4CjjshhGFvYxBP4c8mZwdoIutMAuzyQYcY';
 
 	private $bmlm_gtree_nodes;
 
@@ -214,12 +214,12 @@ class mlmregistration
 
 		$order = wc_get_order($order_id);
 		$customer_id = $order->get_user_id();
-
+	
 		if (!$customer_id) {
 			error_log("Order $order_id has no associated customer.");
 			return;
 		}
-
+	
 		// Retrieve user meta
 		$first_name = get_user_meta($customer_id, 'first_name', true);
 		$last_name = get_user_meta($customer_id, 'last_name', true);
@@ -277,7 +277,6 @@ class mlmregistration
 					);
 				}
 			}
-
 			  // Update the order meta with new values
 			  //BILLING
 			  update_post_meta($order_id, '_billing_phone', $billing_phone);
@@ -318,7 +317,7 @@ class mlmregistration
 
 		// Prepare admin user data
 		$user_data = [
-			"locationIds" =>$location_id,
+			"locationIds" => ['VxgP7Rj68WYNIXhMQsb5' ,  $location_id ],//$location_id,
 			"firstName" => $first_name,
 			"lastName" => $last_name,
 			"email" => $email,
@@ -352,7 +351,7 @@ class mlmregistration
 				"marketingEnabled"=> true
 			]
 		];
-	
+
 		// Send request to create admin user
 		$user_response = $this->send_api_request("/v1/users/", $user_data);
 
@@ -362,6 +361,9 @@ class mlmregistration
 			error_log("Failed: Admin user creation failed for order $order_id.");
 		}
 	}
+
+
+	
 
     	/**
 	 * Helper function to send API requests

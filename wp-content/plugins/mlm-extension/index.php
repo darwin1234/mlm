@@ -29,8 +29,10 @@ class RealCallerAiExtension {
         
         add_action( 'admin_menu', array(new MLMExtensionAdminMenu,'mlm_admin_control_menu'), 60);
 
-        add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount' ), 10, 3);
+        add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount'));
       
+  
+     
     }
     
     public function mlm_rewrite_rule() {
