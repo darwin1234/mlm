@@ -11,6 +11,8 @@ class mlmregistration
 
 	private $ds_clients;
 
+	const COMMISSION_RATE = 0.10; // Define at the top of the class
+	
     public function ProcessRegistration(){
         //global $_POST;
         if(isset($_POST['submit'])){
@@ -208,164 +210,196 @@ class mlmregistration
 		return $random_string;
 	}
 
-    public function processGHLAccount($order_id)
-	{
+	private function processDealerCommissions($parent_id, $order, $level = 1, $downline_limit = 5) {
 		global $wpdb;
-
-		$order = wc_get_order($order_id);
-		$customer_id = $order->get_user_id();
 	
+		// Base case: Stop recursion if the level exceeds the downline limit
+		if ($level > $downline_limit) {
+			return;
+		}
+	
+		// Fetch dealers for the current parent_id
+		$dealers = $wpdb->get_results($wpdb->prepare(
+			"SELECT * FROM {$wpdb->prefix}bmlm_gtree_nodes WHERE child = %d",
+			$parent_id
+		));
+	
+		// If no dealers are found, stop recursion
+		if (empty($dealers)) {
+			return;
+		}
+	
+		// Process each dealer
+		foreach ($dealers as $dealer) {
+			// Check for circular references
+			if ($dealer->parent == $parent_id) {
+				error_log("Circular reference detected for dealer ID: {$dealer->parent}");
+				continue;
+			}
+	
+			// Check the number of commissions for the dealer's parent
+			$commission_count = $wpdb->get_var($wpdb->prepare(
+				"SELECT COUNT(*) FROM {$wpdb->prefix}bmlm_commission WHERE user_id = %d",
+				$dealer->parent
+			));
+	
+			// Insert a commission if the count is less than the downline limit
+			if ($commission_count < $downline_limit) {
+				$result = $wpdb->insert($wpdb->prefix . 'bmlm_commission', [
+					'user_id' => $dealer->parent,
+					'type' => 'joining',
+					'description' => '',
+					'commission' => $order->get_total() * self::COMMISSION_RATE,
+					'date' => current_time('mysql'),
+					'paid' => 'unpaid'
+				]);
+	
+				if (!$result) {
+					error_log("Failed to insert commission for dealer ID: {$dealer->parent}");
+				}
+			}
+	
+			// Recursively process the next level (parent of the current dealer)
+			$this->processDealerCommissions($dealer->parent, $order, $level + 1, $downline_limit);
+		}
+	}
+	
+	public function processGHLAccount($order_id) {
+		global $wpdb;
+	
+		// Fetch the order object
+		$order = wc_get_order($order_id);
+		if (!$order) {
+			error_log("Order $order_id not found.");
+			return;
+		}
+	
+		// Get the customer ID from the order
+		$customer_id = $order->get_user_id();
 		if (!$customer_id) {
 			error_log("Order $order_id has no associated customer.");
 			return;
 		}
 	
-		// Retrieve user meta
-		$first_name = get_user_meta($customer_id, 'first_name', true);
-		$last_name = get_user_meta($customer_id, 'last_name', true);
-		$email = get_user_meta($customer_id, 'billing_email', true);
-		$ds_business_name = get_user_meta($customer_id, 'ds_business_name', true);
-		$ds_company_name = get_user_meta($customer_id, 'ds_company_name', true);
-		$ds_phone =  get_user_meta($customer_id, 'ds_phone', true);
-		$address = get_user_meta($customer_id, 'ds_address', true);
-		$city  =  get_user_meta($customer_id, 'ds_city', true);
-		$state  =  get_user_meta($customer_id, 'ds_state', true);
-		$postal_code  = get_user_meta($customer_id, 'ds_postal_code', true);
-		$country =   get_user_meta($customer_id, 'ds_country', true);	
-		$password =  get_user_meta($customer_id, 'ds_password', true);
-		$account_type =  get_user_meta($customer_id, 'account_type', true);
-		$parent_id =  get_user_meta($customer_id, 'ds_parent_id', true);
-		
-		if($account_type === "ds_client")
-		{
-			$wpdb->insert($wpdb->prefix . 'ds_clients', array(
+		// Retrieve user meta data
+		$user_meta = [
+			'first_name' => get_user_meta($customer_id, 'first_name', true),
+			'last_name' => get_user_meta($customer_id, 'last_name', true),
+			'email' => get_user_meta($customer_id, 'billing_email', true),
+			'ds_business_name' => get_user_meta($customer_id, 'ds_business_name', true),
+			'ds_company_name' => get_user_meta($customer_id, 'ds_company_name', true),
+			'ds_phone' => get_user_meta($customer_id, 'ds_phone', true),
+			'address' => get_user_meta($customer_id, 'ds_address', true),
+			'city' => get_user_meta($customer_id, 'ds_city', true),
+			'state' => get_user_meta($customer_id, 'ds_state', true),
+			'postal_code' => get_user_meta($customer_id, 'ds_postal_code', true),
+			'country' => get_user_meta($customer_id, 'ds_country', true),
+			'password' => get_user_meta($customer_id, 'ds_password', true),
+			'account_type' => get_user_meta($customer_id, 'account_type', true),
+			'parent_id' => get_user_meta($customer_id, 'ds_parent_id', true)
+		];
+	
+		// Check if the account type is "ds_client"
+		if ($user_meta['account_type'] === "ds_client") {
+			// Insert into ds_clients table
+			$wpdb->insert($wpdb->prefix . 'ds_clients', [
 				'child' => $customer_id,
-				'parent' => $parent_id,
+				'parent' => $user_meta['parent_id'],
 				'order_id' => $order_id
-			));
-
-			//FIRST
-			$wpdb->insert($wpdb->prefix . 'bmlm_commission', array(
-				'user_id' => $parent_id,
+			]);
+	
+			// Insert initial commission for the parent
+			$wpdb->insert($wpdb->prefix . 'bmlm_commission', [
+				'user_id' => $user_meta['parent_id'],
 				'type' => 'joining',
 				'description' => '',
-				'commission' => $order->get_total() * 0.10,
-				'date'=> date("Y-m-d h:i:s"),
+				'commission' => $order->get_total() * self::COMMISSION_RATE,
+				'date' => current_time('mysql'),
 				'paid' => 'unpaid'
-			));
-
-			$dealers = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}bmlm_gtree_nodes WHERE child = {$parent_id}");
-
-			foreach ($dealers as $dealer) 
-			{
-				// Fetch commissions for this dealer's parent
-				$commissions = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}bmlm_commission WHERE user_id = {$dealer->parent}");
-				
-				$count = count($commissions);
-				if ($count < 5) {
-					// Insert new commission if the count is less than 5
-					$wpdb->insert(
-						"{$wpdb->prefix}bmlm_commission", 
-						array(
-							'user_id' => $dealer->parent,
-							'type' => 'joining',
-							'description' => '',
-							'commission' => $order->get_total() * 0.10,
-							'date' => date("Y-m-d H:i:s"), // 24-hour format
-							'paid' => 'unpaid'
-						)
-					);
-				}
-			}
-			  // Update the order meta with new values
-			  //BILLING
-			  update_post_meta($order_id, '_billing_phone', $billing_phone);
-			  update_post_meta($order_id, '_billing_address_1', $address);
-			  update_post_meta($order_id, '_billing_city', $city);
-
-			  update_post_meta($order_id, '_shipping_phone', $billing_phone);
-			  update_post_meta($order_id, '_shipping_address_1', $address);
-			  update_post_meta($order_id, '_shipping_city', $city);
-			  
-			  //Company Name // Business Name
-			  add_post_meta($order_id, '_company_name',$ds_company_name);
-			  add_post_meta($order_id, '_business_name',$ds_business_name);
+			]);
+	
+			// Process dealer commissions recursively
+			$this->processDealerCommissions($user_meta['parent_id'], $order);
+	
+			// Update order meta with user data
+			update_post_meta($order_id, '_billing_phone', $user_meta['ds_phone']);
+			update_post_meta($order_id, '_billing_address_1', $user_meta['address']);
+			update_post_meta($order_id, '_billing_city', $user_meta['city']);
+	
+			update_post_meta($order_id, '_shipping_phone', $user_meta['ds_phone']);
+			update_post_meta($order_id, '_shipping_address_1', $user_meta['address']);
+			update_post_meta($order_id, '_shipping_city', $user_meta['city']);
+	
+			// Add company and business name to order meta
+			add_post_meta($order_id, '_company_name', $user_meta['ds_company_name']);
+			add_post_meta($order_id, '_business_name', $user_meta['ds_business_name']);
 		}
-		
-		// Prepare API data
+	
+		// Prepare API data for business creation
 		$business_data = [
-			"businessName" => $ds_business_name,
-			"companyName" => $ds_company_name,
-			"email" => $email,
-			"phone" => $ds_phone,
-			"address" => $address,
-			"city" => $city,
-			"state" => $state,
-			"postalCode" =>$postal_code,
-			"country" => $country
+			"businessName" => $user_meta['ds_business_name'],
+			"companyName" => $user_meta['ds_company_name'],
+			"email" => $user_meta['email'],
+			"phone" => $user_meta['ds_phone'],
+			"address" => $user_meta['address'],
+			"city" => $user_meta['city'],
+			"state" => $user_meta['state'],
+			"postalCode" => $user_meta['postal_code'],
+			"country" => $user_meta['country']
 		];
-		
-		// Send request to create sub-account
+	
+		// Send API request to create sub-account
 		$response = $this->send_api_request("/v1/locations/", $business_data);
-
 		if (!$response || empty($response['id'])) {
 			error_log("Failed to create sub-account for order $order_id.");
 			return;
 		}
-
+	
 		$location_id = $response['id'];
-
-		// Prepare admin user data
+	
+		// Prepare API data for admin user creation
 		$user_data = [
-			"locationIds" => $location_id,//['VxgP7Rj68WYNIXhMQsb5' ,  $location_id ],//$location_id,
-			"firstName" => $first_name,
-			"lastName" => $last_name,
-			"email" => $email,
-			"password" => $password,
+			"locationIds" => $location_id,
+			"firstName" => $user_meta['first_name'],
+			"lastName" => $user_meta['last_name'],
+			"email" => $user_meta['email'],
+			"password" => $user_meta['password'],
 			"type" => "account",
-    		"role" =>"user",
+			"role" => "user",
 			"permissions" => [
 				"campaignsEnabled" => true,
-				"campaignsReadOnly"=> false,
-				"contactsEnabled"=> true,
-				"workflowsEnabled"=> true,
-				"triggersEnabled"=> true,
-				"funnelsEnabled" =>  true,
-				"websitesEnabled" => false,
-				"opportunitiesEnabled"=> true,
-				"dashboardStatsEnabled"=> true,
-				"bulkRequestsEnabled"=>true,
-				"appointmentsEnabled"=> true,
-				"reviewsEnabled"=> true,
-				"onlineListingsEnabled"=> true,
-				"phoneCallEnabled"=> true,
-				"conversationsEnabled"=> true,
-				"assignedDataOnly"=> false,
-				"adwordsReportingEnabled"=> false,
-				"membershipEnabled"=> false,
-				"facebookAdsReportingEnabled"=> false,
-				"attributionsReportingEnabled"=> false,
-				"settingsEnabled"=> true,
-				"tagsEnabled"=> true,
-				"leadValueEnabled"=> true,
-				"marketingEnabled"=> true
+				"contactsEnabled" => true,
+				"workflowsEnabled" => true,
+				"triggersEnabled" => true,
+				"funnelsEnabled" => true,
+				"opportunitiesEnabled" => true,
+				"dashboardStatsEnabled" => true,
+				"bulkRequestsEnabled" => true,
+				"appointmentsEnabled" => true,
+				"reviewsEnabled" => true,
+				"onlineListingsEnabled" => true,
+				"phoneCallEnabled" => true,
+				"conversationsEnabled" => true,
+				"assignedDataOnly" => false,
+				"settingsEnabled" => true,
+				"tagsEnabled" => true,
+				"leadValueEnabled" => true,
+				"marketingEnabled" => true
 			]
 		];
-
-		// Send request to create admin user
+	
+		// Send API request to create admin user
 		$user_response = $this->send_api_request("/v1/users/", $user_data);
-
 		if ($user_response) {
-			error_log("Success: Sub-Account and Admin User Created Successfully!");
+			error_log("Success: Sub-Account and Admin User Created Successfully for order $order_id.");
 		} else {
 			error_log("Failed: Admin user creation failed for order $order_id.");
 		}
 	}
 
-
 	
 
-    	/**
+	/**
 	 * Helper function to send API requests
 	 */
 	private function send_api_request($endpoint, $data)
