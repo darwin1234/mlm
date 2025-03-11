@@ -12,7 +12,7 @@ class mlmregistration
 	private $ds_clients;
 
 	const COMMISSION_RATE = 0.10; // Define at the top of the class
-	
+	const COMMISSION_RATE_TWO_PERCENT = 0.02; // Define at the top of the class
     public function ProcessRegistration(){
         //global $_POST;
         if(isset($_POST['submit'])){
@@ -249,7 +249,7 @@ class mlmregistration
 					'user_id' => $dealer->parent,
 					'type' => 'joining',
 					'description' => '',
-					'commission' => $order->get_total() * self::COMMISSION_RATE,
+					'commission' => $order->get_total() * self::COMMISSION_RATE_TWO_PERCENT,
 					'date' => current_time('mysql'),
 					'paid' => 'unpaid'
 				]);
