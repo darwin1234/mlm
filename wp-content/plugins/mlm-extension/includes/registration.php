@@ -12,8 +12,10 @@ class mlmregistration
 	private $ds_clients;
 
 	const COMMISSION_RATE = 0.10; // Define at the top of the class
+
 	const COMMISSION_RATE_TWO_PERCENT = 0.02; // Define at the top of the class
-    public function ProcessRegistration(){
+    
+	public function ProcessRegistration(){
         //global $_POST;
         if(isset($_POST['submit'])){
            
@@ -132,20 +134,62 @@ class mlmregistration
         }
 	}
 
-	private function createNodes($parent, $child,$account_type)
+	private function createNodes($parent, $child, $account_type)
 	{
 		global $wpdb;
 		
-		if($account_type === "ds_dealer")
-		{
-			$wpdb->insert($wpdb->prefix .'bmlm_gtree_nodes', array(
-				'child' => $child,
-				'parent' => $parent,
-				'nrow' => 1
-			));
-		}			
+		// Ensure account_type is 'ds_dealer' before proceeding
+		if ($account_type === "ds_dealer") {
+
+			// Fetch the dealer data only if needed
+			$dealer = $this->checkTreeIfNotEmpty($parent);
+			
+			// If the dealer data is not empty (i.e., the parent has a child already)
+			if ($dealer) {
+				// Insert a new node with the dealer's nrow incremented
+				$wpdb->insert(
+					$wpdb->prefix . 'bmlm_gtree_nodes',
+					array(
+						'child' => $child,
+						'parent' => $parent,
+						'nrow' => $dealer[0]->nrow + 1
+					)
+				);
+			} else {
+				// Insert a new node with nrow set to 1 if the parent has no children yet
+				$wpdb->insert(
+					$wpdb->prefix . 'bmlm_gtree_nodes',
+					array(
+						'child' => $child,
+						'parent' => $parent,
+						'nrow' => 1
+					)
+				);
+			}
+		}
 	}
-    
+
+	public function checkTreeIfNotEmpty($parent_id)
+	{
+		global $wpdb;
+
+		// Query to check if the parent has any children
+		$dealers = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->prefix}bmlm_gtree_nodes WHERE parent = %d ORDER BY ID DESC LIMIT 1",
+				$parent_id
+			)
+		);
+
+		// If no dealers found, return false instead of 0 for better readability and handling
+		if (empty($dealers)) {
+			return false;
+		} else {
+			// Return the dealer data if found
+			return $dealers;
+		}
+	}
+
     public function add_to_cart($user_id, $membership_type,$address){
 		
         if($membership_type==="ds_dealer")
@@ -210,7 +254,8 @@ class mlmregistration
 		return $random_string;
 	}
 
-	private function processDealerCommissions($parent_id, $order, $level = 1, $downline_limit = 5) {
+	private function processDealerCommissions($child, $order, $level = 1, $downline_limit = 5) {
+		
 		global $wpdb;
 	
 		// Base case: Stop recursion if the level exceeds the downline limit
@@ -218,10 +263,10 @@ class mlmregistration
 			return;
 		}
 	
-		// Fetch dealers for the current parent_id
+		// Fetch dealers for the current child
 		$dealers = $wpdb->get_results($wpdb->prepare(
 			"SELECT * FROM {$wpdb->prefix}bmlm_gtree_nodes WHERE child = %d",
-			$parent_id
+			$child,
 		));
 	
 		// If no dealers are found, stop recursion
@@ -231,20 +276,8 @@ class mlmregistration
 	
 		// Process each dealer
 		foreach ($dealers as $dealer) {
-			// Check for circular references
-			if ($dealer->parent == $parent_id) {
-				error_log("Circular reference detected for dealer ID: {$dealer->parent}");
-				continue;
-			}
-	
-			// Check the number of commissions for the dealer's parent
-			$commission_count = $wpdb->get_var($wpdb->prepare(
-				"SELECT COUNT(*) FROM {$wpdb->prefix}bmlm_commission WHERE user_id = %d",
-				$dealer->parent
-			));
-	
 			// Insert a commission if the count is less than the downline limit
-			if ($commission_count < $downline_limit) {
+			if ((int)$dealer->limit_commisions < $downline_limit) {
 				$result = $wpdb->insert($wpdb->prefix . 'bmlm_commission', [
 					'user_id' => $dealer->parent,
 					'type' => 'joining',
@@ -253,16 +286,42 @@ class mlmregistration
 					'date' => current_time('mysql'),
 					'paid' => 'unpaid'
 				]);
-	
+
+				$this->updateLimitColumn($dealer->parent,$child);
+
 				if (!$result) {
 					error_log("Failed to insert commission for dealer ID: {$dealer->parent}");
 				}
+			
 			}
-	
 			// Recursively process the next level (parent of the current dealer)
 			$this->processDealerCommissions($dealer->parent, $order, $level + 1, $downline_limit);
 		}
+
 	}
+
+
+	public function updateLimitColumn($parent, $child)
+	{
+		global $wpdb;
+		$result = $wpdb->query(
+			$wpdb->prepare(
+				"UPDATE {$wpdb->prefix}bmlm_gtree_nodes SET limit_commissions = limit_commissions + 1 WHERE parent = %d AND child = %d", 
+				$parent,
+				$child
+			)
+		);
+
+		if ($result === false) {
+			// Handle error if the update failed
+			error_log("Error updating limit_column for parent_id: " . $parent);
+			return false; // Indicate failure
+		}
+		
+		// Return true to indicate success
+		return true;
+	}
+
 	
 	public function processGHLAccount($order_id) {
 		global $wpdb;
