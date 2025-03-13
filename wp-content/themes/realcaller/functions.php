@@ -89,20 +89,11 @@ class dsMLM {
  
 
 	function custom_redirect_my_account_page() {
-		// Get the URL of the WooCommerce My Account page
-		$dashboard_url = get_permalink(get_option('woocommerce_myaccount_page_id'));
-	
-		// Get the current URL
-		$current_url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-	
-		// Check if the current URL is the same as the WooCommerce My Account page
-		if ($dashboard_url == $current_url) {
-			if(is_user_logged_in()){
-				// Perform the redirect
-				wp_redirect(site_url() . '/sponsor/dashboard/');  // Change this to the URL you want to redirect to
-				exit(); // Always call exit after wp_redirect to prevent further code execution
-			}
-			
+		// Check if the user is logged in and the current page is the WooCommerce My Account page
+		if (is_user_logged_in() && is_account_page()) {
+			// Perform the redirect
+			wp_redirect(site_url('/sponsor/dashboard/'));  // Change this to the URL you want to redirect to
+			exit(); // Always call exit after wp_redirect to prevent further code execution
 		}
 	}
 	
