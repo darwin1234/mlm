@@ -99,6 +99,13 @@ class mlmregistration
                     add_user_meta($user_id, 'ds_country',$country);
                     $data['ds_country'] = $country;
                 }
+				
+				if(isset($_POST['password']))
+				{
+					$password = sanitize_text_field($_POST['password']);
+                    add_user_meta($user_id, 'ds_password',$password);
+                    $data['ds_password'] = $password;
+				}
 
 				if(isset($_POST['parent_id'])){
 					$parent_id =  sanitize_text_field($_POST['parent_id']);
