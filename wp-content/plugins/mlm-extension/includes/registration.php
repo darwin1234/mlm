@@ -425,7 +425,7 @@ class mlmregistration
 	
 		// Prepare API data for admin user creation
 		$user_data = [
-			"locationIds" => $location_id,
+			"locationIds" => [$location_id],
 			"firstName" => $user_meta['first_name'],
 			"lastName" => $user_meta['last_name'],
 			"email" => $user_meta['email'],
