@@ -1,101 +1,97 @@
 <?php 
 
-require __DIR__ . '/wp-blog-header.php';
+require __DIR__ . '/wp-load.php';
 
-/*global $wpdb;
-$parent_id =  176;
+global $wpdb;
+$downline_limit = 5;
+$parent =249;
+$order = 1000;
 
-$dealers = $wpdb->get_results($wpdb->prepare(
-    "SELECT * FROM {$wpdb->prefix}bmlm_gtree_nodes WHERE parent = %d ORDER BY ID DESC LIMIT 1",
-    $parent_id
-));
+function processDealerCommissions($child, $order, $level = 1, $downline_limit = 5) 
+{
+		
+    global $wpdb;
 
-if (empty($dealers)) {
-    echo "No dealers found";
-} else {
-    var_dump($dealers); // Output the dealer data if found
-}*/
-
-
-//var_dump($dealers[0]->nrow);
-
-	// Prepare API data for business creation
- $business_data = [
-        "businessName" => 'ABCTESTINGINC55235',
-        "companyName" => 'ABCTESTINGINC55235',
-        "email" => 'darwinsesetestingclient55235@test.com',
-        "phone" => '09123123123',
-        "address" => '1255 Mabini Street',
-        "city" => 'San Fernando',
-        "state" => 'La Union',
-        "postalCode" =>'25000',
-        "country" => 'PH'
- ];
-
- // Send API request to create sub-account
-$response = send_api_request("/v1/locations/", $business_data);
-    if (!$response || empty($response['id'])) {
-       // error_log("Failed to create sub-account for order $order_id.");
+    // Base case: Stop recursion if the level exceeds the downline limit
+    if ($level > $downline_limit) {
         return;
     }
 
-    $location_id = $response['id'];
-
-    $user_data = [
-        "locationIds" => [$location_id, 'VxgP7Rj68WYNIXhMQsb5'],
-        "firstName" => "Darwin",
-        "lastName" => "TestingClient",
-        "email" =>  "darwinsesetestingclient55235@test.com",
-        "password" =>"donmock123",
-        "type" => "account",
-        "role" => "user",
-        "permissions" => [
-            "campaignsEnabled" => true,
-            "contactsEnabled" => true,
-            "workflowsEnabled" => true,
-            "triggersEnabled" => true,
-            "funnelsEnabled" => true,
-            "opportunitiesEnabled" => true,
-            "dashboardStatsEnabled" => true,
-            "bulkRequestsEnabled" => true,
-            "appointmentsEnabled" => true,
-            "reviewsEnabled" => true,
-            "onlineListingsEnabled" => true,
-            "phoneCallEnabled" => true,
-            "conversationsEnabled" => true,
-            "assignedDataOnly" => false,
-            "settingsEnabled" => true,
-            "tagsEnabled" => true,
-            "leadValueEnabled" => true,
-            "marketingEnabled" => true
-        ]
-    ];
-
-    // Send API request to create admin user
-    $user_response = send_api_request("/v1/users/", $user_data);
-    if ($user_response) {
-       echo "SUCCESS!";
-    } else {
-       echo "ERROR";
+    // Fetch dealers for the current child
+    $dealers = $wpdb->get_results($wpdb->prepare(
+        "SELECT * FROM {$wpdb->prefix}bmlm_gtree_nodes 
+        WHERE child = %d 
+        AND (limit_commissions < %d OR limit_commissions IS NULL)",
+        $child,
+        $downline_limit
+    ));
+    
+    // If no dealers are found, stop recursion
+    if (empty($dealers)) {
+        return;
     }
 
-function send_api_request($endpoint, $data)
-{
-    $api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55X2lkIjoiZGNCY0g4enRsRE8zcWZ3QmV2M3oiLCJ2ZXJzaW9uIjoxLCJpYXQiOjE3NDE1OTUwNzUwMDMsInN1YiI6IkhKR1djblpzbUprN3FBdjI2bG9YIn0.OXlDtQunS4CjjshhGFvYxBP4c8mZwdoIutMAuzyQYcY';
-		$response = wp_remote_post('https://rest.gohighlevel.com' . $endpoint, [
-			'method' => 'POST',
-			'headers' => [
-				'Authorization' => 'Bearer ' . $api_key,
-				'Content-Type' => 'application/json'
-			],
-			'body' => json_encode($data),
-			'data_format' => 'body'
-		]);
+    // Process each dealer
+    foreach ($dealers as $dealer) {
+        // Insert a commission if the count is less than the downline limit
+        $result = $wpdb->insert($wpdb->prefix . 'bmlm_commission', [
+                'user_id' => $dealer->parent,
+                'type' => 'joining',
+                'description' => '',
+                'commission' => 1000 * 0.02,
+                'date' => current_time('mysql'),
+                'paid' => 'unpaid'
+        ]);
 
-		if (is_wp_error($response)) {
-			error_log("API ERROR: " . $response->get_error_message());
-			return false;
-		}
+        updateLimitColumn($dealer->parent,$child);
+        if (!$result) {
+            echo "Unsuccessfull";
+        }
+        // Recursively process the next level (parent of the current dealer)
+        processDealerCommissions($dealer->parent, $order, $level + 1, $downline_limit);
+    }
 
-    	return json_decode(wp_remote_retrieve_body($response), true);
 }
+function updateLimitColumn($parent, $child)
+	{
+		global $wpdb;
+	
+		// Prepare the SQL query to update the 'limit_commissions' column, using COALESCE to handle NULL
+		$query = $wpdb->prepare(
+			"UPDATE {$wpdb->prefix}bmlm_gtree_nodes SET limit_commissions = COALESCE(limit_commissions, 0) + 1 WHERE parent = %d AND child = %d", 
+			$parent,
+			$child
+		);
+	
+		// Print the actual query for debugging
+		//echo $query;
+	
+		// Execute the query
+		$result = $wpdb->query($query);
+	
+		// Debugging output (for development)
+		//var_dump($result);
+	
+		if ($result === false) {
+			///echo "Error: " . $wpdb->last_error; // Display the last error from wpdb
+			return false; // Indicate failure
+		}
+	
+		if ($result === 0) {
+			return false;
+		} 
+
+		return true; // Indicate success
+	}
+	
+$wpdb->insert($wpdb->prefix . 'bmlm_commission', [
+    'user_id' => $parent,
+    'type' => 'joining',
+    'description' => '',
+    'commission' => 1000 * 0.10,
+    'date' => current_time('mysql'),
+    'paid' => 'unpaid'
+]);
+
+// Process dealer commissions recursively
+processDealerCommissions($parent, $order);

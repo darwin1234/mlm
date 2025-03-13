@@ -272,10 +272,13 @@ class mlmregistration
 	
 		// Fetch dealers for the current child
 		$dealers = $wpdb->get_results($wpdb->prepare(
-			"SELECT * FROM {$wpdb->prefix}bmlm_gtree_nodes WHERE child = %d",
+			"SELECT * FROM {$wpdb->prefix}bmlm_gtree_nodes 
+			WHERE child = %d 
+			AND (limit_commissions < %d OR limit_commissions IS NULL)",
 			$child,
+			$downline_limit
 		));
-	
+		
 		// If no dealers are found, stop recursion
 		if (empty($dealers)) {
 			return;
@@ -284,22 +287,18 @@ class mlmregistration
 		// Process each dealer
 		foreach ($dealers as $dealer) {
 			// Insert a commission if the count is less than the downline limit
-			if ((int)$dealer->limit_commisions < $downline_limit) {
-				$result = $wpdb->insert($wpdb->prefix . 'bmlm_commission', [
+			$result = $wpdb->insert($wpdb->prefix . 'bmlm_commission', [
 					'user_id' => $dealer->parent,
 					'type' => 'joining',
 					'description' => '',
 					'commission' => $order->get_total() * self::COMMISSION_RATE_TWO_PERCENT,
 					'date' => current_time('mysql'),
 					'paid' => 'unpaid'
-				]);
+			]);
 
-				$this->updateLimitColumn($dealer->parent,$child);
-
-				if (!$result) {
-					error_log("Failed to insert commission for dealer ID: {$dealer->parent}");
-				}
-			
+			$this->updateLimitColumn($dealer->parent,$child);
+			if (!$result) {
+				error_log("Failed to insert commission for dealer ID: {$dealer->parent}");
 			}
 			// Recursively process the next level (parent of the current dealer)
 			$this->processDealerCommissions($dealer->parent, $order, $level + 1, $downline_limit);
@@ -311,24 +310,35 @@ class mlmregistration
 	public function updateLimitColumn($parent, $child)
 	{
 		global $wpdb;
-		$result = $wpdb->query(
-			$wpdb->prepare(
-				"UPDATE {$wpdb->prefix}bmlm_gtree_nodes SET limit_commissions = limit_commissions + 1 WHERE parent = %d AND child = %d", 
-				$parent,
-				$child
-			)
+	
+		// Prepare the SQL query to update the 'limit_commissions' column, using COALESCE to handle NULL
+		$query = $wpdb->prepare(
+			"UPDATE {$wpdb->prefix}bmlm_gtree_nodes SET limit_commissions = COALESCE(limit_commissions, 0) + 1 WHERE parent = %d AND child = %d", 
+			$parent,
+			$child
 		);
-
+	
+		// Print the actual query for debugging
+		//echo $query;
+	
+		// Execute the query
+		$result = $wpdb->query($query);
+	
+		// Debugging output (for development)
+		//var_dump($result);
+	
 		if ($result === false) {
-			// Handle error if the update failed
-			error_log("Error updating limit_column for parent_id: " . $parent);
+			///echo "Error: " . $wpdb->last_error; // Display the last error from wpdb
 			return false; // Indicate failure
 		}
-		
-		// Return true to indicate success
-		return true;
-	}
+	
+		if ($result === 0) {
+			return false;
+		} 
 
+		return true; // Indicate success
+	}
+	
 	
 	public function processGHLAccount($order_id) {
 		global $wpdb;
