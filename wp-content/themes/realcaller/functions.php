@@ -85,6 +85,7 @@ class dsMLM {
 
 		add_action('template_redirect', array($this,'custom_redirect_my_account_page'));
 	}	
+	
  
 
 	function custom_redirect_my_account_page() {
@@ -170,7 +171,7 @@ class dsMLM {
 						<p><strong><a href="<?php echo site_url(); ?>/my-account/edit-account/"><?php echo $first_name . " " . $last_name?></a></strong></p>
 						<p><a href="<?php echo site_url(); ?>/my-account/edit-account/"><?php echo $user->user_email;?></a></p>
 						<p style="color:#1230AE; margin-top:5px;"><strong><?php echo $account_type === "ds_dealer" ? "Dealer" : "Member";?></strong></p>
-						<a href="<?php echo wp_logout_url(); ?>"><span class="woocommerce-MyAccount-navigation-link--MarketingCRMLink"></span></a>
+						<a href="<?php echo wp_logout_url('my-account'); ?>"><span class="woocommerce-MyAccount-navigation-link--MarketingCRMLink"></span></a>
 					</div>
 					<br><br><br>
 					<div class="fluid-container">
