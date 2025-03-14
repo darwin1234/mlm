@@ -6,6 +6,12 @@
 get_header();
 ?>
 
+<style>
+#header{
+  position:relative;
+}
+</style>
+
 
 <div id="header" class="p-5">
       <div class="container-fluid py-5">
@@ -13,7 +19,52 @@ get_header();
         <div class="col-md-12">
           <h1 class="text-center text-white">Welcome to RealCaller AI!</h1>
           <h2 class="text-center text-white">Talk to Lisa</h2>
-          <img src="<?php echo bloginfo('template_url');?>/assets/images/microphone.png" class="d-block mx-auto">
+          <a href="#" id="custom-vapi-button"><img  src="<?php echo bloginfo('template_url');?>/assets/images/microphone.png" class="d-block mx-auto"></a>
+          <script>
+            var vapiInstance = null;
+            const assistant = "ec1032e5-7bf8-4e69-a165-f77efed94588";
+            const apiKey = "4712e393-1100-4981-813a-62981dba89a3";
+            const buttonConfig = {
+              target: "#custom-vapi-button",
+              buttonText: "Call Vapi Assistant",
+              buttonStyle: {
+                backgroundColor: "#5c6bc0",
+                color: "white",
+                borderRadius: "8px",
+                padding: "14px 30px",
+                fontSize: "16px",
+                fontWeight: "600",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                outline: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+              },
+              buttonHoverStyle: {
+                backgroundColor: "#3949ab",
+                transform: "translateY(-2px)",
+                boxShadow: "0 4px 12px rgba(92, 107, 192, 0.3)",
+              },
+            };
+
+            (function (d, t) {
+              var g = document.createElement(t),
+                s = d.getElementsByTagName(t)[0];
+              g.src =
+                "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+              g.defer = true;
+              g.async = true;
+              s.parentNode.insertBefore(g, s);
+              g.onload = function () {
+                vapiInstance = window.vapiSDK.run({
+                  apiKey: apiKey,
+                  assistant: assistant,
+                  config: buttonConfig,
+                });
+              };
+            })(document, "script");
+         </script>
           <p class="text-center text-white">Ready to Transform Your Business with RealCaller AI?</p>
           <p class="text-center text-white">Join Our Free Demo and Discover How to Automate Your Business Communication—No Tech Expertise Needed!</p>
           <img src="<?php echo bloginfo('template_url');?>/assets/images/book-now-2.png" class="d-block mx-auto">
