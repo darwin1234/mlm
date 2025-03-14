@@ -1,0 +1,1 @@
+jQuery(function(e){e(".w357-login-as-user-btn").bind("contextmenu",function(e){return alert("The right click is disabled. Please, just click on the button."),!1})}),document.addEventListener("DOMContentLoaded",function(){var e,n=document.querySelector(".w357-login-as-user-frontend-btn");n&&((e=document.createElement("span")).className="w357Ping",n.appendChild(e))});
