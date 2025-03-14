@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-4">
               <p class="text-black">When you click 'Book a Demo,' you'll be able to select a schedule that works best for you. Choose a convenient time, and we'll take care of the rest!</p>
-              <a href="#" class="btn btn-default p-3" style="width:100%; border-radius:50px; border:2px solid #8C52FF; color:#8C52FF!important; font-size:20px; font-weight:bold; display:block;">Book a Demo</a>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-default p-3" style="width:100%; border-radius:50px; border:2px solid #8C52FF; color:#8C52FF!important; font-size:20px; font-weight:bold; display:block;">Book a Demo</a>
             </div>
           </div>
         </div>

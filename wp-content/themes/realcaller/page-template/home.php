@@ -67,7 +67,7 @@ get_header();
          </script>
           <p class="text-center text-white">Ready to Transform Your Business with RealCaller AI?</p>
           <p class="text-center text-white">Join Our Free Demo and Discover How to Automate Your Business Communication—No Tech Expertise Needed!</p>
-          <img src="<?php echo bloginfo('template_url');?>/assets/images/book-now-2.png" class="d-block mx-auto">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="<?php echo bloginfo('template_url');?>/assets/images/book-now-2.png" class="d-block mx-auto"></a>
       </div>
 
         </div>
@@ -126,4 +126,15 @@ get_header();
       </div>
     </div>
   </div>
+ <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" style="background:#0A1D56;">
+    <div class="modal-content"  style="background:#0A1D56;">
+       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float:right; margin:5px; background:#fff; padding:5px; font-size:20px;">x</button>
+      <div class="modal-body" height="1000" style="overflow:hidden;">
+          <iframe src="https://api.marketingdpt.co/widget/form/Jq72S45pCQTRZDopxLNd" width="100%" height="1000" frameborder="0" scrolling="auto"></iframe>
+      </div>
+    </div>
+  </div>
+</div> 
 <?php  get_footer(); ?>
