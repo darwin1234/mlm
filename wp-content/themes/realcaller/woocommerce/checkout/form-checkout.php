@@ -43,7 +43,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 			<div class="row mb-5">
 				<div class="col-md-7">
 					<h3 class="align-top"><?php esc_html_e( 'Billing Information', 'woocommerce' ); ?></h3>
-					<p class='desc'>Pellentesque vitae consequat ut mattis curabitur pellentesque. Integer porttitor iaculis vivamus nec nunc ipsum. Id facilisi lacinia mi sed. Commodo consequat sed sem eleifend convallis. Risus at in non maecenas. Vel viverra integer massa velit. Nulla.</p>
+					<p class='desc' style="display:none">Pellentesque vitae consequat ut mattis curabitur pellentesque. Integer porttitor iaculis vivamus nec nunc ipsum. Id facilisi lacinia mi sed. Commodo consequat sed sem eleifend convallis. Risus at in non maecenas. Vel viverra integer massa velit. Nulla.</p>
 				</div>
 				<div class="col-md-5">
 					<?php
@@ -58,7 +58,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 			<div class="row mb-5">
 				<div class="col-md-7">
 					<h3 class="align-top"><?php esc_html_e( 'Billing Address', 'woocommerce' ); ?></h3>
-					<p class="desc">Pellentesque vitae consequat ut mattis curabitur pellentesque. Integer porttitor iaculis vivamus nec nunc ipsum. Id facilisi lacinia mi sed. Commodo consequat sed sem eleifend convallis. Risus at in non maecenas. Vel viverra integer massa velit. Nulla.</p>
+					<p class="desc" style="display:none">Pellentesque vitae consequat ut mattis curabitur pellentesque. Integer porttitor iaculis vivamus nec nunc ipsum. Id facilisi lacinia mi sed. Commodo consequat sed sem eleifend convallis. Risus at in non maecenas. Vel viverra integer massa velit. Nulla.</p>
 				</div>
 				<div class="col-md-5">
 					<?php

@@ -1248,3 +1248,27 @@ body.sponsor  #dsfooter {
 body.my-account  #dsfooter {
   display: block;
 }
+.lost_reset_password{
+    width:500px;
+    margin:200px auto;
+}
+.lost_reset_password button{
+  width:100%;
+  height: 60px;
+  border-radius: 40px;
+  border: 1px solid #ccc;
+  margin-top: 15px;
+  background-color: #7f56d9 !important;
+  color: #ffffff !important;
+  border-radius: 40px!important;
+}
+.woocommerce form .form-row{
+  width:100%!important;
+}
+
+.lost_reset_password .woocommerce-Input--text {
+  height: 60px!important;
+  border-radius: 40px!important;
+  border: 1px solid #ccc!important;
+  padding-left: 30px!important;
+}

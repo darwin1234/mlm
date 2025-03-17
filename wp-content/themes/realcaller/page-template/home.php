@@ -10,8 +10,33 @@ get_header();
 #header{
   position:relative;
 }
-</style>
+#vapi-icon-container{
+  padding: 0!important;
+  margin:  0!important;
+  border-radius:  0!important;
+  visibility:hidden;
+}
+.vapi-btn {
+    border-radius: 50%;
+    min-width: 50px;
+    height: 50px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    position: relative;
+    padding: 0;
+    animation: bounce 2s ease-in-out infinite;
+    bottom: 0!important;
+    left: 0!important;
+    margin-left: 0!important;
+    margin: 0;
+}
 
+</style>
 
 <div id="header" class="p-5">
       <div class="container-fluid py-5">
