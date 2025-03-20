@@ -36,7 +36,21 @@ get_header();
     margin: 0;
     visibility:hidden;
 }
-
+#custom-vapi-button{
+    display:block;
+    width:140px;
+    height:140px;
+    background:url(<?php echo bloginfo('template_url');?>/assets/images/default-hover.png);
+    margin:auto;
+    background-size:100%;
+}
+#custom-vapi-button:hover {
+  width:140px;
+  height:140px;
+  background:url(<?php echo bloginfo('template_url');?>/assets/images/active-hover.png);
+  margin:auto;
+  background-size:100%;
+}
 </style>
 
 <div id="header" class="p-5">
@@ -45,7 +59,9 @@ get_header();
         <div class="col-md-12">
           <h1 class="text-center text-white">Welcome to RealCaller AI!</h1>
           <h2 class="text-center text-white">Talk to Lisa</h2>
-          <a href="#" id="custom-vapi-button"><img  src="<?php echo bloginfo('template_url');?>/assets/images/microphone.png" class="d-block mx-auto"></a>
+          <a href="#" id="custom-vapi-button">
+            <span class="microphone"></span>   
+          </a>
           <script>
             var vapiInstance = null;
             const assistant = "ec1032e5-7bf8-4e69-a165-f77efed94588";

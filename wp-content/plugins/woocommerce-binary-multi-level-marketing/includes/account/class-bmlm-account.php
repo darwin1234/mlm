@@ -273,9 +273,11 @@ if ( ! class_exists( 'BMLM_Account' ) ) {
 						$new_items['../' . $page_name . '/refferal']  = esc_html__( "Dealer's Affiliate Link", 'binary-mlm' );
 						$new_items['../' . $page_name . '/client-refferal']  = esc_html__( "Products", 'binary-mlm' );
 						//$new_items['../' . $page_name . '/clients']  = esc_html__( "Your Clients", 'binary-mlm' );
+					}else{
+						$new_items['../' . $page_name . '/marketing-crm-link']  = esc_html__( "Marketing CRM Link", 'binary-mlm' );
 					}
 			
-					$new_items['../' . $page_name . '/marketing-crm-link']  = esc_html__( "Marketing CRM Link", 'binary-mlm' );
+					
 					//$new_items['../' . $page_name . '/social-media-kit']  = esc_html__( "Social Media Kit", 'binary-mlm' );
 					//$new_items['../' . $page_name . '/training-resources']  = esc_html__( "Training Resources", 'binary-mlm' );
 					

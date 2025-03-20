@@ -1272,3 +1272,7 @@ body.my-account  #dsfooter {
   border: 1px solid #ccc!important;
   padding-left: 30px!important;
 }
+.woocommerce-MyAccount-navigation-link--sponsormarketing-crm-link{
+  border-top: 2px solid #ccc;
+  border-radius: 0!important;
+} 
