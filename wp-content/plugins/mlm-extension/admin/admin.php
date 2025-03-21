@@ -82,6 +82,30 @@ class MLMExtensionAdminMenu{
     
         <?php
     }
+
+    public function stripe_product_ids() {
+        global $wp_meta_boxes;
+        add_meta_box('ds_stripe_product_metabox', __('Stripe Products'), array($this, 'stripe_product_id'), 'product', 'normal', 'high');
+    }
     
+    public function stripe_product_id($post) {
+        global $wpdb;
+    
+        // Ensure $post is being passed correctly.
+        $custom = get_post_custom($post->ID);
+        $ds_stripe_product_id = isset($custom['ds_stripe_product_id'][0]) ? $custom['ds_stripe_product_id'][0] : '';
+        ?>
+            <label>Stripe Product ID: </label><input type="text" id="ds_stripe_product_id" name="ds_stripe_product_id" value="<?php echo esc_attr($ds_stripe_product_id); ?>">
+        <?php 
+    }
+
+    public function save_product_id($post_id, $post, $update ){
+														
+        if(isset($_POST['ds_stripe_product_id'])){
+            $ds_stripe_product_id = sanitize_text_field($_POST['ds_stripe_product_id']);
+            update_post_meta($post_id, 'ds_stripe_product_id',$ds_stripe_product_id);
+        }
+    }
+            
 
 }   

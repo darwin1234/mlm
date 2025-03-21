@@ -9,6 +9,12 @@ class mlmregistration
 
 	private $bmlm_gtree_nodes;
 
+	private $planEndpoint = "https://api.stripe.com/v1/plans";
+
+	private $subscriptionEndpoint = "https://api.stripe.com/v1/subscriptions";
+
+	private $stripe_api_key = "sk_test_t6DTE0aLHvnhI3dZcqyQLEwl";
+
 	private $ds_clients;
 
 	const COMMISSION_RATE = 0.10; // Define at the top of the class
@@ -554,4 +560,55 @@ class mlmregistration
 		}
 	}
 
+	public function process_stripe($order_id, $stripe_product_id)
+	{
+	
+		// Prepare the arguments for creating the plan
+	
+		$planEndpointArgs = [
+			"headers" => [
+				"Authorization" => "Bearer " . $this->stripe_api_key,
+			],
+			"body" => [
+				"amount" => 0,
+				"interval_count" => 1,
+				"interval" => "monthly",
+				"product" => $createProducstripe_product_idtResult->id,
+				"currency" => "cad",
+				"id" => $order_id,
+			],
+		];
+		// Call the plan creation endpoint
+		$planResult = wp_remote_post($this->planEndpoint, $planEndpointArgs);
+
+		// Decode the JSON response for the plan creation
+		$planResult = json_decode($planResult["body"]);
+
+		// Extract plan information
+		$productID = $planResult->product;
+		$planID = $planResult->id;
+
+		// Prepare the arguments for creating the subscription
+		$subscriptionArgs = [
+			"headers" => [
+				"Authorization" => "Bearer " . $this->stripe_api_key,
+			],
+			"body" => [
+				"customer" => $customer_id,
+				"items[0][plan]" => $planID,
+			],
+		];
+
+		// Call the subscription creation endpoint
+		$subscriptionResult = wp_remote_post($this->subscriptionEndpoint, $subscriptionArgs);
+
+		// Decode the response from the subscription creation
+		$subscriptionBody = $subscriptionResult["body"];
+		$subscriptionBody = json_decode($subscriptionBody);
+		$subscriptionBody = (array) $subscriptionBody;
+
+		// Extract the subscription ID
+		$subscriptionID = $subscriptionBody["id"];
+
+	}
 }

@@ -26,12 +26,10 @@ class RealCallerAiExtension {
         add_action('template_include', array( $this, 'registration_form' ) );
         add_action('init', array(new mlmregistration, 'ProcessRegistration'));
         add_action('init', array(new mlmregistration ,'register_dealer_no_tree'));
-        
         add_action( 'admin_menu', array(new MLMExtensionAdminMenu,'mlm_admin_control_menu'), 60);
-
         add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount'));
-      
-  
+        add_action( 'add_meta_boxes', array(new MLMExtensionAdminMenu,'stripe_product_ids'));
+        add_action( 'save_post',  array(new MLMExtensionAdminMenu,'save_product_id'), 10, 3 );
      
     }
     
