@@ -31,7 +31,9 @@ class RealCallerAiExtension {
         add_action( 'add_meta_boxes', array(new MLMExtensionAdminMenu,'stripe_product_ids'));
         add_action( 'save_post',  array(new MLMExtensionAdminMenu,'save_product_id'), 10, 3 );
         add_shortcode('ds_invoice_form' , array($this, 'ds_invoice_form'));
-        add_action('init', array($this,'process_order_form'));
+         // Register AJAX handler
+        add_action('wp_ajax_process_order_form', array($this,'process_order_form_callback'));
+        add_action('wp_ajax_nopriv_process_order_form', array($this,'process_order_form_callback'));
      
     }
     
@@ -93,72 +95,103 @@ class RealCallerAiExtension {
           }
     }
 
-    // Process order form
-    public function process_order_form() {
-        if (isset($_POST['submit_order'])) {
-            // Verify nonce for security
-            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'order_form_nonce')) {
-                wp_die('Security check failed');
+
+
+        function process_order_form_callback() {
+            // Verify nonce
+            if (!isset($_POST['order_form_nonce']) || !wp_verify_nonce($_POST['order_form_nonce'], 'order_form_action')) {
+                wp_send_json_error('Security check failed');
             }
-            
+
             // Sanitize data
             $customer_name = sanitize_text_field($_POST['customer_name']);
             $customer_email = sanitize_email($_POST['customer_email']);
-            $products = array_map('sanitize_text_field', $_POST['product']);
-            $quantities = array_map('intval', $_POST['quantity']);
-            
-            // Calculate total
+            $products = isset($_POST['product']) ? array_map('sanitize_text_field', $_POST['product']) : [];
+            $quantities = isset($_POST['quantity']) ? array_map('intval', $_POST['quantity']) : [];
+
+            // Validate required fields
+            if (empty($customer_name) || empty($customer_email) || empty($products)) {
+                wp_send_json_error('Please fill all required fields');
+            }
+
+            // Calculate total and prepare items
             $total = 0;
             $order_items = [];
-            for ($i = 0; $i < count($products); $i++) {
-                $price = ($products[$i] === 'product1') ? 10 : 20;
-                $subtotal = $price * $quantities[$i];
+            
+            foreach ($products as $index => $product_id) {
+                $quantity = $quantities[$index] ?? 1;
+                
+                // Get product price (in a real implementation, you'd fetch this from database)
+                $price = 0;
+                if ($product_id === '76') {
+                    $price = 1000;
+                }
+                
+                $subtotal = $price * $quantity;
                 $total += $subtotal;
                 
                 $order_items[] = [
-                    'product' => $products[$i],
-                    'quantity' => $quantities[$i],
+                    'product_id' => $product_id,
+                    'product_name' => $product_id === '76' ? 'RealCallerAI' : 'Unknown Product',
+                    'quantity' => $quantity,
                     'price' => $price,
                     'subtotal' => $subtotal
                 ];
             }
+
+            // Send emails
+            $email_sent = $this->send_order_email($customer_name, $customer_email, $order_items, $total);
             
-            // Save order to database (simplified)
-            $order_id = wp_insert_post([
-                'post_title' => 'Order for ' . $customer_name,
-                'post_type' => 'shop_order',
-                'post_status' => 'publish',
-                'meta_input' => [
-                    '_customer_name' => $customer_name,
-                    '_customer_email' => $customer_email,
-                    '_order_total' => $total,
-                    '_order_items' => serialize($order_items)
-                ]
-            ]);
+            if ($email_sent) {
+                wp_send_json_success('Order processed successfully');
+            } else {
+                wp_send_json_error('Order processed but email failed to send');
+            }
+        }
+
+        function send_order_email($customer_name, $customer_email, $order_items, $total) {
+            // Admin email
+            $admin_email = get_option('admin_email');
+            $admin_subject = 'New Order: ' . $customer_name;
             
-            // Generate invoice (would require PDF library)
-            // $invoice = generate_invoice($order_id);
+            // Customer email
+            $customer_subject = 'Your Order Confirmation';
             
-            // Send email to customer
-            $to = $customer_email;
-            $subject = 'Your Order Invoice #' . $order_id;
-            $message = "Dear $customer_name,\n\nThank you for your order!\n\n";
-            $message .= "Order #: $order_id\n";
-            $message .= "Total: $" . number_format($total, 2) . "\n\n";
-            $message .= "Items:\n";
+            // Build email content
+            $message = '<h2>Order Details</h2>';
+            $message .= '<p><strong>Customer:</strong> ' . $customer_name . '</p>';
+            $message .= '<p><strong>Email:</strong> ' . $customer_email . '</p>';
+            $message .= '<h3>Order Items</h3>';
+            $message .= '<table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%;">';
+            $message .= '<tr><th>Product</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>';
             
             foreach ($order_items as $item) {
-                $message .= "- {$item['product']} x {$item['quantity']}: $" . number_format($item['subtotal'], 2) . "\n";
+                $message .= '<tr>';
+                $message .= '<td>' . $item['product_name'] . '</td>';
+                $message .= '<td>' . $item['quantity'] . '</td>';
+                $message .= '<td>$' . number_format($item['price'], 2) . '</td>';
+                $message .= '<td>$' . number_format($item['subtotal'], 2) . '</td>';
+                $message .= '</tr>';
             }
             
-            wp_mail($to, $subject, $message);
+            $message .= '</table>';
+            $message .= '<h3>Total: $' . number_format($total, 2) . '</h3>';
             
-            // Show success message
-            add_action('wp_footer', function() {
-                echo '<div class="order-success">Thank you! Your order has been received. We have sent the invoice to your email.</div>';
-            });
+            // Set HTML content type
+            add_filter('wp_mail_content_type', function() { return 'text/html'; });
+            
+            // Send to admin
+            $admin_sent = wp_mail($admin_email, $admin_subject, $message);
+            
+            // Send to customer
+            $headers = ['From: Your Store <noreply@' . $_SERVER['HTTP_HOST'] . '>'];
+            $customer_sent = wp_mail($customer_email, $customer_subject, $message, $headers);
+            
+            // Reset content type
+            remove_filter('wp_mail_content_type', 'set_html_content_type');
+            
+            return $admin_sent && $customer_sent;
         }
-    }
 
 }
 
