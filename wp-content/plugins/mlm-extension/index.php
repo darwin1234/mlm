@@ -112,42 +112,56 @@ class RealCallerAiExtension {
             wp_send_json_error('Please fill all required fields');
         }
     
-        // Calculate total and prepare items
-        $total = 0;
-        $order_items = [];
+        // Create WooCommerce order
+        $order = wc_create_order();
         
+        // Add products to order
         foreach ($products as $index => $product_id) {
             $quantity = $quantities[$index] ?? 1;
-            $price = ($product_id === '76') ? 1000 : 0;
-            $subtotal = $price * $quantity;
-            $total += $subtotal;
+            $product = wc_get_product($product_id);
             
-            $order_items[] = [
-                'product_id' => $product_id,
-                'product_name' => ($product_id === '76') ? 'RealCallerAI' : 'Unknown Product',
-                'quantity' => $quantity,
-                'price' => $price,
-                'subtotal' => $subtotal
-            ];
+            if ($product) {
+                $order->add_product($product, $quantity);
+            }
         }
     
-        // Generate checkout link (you can customize this URL)
-        $checkout_url = home_url('/checkout/'); // Change to your actual checkout page
+        // Set customer details
+        $order->set_customer_first_name($customer_name);
+        $order->set_billing_email($customer_email);
+        $order->set_billing_first_name($customer_name);
+        $order->calculate_totals();
+        $order->save();
+    
+        // Generate checkout URL
+        $checkout_url = wc_get_checkout_url();
         
-        // Send emails with checkout link
-        $email_sent = $this->send_order_email($customer_name, $customer_email, $order_items, $total, $checkout_url);
+        // Empty current cart and add products
+        WC()->cart->empty_cart();
+        foreach ($products as $index => $product_id) {
+            $quantity = $quantities[$index] ?? 1;
+            WC()->cart->add_to_cart($product_id, $quantity);
+        }
+    
+        // Send email notification
+        $email_sent = $this->send_order_email($customer_name, $customer_email, $order->get_id(), $checkout_url);
         
         if ($email_sent) {
-            wp_send_json_success('Order processed successfully');
+            wp_send_json_success([
+                'message' => 'Order processed successfully',
+                'redirect_url' => $checkout_url
+            ]);
         } else {
-            wp_send_json_error('Order processed but email failed to send');
+            wp_send_json_error('Order created but email failed to send');
         }
     }
     
-    public function send_order_email($customer_name, $customer_email, $order_items, $total, $checkout_url) {
+    public function send_order_email($customer_name, $customer_email, $order_id, $checkout_url) {
+        // Get order object
+        $order = wc_get_order($order_id);
+        
         // Build email content
         $message = '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">';
-        $message .= '<h2 style="color: #333;">Order Details</h2>';
+        $message .= '<h2 style="color: #333;">Order #' . $order_id . '</h2>';
         $message .= '<p><strong>Customer:</strong> ' . $customer_name . '</p>';
         $message .= '<p><strong>Email:</strong> ' . $customer_email . '</p>';
         
@@ -160,19 +174,19 @@ class RealCallerAiExtension {
         $message .= '<th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Subtotal</th>';
         $message .= '</tr>';
         
-        foreach ($order_items as $item) {
+        foreach ($order->get_items() as $item) {
             $message .= '<tr>';
-            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . $item['product_name'] . '</td>';
-            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . $item['quantity'] . '</td>';
-            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">$' . number_format($item['price'], 2) . '</td>';
-            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">$' . number_format($item['subtotal'], 2) . '</td>';
+            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . $item->get_name() . '</td>';
+            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . $item->get_quantity() . '</td>';
+            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . wc_price($item->get_subtotal() / $item->get_quantity()) . '</td>';
+            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . wc_price($item->get_subtotal()) . '</td>';
             $message .= '</tr>';
         }
         
         $message .= '</table>';
-        $message .= '<h3 style="color: #333;">Total: $' . number_format($total, 2) . '</h3>';
+        $message .= '<h3 style="color: #333;">Total: ' . wc_price($order->get_total()) . '</h3>';
         
-        // Add checkout button/link
+        // Add checkout button
         $message .= '<div style="margin: 30px 0; text-align: center;">';
         $message .= '<a href="' . esc_url($checkout_url) . '" style="';
         $message .= 'display: inline-block; padding: 12px 24px; background-color: #0073aa; ';
@@ -188,12 +202,12 @@ class RealCallerAiExtension {
         
         // Send to admin
         $admin_email = get_option('admin_email');
-        $admin_subject = 'New Order: ' . $customer_name;
+        $admin_subject = 'New Order #' . $order_id . ': ' . $customer_name;
         $admin_sent = wp_mail($admin_email, $admin_subject, $message);
         
         // Send to customer
-        $customer_subject = 'Your Order Confirmation';
-        $headers = ['From: Your Store <noreply@' . $_SERVER['HTTP_HOST'] . '>'];
+        $customer_subject = 'Your Order #' . $order_id . ' Confirmation';
+        $headers = ['From: ' . get_bloginfo('name') . ' <noreply@' . $_SERVER['HTTP_HOST'] . '>'];
         $customer_sent = wp_mail($customer_email, $customer_subject, $message, $headers);
         
         // Reset content type
