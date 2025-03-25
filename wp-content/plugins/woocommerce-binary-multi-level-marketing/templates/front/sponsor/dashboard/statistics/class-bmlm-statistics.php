@@ -239,9 +239,34 @@ if ( ! class_exists( 'BMLM_Statistics' ) ) {
 				<div class="woocommerce-MyAccount-content" style="width:100%!important;">
 					<div class="container">
 						<div class="row">
-							<h3>Client list</h3>
 							<div class="col-md-12">
+								<table class="table" style="width:100%">
+									<tr>
+										<td>
+											<h3>Client list</h3>
+										</td>
+										<td>
+										<button style="float:right;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Create Invoice</button>
+
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog modal-lg"> <!-- Added modal-lg here -->
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Invoice</h5>
+															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="modal-body">
+															<?php echo do_shortcode('[contact-form-7 id="0cc88a1" title="Create Invoice Form"]'); ?>
+														</div>
+													</div>
+												</div>
+											</div>										
+										</td>
+									</tr>
+								</table>
 								<table class="table">
+								
 								<thead>
 									<tr>
 										<th scope="col" style="font-weight: 100;">Name</th>

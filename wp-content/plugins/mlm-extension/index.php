@@ -30,6 +30,7 @@ class RealCallerAiExtension {
         add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount'));
         add_action( 'add_meta_boxes', array(new MLMExtensionAdminMenu,'stripe_product_ids'));
         add_action( 'save_post',  array(new MLMExtensionAdminMenu,'save_product_id'), 10, 3 );
+        add_shortcode('ds_invoice_form' , array($this, 'ds_invoice_form'));
      
     }
     
@@ -81,6 +82,14 @@ class RealCallerAiExtension {
             }
         }
         return $template;
+    }
+
+    public function ds_invoice_form(){
+          // Load custom page template for dealers
+          $new_template = plugin_dir_path( __FILE__ ) . 'templates/invoice.php';
+          if ( file_exists( $new_template ) ) {
+              return $new_template;
+          }
     }
 
 }
