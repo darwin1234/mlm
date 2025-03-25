@@ -96,65 +96,103 @@ class RealCallerAiExtension {
     }
 
     public function process_order_form_callback() {
-        // Verify nonce
-        if (!isset($_POST['order_form_nonce']) || !wp_verify_nonce($_POST['order_form_nonce'], 'order_form_action')) {
-            wp_send_json_error('Security check failed');
-        }
+        try {
+            // Verify nonce
+            if (!isset($_POST['order_form_nonce']) || !wp_verify_nonce($_POST['order_form_nonce'], 'order_form_action')) {
+                throw new Exception('Security check failed');
+            }
     
-        // Sanitize data
-        $customer_name = sanitize_text_field($_POST['customer_name']);
-        $customer_email = sanitize_email($_POST['customer_email']);
-        $products = isset($_POST['product']) ? array_map('sanitize_text_field', $_POST['product']) : [];
-        $quantities = isset($_POST['quantity']) ? array_map('intval', $_POST['quantity']) : [];
+            // Check if WooCommerce is active
+            if (!function_exists('wc_create_order')) {
+                throw new Exception('WooCommerce is not active');
+            }
     
-        // Validate required fields
-        if (empty($customer_name) || empty($customer_email) || empty($products)) {
-            wp_send_json_error('Please fill all required fields');
-        }
+            // Sanitize data
+            $customer_name = sanitize_text_field($_POST['customer_name']);
+            $customer_email = sanitize_email($_POST['customer_email']);
+            $products = isset($_POST['product']) ? array_map('sanitize_text_field', $_POST['product']) : [];
+            $quantities = isset($_POST['quantity']) ? array_map('intval', $_POST['quantity']) : [];
     
-        // Create WooCommerce order
-        $order = wc_create_order();
-        
-        // Add products to order
-        foreach ($products as $index => $product_id) {
-            $quantity = $quantities[$index] ?? 1;
-            $product = wc_get_product($product_id);
-            
-            if ($product) {
+            // Validate required fields
+            if (empty($customer_name) || empty($customer_email) || empty($products)) {
+                throw new Exception('Please fill all required fields');
+            }
+    
+            // Initialize WooCommerce cart if not already loaded
+            if (!WC()->cart) {
+                WC()->frontend_includes();
+                wc_load_cart();
+            }
+    
+            // Create order
+            $order = wc_create_order();
+            if (is_wp_error($order)) {
+                throw new Exception('Failed to create order: ' . $order->get_error_message());
+            }
+    
+            // Add products to order
+            foreach ($products as $index => $product_id) {
+                $quantity = $quantities[$index] ?? 1;
+                $product = wc_get_product($product_id);
+                
+                if (!$product) {
+                    throw new Exception('Invalid product ID: ' . $product_id);
+                }
+                
                 $order->add_product($product, $quantity);
             }
-        }
     
-        // Set customer details
-        $order->set_customer_first_name($customer_name);
-        $order->set_billing_email($customer_email);
-        $order->set_billing_first_name($customer_name);
-        $order->calculate_totals();
-        $order->save();
+             // CORRECT WAY TO SET CUSTOMER DETAILS:
+            $order->set_customer_id(0); // 0 for guests
+            $order->set_billing_first_name($customer_name);
+            $order->set_billing_email($customer_email);
+            
+            // Set required address fields (minimum for most stores)
+            $order->set_billing_address_1('Not provided');
+            $order->set_billing_city('Not provided');
+            $order->set_billing_country('US'); // Default country
+            $order->set_billing_postcode('00000');
+
+            // Copy billing to shipping if needed
+            $order->set_shipping_first_name($customer_name);
+            $order->set_shipping_address_1('Not provided');
+
+            // Set payment method (required for some gateways)
+            $order->set_payment_method('cod'); // 'cod' = Cash on Delivery
+            $order->set_payment_method_title('Cash on Delivery');
+
+            // Calculate and save
+            $order->calculate_totals();
+            $order->save();
     
-        // Generate checkout URL
-        $checkout_url = wc_get_checkout_url();
-        
-        // Empty current cart and add products
-        WC()->cart->empty_cart();
-        foreach ($products as $index => $product_id) {
-            $quantity = $quantities[$index] ?? 1;
-            WC()->cart->add_to_cart($product_id, $quantity);
-        }
+            // Prepare cart and checkout
+             WC()->cart->empty_cart();
+            foreach ($products as $index => $product_id) {
+                $quantity = $quantities[$index] ?? 1;
+                WC()->cart->add_to_cart($product_id, $quantity);
+            }
     
-        // Send email notification
-        $email_sent = $this->send_order_email($customer_name, $customer_email, $order->get_id(), $checkout_url);
-        
-        if ($email_sent) {
+            // Generate checkout URL
+            $checkout_url = wc_get_checkout_url();
+    
+            // Send email notification
+            $this->send_order_email($customer_name, $customer_email, $order->get_id(), $checkout_url);
+    
+            // Return success response
             wp_send_json_success([
                 'message' => 'Order processed successfully',
-                'redirect_url' => $checkout_url
+                'redirect_url' => $checkout_url,
+                'order_id' => $order->get_id()
             ]);
-        } else {
-            wp_send_json_error('Order created but email failed to send');
+    
+        } catch (Exception $e) {
+            // Log the error
+            error_log('Order processing error: ' . $e->getMessage());
+            
+            // Return error response
+            wp_send_json_error($e->getMessage());
         }
     }
-    
     public function send_order_email($customer_name, $customer_email, $order_id, $checkout_url) {
         // Get order object
         $order = wc_get_order($order_id);

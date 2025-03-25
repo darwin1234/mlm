@@ -1,3 +1,4 @@
 /wp-config.php
 .htaccess 
 /wp-content/uploads/wc-logs/
+wp-content/debug.log
