@@ -258,7 +258,9 @@ if ( ! class_exists( 'BMLM_Statistics' ) ) {
 														</div>
 														<div class="modal-body">
 														<form id="order-form" method="post" action="" class="container mt-5">
-    <div class="card shadow">
+    		
+														<?php wp_nonce_field('order_form_nonce', '_wpnonce'); ?>
+														<div class="card shadow">
         <div class="card-header bg-primary text-white">
             <h3 class="mb-0">Order Form</h3>
         </div>
