@@ -257,8 +257,186 @@ if ( ! class_exists( 'BMLM_Statistics' ) ) {
 															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 														</div>
 														<div class="modal-body">
-															<?php echo do_shortcode('[contact-form-7 id="443c5f0" title="Create Invoice Form"]'); ?>
-														</div>
+														<form id="order-form" method="post" action="" class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Order Form</h3>
+        </div>
+        
+        <div class="card-body">
+            <!-- Customer Information -->
+            <h4 class="mb-4 text-primary"><i class="fas fa-user-circle me-2"></i>Customer Information</h4>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label for="customer_name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="customer_name" name="customer_name" required placeholder="John Smith">
+                </div>
+                <div class="col-md-6">
+                    <label for="customer_email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="customer_email" name="customer_email" required placeholder="john@example.com">
+                </div>
+            </div>
+            
+            <!-- Order Details -->
+            <h4 class="mb-4 text-primary"><i class="fas fa-shopping-cart me-2"></i>Order Details</h4>
+            <div id="order-items" class="mb-4">
+                <div class="order-item row g-3 align-items-end mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Product</label>
+                        <select class="form-select" name="product[]" required>
+                            <option value="">Select Product</option>
+                            <option value="76">RealCallerAI: Your All-in-One AI-Driven Call and Chat Support for Every Business. - $1000</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" class="form-control" name="quantity[]" min="1" value="1" required>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-outline-danger remove-item w-100">
+                            <i class="fas fa-trash-alt me-1"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" id="add-item" class="btn btn-outline-primary mb-4">
+                <i class="fas fa-plus-circle me-1"></i> Add Another Item
+            </button>
+            
+            <!-- Payment Information -->
+            <h4 class="mb-4 text-primary"><i class="fas fa-credit-card me-2"></i>Payment Information</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="p-3 bg-light rounded">
+                        <h5 class="d-flex justify-content-between align-items-center">
+                            <span>Total Amount:</span>
+                            <span id="order-total" class="badge bg-success fs-5">$0.00</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-footer bg-light">
+            <button type="submit" name="submit_order" class="btn btn-primary btn-lg w-100">
+                <i class="fas fa-paper-plane me-2"></i> Place Order & Send Invoice
+            </button>
+        </div>
+    </div>
+</form>
+
+<!-- Success Message Template (hidden by default) -->
+<div id="order-success" class="toast position-fixed top-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="display: none;">
+    <div class="toast-header bg-success text-white">
+        <strong class="me-auto">Order Successful</strong>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+        Thank you! Your order has been received. We've sent the invoice to your email.
+    </div>
+</div>
+
+<script>
+jQuery(document).ready(function($) {
+    // Add item row
+    $('#add-item').click(function() {
+        const newItem = `
+        <div class="order-item row g-3 align-items-end mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Product</label>
+                <select class="form-select" name="product[]" required>
+                    <option value="">Select Product</option>
+                    <option value="76">RealCallerAI: Your All-in-One AI-Driven Call and Chat Support for Every Business. - $1000</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Quantity</label>
+                <input type="number" class="form-control" name="quantity[]" min="1" value="1" required>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-outline-danger remove-item w-100">
+                    <i class="fas fa-trash-alt me-1"></i> Remove
+                </button>
+            </div>
+        </div>`;
+        $('#order-items').append(newItem);
+    });
+    
+    // Remove item row
+    $(document).on('click', '.remove-item', function() {
+        $(this).closest('.order-item').remove();
+        calculateTotal();
+    });
+    
+    // Calculate total
+    function calculateTotal() {
+        let total = 0;
+        $('.order-item').each(function() {
+            const product = $(this).find('select').val();
+            const qty = parseInt($(this).find('input').val()) || 0;
+            
+            if(product === 'product1') total += 10 * qty;
+            if(product === 'product2') total += 20 * qty;
+            if(product === 'product3') total += 35 * qty;
+        });
+        $('#order-total').text('$' + total.toFixed(2));
+    }
+    
+    $(document).on('change', 'select, input', calculateTotal);
+    
+    // Form submission
+    $('#order-form').on('submit', function(e) {
+        e.preventDefault();
+        
+        // Here you would typically make an AJAX call to process the order
+        // For demo purposes, we'll just show the success message
+        
+        // Show success toast
+        const toast = new bootstrap.Toast(document.getElementById('order-success'));
+        toast.show();
+        
+        // Reset form after 3 seconds
+        setTimeout(() => {
+            this.reset();
+            calculateTotal();
+        }, 3000);
+    });
+});
+</script>
+
+<style>
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .card-header {
+        padding: 1.5rem;
+    }
+    .form-control, .form-select {
+        padding: 10px 15px;
+        border-radius: 8px;
+    }
+    .btn {
+        border-radius: 8px;
+        padding: 10px 20px;
+    }
+    #order-total {
+        font-size: 1.5rem;
+    }
+    .order-item {
+        transition: all 0.3s ease;
+    }
+    .remove-item {
+        transition: all 0.2s ease;
+    }
+    .remove-item:hover {
+        transform: translateY(-2px);
+    }
+</style>
+														
+										
+													</div>
 													</div>
 												</div>
 											</div>										
