@@ -155,7 +155,7 @@ class RealCallerAiExtension {
                 '_customer_email' => $order_data['customer_email'],
                 '_order_date' => $order_data['order_date'],
                 '_order_status' => $order_data['order_status'],
-                '_order_items' => serialize(get_order_items($order_data))
+                '_order_items' => serialize($this->get_order_items($order_data))
             ]
         ]);
         
@@ -167,11 +167,11 @@ class RealCallerAiExtension {
         
         foreach ($order_data['products'] as $index => $product_id) {
             $quantity = $order_data['quantities'][$index] ?? 1;
-            $price = get_product_price($product_id);
+            $price = $this->get_product_price($product_id);
             
             $items[] = [
                 'product_id' => $product_id,
-                'product_name' => get_product_name($product_id),
+                'product_name' => $this->get_product_name($product_id),
                 'quantity' => $quantity,
                 'price' => $price,
                 'subtotal' => $price * $quantity
