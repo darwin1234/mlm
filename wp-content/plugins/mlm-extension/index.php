@@ -95,235 +95,112 @@ class RealCallerAiExtension {
           }
     }
 
-
     public function process_order_form_callback() {
         // Verify nonce
         if (!isset($_POST['order_form_nonce']) || !wp_verify_nonce($_POST['order_form_nonce'], 'order_form_action')) {
             wp_send_json_error('Security check failed');
         }
-
+    
         // Sanitize data
-        $order_data = [
-            'customer_name' => sanitize_text_field($_POST['customer_name']),
-            'customer_email' => sanitize_email($_POST['customer_email']),
-            'products' => isset($_POST['product']) ? array_map('sanitize_text_field', $_POST['product']) : [],
-            'quantities' => isset($_POST['quantity']) ? array_map('intval', $_POST['quantity']) : [],
-            'order_date' => current_time('mysql'),
-            'order_status' => 'pending'
-        ];
-
+        $customer_name = sanitize_text_field($_POST['customer_name']);
+        $customer_email = sanitize_email($_POST['customer_email']);
+        $products = isset($_POST['product']) ? array_map('sanitize_text_field', $_POST['product']) : [];
+        $quantities = isset($_POST['quantity']) ? array_map('intval', $_POST['quantity']) : [];
+    
         // Validate required fields
-        if (empty($order_data['customer_name']) || empty($order_data['customer_email']) || empty($order_data['products'])) {
+        if (empty($customer_name) || empty($customer_email) || empty($products)) {
             wp_send_json_error('Please fill all required fields');
         }
-
-        // Create order and get order ID
-        $order_id = $this->create_order($order_data);
+    
+        // Calculate total and prepare items
+        $total = 0;
+        $order_items = [];
         
-        if (!$order_id) {
-            wp_send_json_error('Could not create order');
-        }
-
-        // Generate invoice PDF
-        $invoice_url = $this->generate_invoice_pdf($order_id, $order_data);
-        
-        // Send emails with invoice
-        $email_sent = $this->send_order_email_with_invoice($order_id, $order_data, $invoice_url);
-        
-        // Prepare response
-        $response = [
-            'success' => true,
-            'data' => [
-                'message' => 'Order processed successfully',
-                'order_id' => $order_id,
-                'invoice_url' => $invoice_url,
-                'redirect_url' => add_query_arg('order_id', $order_id, get_permalink(get_page_by_path('order-confirmation')))
-            ]
-        ];
-        
-        wp_send_json($response);
-    }
-
-    public function create_order($order_data) {
-        // Create order post
-        $order_id = wp_insert_post([
-            'post_title' => 'Order #' . time() . ' - ' . $order_data['customer_name'],
-            'post_type' => 'shop_order',
-            'post_status' => 'publish',
-            'meta_input' => [
-                '_customer_name' => $order_data['customer_name'],
-                '_customer_email' => $order_data['customer_email'],
-                '_order_date' => $order_data['order_date'],
-                '_order_status' => $order_data['order_status'],
-                '_order_items' => serialize($this->get_order_items($order_data))
-            ]
-        ]);
-        
-        return $order_id ?: false;
-    }
-
-    function get_order_items($order_data) {
-        $items = [];
-        
-        foreach ($order_data['products'] as $index => $product_id) {
-            $quantity = $order_data['quantities'][$index] ?? 1;
-            $price = $this->get_product_price($product_id);
+        foreach ($products as $index => $product_id) {
+            $quantity = $quantities[$index] ?? 1;
+            $price = ($product_id === '76') ? 1000 : 0;
+            $subtotal = $price * $quantity;
+            $total += $subtotal;
             
-            $items[] = [
+            $order_items[] = [
                 'product_id' => $product_id,
-                'product_name' => $this->get_product_name($product_id),
+                'product_name' => ($product_id === '76') ? 'RealCallerAI' : 'Unknown Product',
                 'quantity' => $quantity,
                 'price' => $price,
-                'subtotal' => $price * $quantity
+                'subtotal' => $subtotal
             ];
         }
+    
+        // Generate checkout link (you can customize this URL)
+        $checkout_url = home_url('/checkout/'); // Change to your actual checkout page
         
-        return $items;
-    }
-
-    public function get_product_price($product_id) {
-        // In a real implementation, fetch from database
-        return $product_id === '76' ? 1000 : 0;
-    }
-
-    public function get_product_name($product_id) {
-        // In a real implementation, fetch from database
-        return $product_id === '76' ? 'RealCallerAI' : 'Unknown Product';
-    }
-
-    public function generate_invoice_pdf($order_id, $order_data) {
-        // This would use a PDF library like TCPDF or Dompdf
-        // For now, we'll create a simple HTML invoice page
+        // Send emails with checkout link
+        $email_sent = $this->send_order_email($customer_name, $customer_email, $order_items, $total, $checkout_url);
         
-        $invoice_content = build_invoice_html($order_id, $order_data);
-        $upload_dir = wp_upload_dir();
-        $filename = 'invoice-' . $order_id . '.html';
-        $filepath = $upload_dir['path'] . '/' . $filename;
-        
-        file_put_contents($filepath, $invoice_content);
-        
-        return $upload_dir['url'] . '/' . $filename;
+        if ($email_sent) {
+            wp_send_json_success('Order processed successfully');
+        } else {
+            wp_send_json_error('Order processed but email failed to send');
+        }
     }
-
-    public function build_invoice_html($order_id, $order_data) {
-        ob_start(); ?>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Invoice #<?php echo $order_id; ?></title>
-            <style>
-                body { font-family: Arial, sans-serif; margin: 20px; }
-                .invoice-header { margin-bottom: 20px; }
-                .invoice-details { margin-bottom: 30px; }
-                table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                th { background-color: #f2f2f2; }
-                .total { font-weight: bold; font-size: 1.2em; }
-            </style>
-        </head>
-        <body>
-            <div class="invoice-header">
-                <h1>INVOICE #<?php echo $order_id; ?></h1>
-                <p>Date: <?php echo date('F j, Y', strtotime($order_data['order_date'])); ?></p>
-            </div>
-            
-            <div class="invoice-details">
-                <h3>Bill To:</h3>
-                <p><?php echo $order_data['customer_name']; ?><br>
-                <?php echo $order_data['customer_email']; ?></p>
-            </div>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Unit Price</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    $order_total = 0;
-                    $items = maybe_unserialize(get_post_meta($order_id, '_order_items', true));
-                    
-                    foreach ($items as $item): 
-                        $order_total += $item['subtotal'];
-                    ?>
-                    <tr>
-                        <td><?php echo $item['product_name']; ?></td>
-                        <td><?php echo $item['quantity']; ?></td>
-                        <td>$<?php echo number_format($item['price'], 2); ?></td>
-                        <td>$<?php echo number_format($item['subtotal'], 2); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-            
-            <div class="total">
-                <p>Total: $<?php echo number_format($order_total, 2); ?></p>
-            </div>
-            
-            <p>Thank you for your business!</p>
-        </body>
-        </html>
-        <?php
-        return ob_get_clean();
-    }
-
-    public function send_order_email_with_invoice($order_id, $order_data, $invoice_url) {
-        $to = $order_data['customer_email'];
-        $subject = 'Your Invoice #' . $order_id;
-        $headers = ['Content-Type: text/html; charset=UTF-8'];
+    
+    public function send_order_email($customer_name, $customer_email, $order_items, $total, $checkout_url) {
+        // Build email content
+        $message = '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">';
+        $message .= '<h2 style="color: #333;">Order Details</h2>';
+        $message .= '<p><strong>Customer:</strong> ' . $customer_name . '</p>';
+        $message .= '<p><strong>Email:</strong> ' . $customer_email . '</p>';
         
-        $message = build_email_template($order_id, $order_data, $invoice_url);
+        $message .= '<h3 style="color: #333; margin-top: 20px;">Order Items</h3>';
+        $message .= '<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">';
+        $message .= '<tr style="background-color: #f5f5f5;">';
+        $message .= '<th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Product</th>';
+        $message .= '<th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Quantity</th>';
+        $message .= '<th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Price</th>';
+        $message .= '<th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Subtotal</th>';
+        $message .= '</tr>';
         
-        return wp_mail($to, $subject, $message, $headers);
+        foreach ($order_items as $item) {
+            $message .= '<tr>';
+            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . $item['product_name'] . '</td>';
+            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . $item['quantity'] . '</td>';
+            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">$' . number_format($item['price'], 2) . '</td>';
+            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">$' . number_format($item['subtotal'], 2) . '</td>';
+            $message .= '</tr>';
+        }
+        
+        $message .= '</table>';
+        $message .= '<h3 style="color: #333;">Total: $' . number_format($total, 2) . '</h3>';
+        
+        // Add checkout button/link
+        $message .= '<div style="margin: 30px 0; text-align: center;">';
+        $message .= '<a href="' . esc_url($checkout_url) . '" style="';
+        $message .= 'display: inline-block; padding: 12px 24px; background-color: #0073aa; ';
+        $message .= 'color: #fff; text-decoration: none; border-radius: 4px; font-weight: bold;">';
+        $message .= 'Proceed to Checkout</a>';
+        $message .= '</div>';
+        
+        $message .= '<p>If you have any questions, please reply to this email.</p>';
+        $message .= '</div>';
+    
+        // Set HTML content type
+        add_filter('wp_mail_content_type', function() { return 'text/html'; });
+        
+        // Send to admin
+        $admin_email = get_option('admin_email');
+        $admin_subject = 'New Order: ' . $customer_name;
+        $admin_sent = wp_mail($admin_email, $admin_subject, $message);
+        
+        // Send to customer
+        $customer_subject = 'Your Order Confirmation';
+        $headers = ['From: Your Store <noreply@' . $_SERVER['HTTP_HOST'] . '>'];
+        $customer_sent = wp_mail($customer_email, $customer_subject, $message, $headers);
+        
+        // Reset content type
+        remove_filter('wp_mail_content_type', 'set_html_content_type');
+        
+        return $admin_sent && $customer_sent;
     }
-
-    public function build_email_template($order_id, $order_data, $invoice_url) {
-        ob_start(); ?>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 600px; margin: 0 auto; }
-                .header { background-color: #f8f9fa; padding: 20px; text-align: center; }
-                .content { padding: 20px; }
-                .button { display: inline-block; padding: 10px 20px; background-color: #0073aa; color: white; text-decoration: none; border-radius: 4px; }
-                .footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.9em; color: #666; }
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <h1>Thank You for Your Order!</h1>
-            </div>
-            
-            <div class="content">
-                <p>Dear <?php echo $order_data['customer_name']; ?>,</p>
-                
-                <p>We've received your order (#<?php echo $order_id; ?>) and it's being processed.</p>
-                
-                <h3>Order Summary</h3>
-                
-                <p><strong>Order Date:</strong> <?php echo date('F j, Y', strtotime($order_data['order_date'])); ?></p>
-                
-                <p>You can view and download your invoice using the button below:</p>
-                
-                <p><a href="<?php echo $invoice_url; ?>" class="button">Download Invoice</a></p>
-                
-                <p>If you have any questions about your order, please reply to this email.</p>
-            </div>
-            
-            <div class="footer">
-                <p>© <?php echo date('Y'); ?> <?php echo get_bloginfo('name'); ?>. All rights reserved.</p>
-            </div>
-        </body>
-        </html>
-        <?php
-        return ob_get_clean();
-    }
-
 }
 
 // Initialize the plugin class
