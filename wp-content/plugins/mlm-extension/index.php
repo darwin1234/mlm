@@ -18,6 +18,24 @@ require_once(DSPATH . 'admin/admin.php');
 
 class RealCallerAiExtension {
 
+    
+    private $ghl_endpoint = "https://rest.gohighlevel.com";
+
+	private $api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55X2lkIjoiZGNCY0g4enRsRE8zcWZ3QmV2M3oiLCJ2ZXJzaW9uIjoxLCJpYXQiOjE3NDE1OTUwNzUwMDMsInN1YiI6IkhKR1djblpzbUprN3FBdjI2bG9YIn0.OXlDtQunS4CjjshhGFvYxBP4c8mZwdoIutMAuzyQYcY';
+
+	private $bmlm_gtree_nodes;
+
+	private $planEndpoint = "https://api.stripe.com/v1/plans";
+
+	private $subscriptionEndpoint = "https://api.stripe.com/v1/subscriptions";
+
+	private $stripe_api_key = "sk_test_t6DTE0aLHvnhI3dZcqyQLEwl";
+
+    
+	const COMMISSION_RATE = 0.10; // Define at the top of the class
+
+	const COMMISSION_RATE_TWO_PERCENT = 0.02; // Define at the top of the class
+
     public function __construct() {
         register_activation_hook( __FILE__, array( $this, 'flush_rewrite_rules' ) );
         add_action('init', array( $this, 'mlm_rewrite_rule' ) );
@@ -27,7 +45,9 @@ class RealCallerAiExtension {
         add_action('init', array(new mlmregistration, 'ProcessRegistration'));
         add_action('init', array(new mlmregistration ,'register_dealer_no_tree'));
         add_action( 'admin_menu', array(new MLMExtensionAdminMenu,'mlm_admin_control_menu'), 60);
-        add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount'));
+        //add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount'));
+        add_action('woocommerce_order_status_completed', array($this, 'process_client_order'),10,3);
+        
         add_action( 'add_meta_boxes', array(new MLMExtensionAdminMenu,'stripe_product_ids'));
         add_action( 'save_post',  array(new MLMExtensionAdminMenu,'save_product_id'), 10, 3 );
         add_shortcode('ds_invoice_form' , array($this, 'ds_invoice_form'));
@@ -94,6 +114,192 @@ class RealCallerAiExtension {
               return $new_template;
           }
     }
+
+    	/**
+	 * Helper function to send API requests
+	 */
+	private function send_api_request($endpoint, $data)
+	{
+		$response = wp_remote_post($this->ghl_endpoint . $endpoint, [
+			'method' => 'POST',
+			'headers' => [
+				'Authorization' => 'Bearer ' . $this->api_key,
+				'Content-Type' => 'application/json'
+			],
+			'body' => json_encode($data),
+			'data_format' => 'body'
+		]);
+
+		if (is_wp_error($response)) {
+			error_log("API ERROR: " . $response->get_error_message());
+			return false;
+		}
+
+    	return json_decode(wp_remote_retrieve_body($response), true);
+	}
+
+    public function process_client_order($order_id) {
+        global $wpdb;
+    
+        try {
+            // Validate order ID
+            if (!is_numeric($order_id) || $order_id <= 0) {
+                throw new InvalidArgumentException("Invalid order ID");
+            }
+    
+            // Get the WooCommerce order object
+            $order = wc_get_order($order_id);
+            if (!$order) {
+                throw new RuntimeException("Order not found");
+            }
+    
+            // Get parent dealer ID
+            $parent_id =  134;
+            if (empty($parent_id)) {
+                throw new RuntimeException("No dealer user ID found for order");
+            }
+    
+            // Get customer data from the order
+            $customer_data = [
+                'first_name' => "Darwin",
+                'last_name' => "Sese",
+                'email' => "darwinsese@gmail.com",
+                'phone' =>"09611372663",
+                'address' => "1255 Mabini Street",
+                'address_2' => "1255 Mabini Street",
+                'city' => "San Fernando",
+                'state' => "25000",
+                'postal_code' =>"25000",
+                'country' => "PH",
+                // For business name, we'll use first name + last name if no company name exists
+                'business_name' => "Darwin ABC",
+                'company_name' => "Darwin ABC",
+            ];
+    
+            // Insert into ds_clients table
+            $client_inserted = $wpdb->insert($wpdb->prefix . 'ds_clients', [
+                'child' => 0,
+                'parent' => $parent_id,
+                'order_id' => $order_id,
+            ]);
+    
+            if (!$client_inserted) {
+                throw new RuntimeException("Failed to insert client record");
+            }
+    
+            // Insert initial commission for the parent
+            $commission_inserted = $wpdb->insert($wpdb->prefix . 'bmlm_commission', [
+                'user_id' => $parent_id,
+                'type' => 'joining',
+                'description' => 'Commission for client ' . $customer_data['first_name'] . ' ' . $customer_data['last_name'],
+                'commission' => $order->get_total() * self::COMMISSION_RATE,
+                'date' => current_time('mysql'),
+                'paid' => 'unpaid'
+            ]);
+    
+            if (!$commission_inserted) {
+                throw new RuntimeException("Failed to insert commission record");
+            }
+    
+            
+            $this->processDealerCommissions($parent_id, $order);
+            
+             // Create business sub-account via API
+            $business_data = [
+                "businessName" => sanitize_text_field($customer_data['business_name']),
+                "companyName" => sanitize_text_field($customer_data['company_name']),
+                "email" => sanitize_email($customer_data['email']),
+                "phone" => sanitize_text_field($customer_data['phone']),
+                "address" => sanitize_text_field($customer_data['address']),
+                "city" => sanitize_text_field($customer_data['city']),
+                "state" => sanitize_text_field($customer_data['state']),
+                "postalCode" => sanitize_text_field($customer_data['postal_code']),
+                "country" => sanitize_text_field($customer_data['country'])
+            ];
+    
+            $response = $this->send_api_request("/v1/locations/", $business_data);
+            
+            if (!$response || empty($response['id'])) {
+                throw new RuntimeException("Failed to create sub-account via API");
+            }
+    
+            $location_id = $response['id'];
+    
+            // Create admin user via API
+            $user_data = [
+                "locationIds" => [$location_id, 'VxgP7Rj68WYNIXhMQsb5'], // Consider making this configurable
+                "firstName" => sanitize_text_field($customer_data['first_name']),
+                "lastName" => sanitize_text_field($customer_data['last_name']),
+                "email" => sanitize_email($customer_data['email']),
+                "password" => wp_generate_password(), // Generate a random password
+                "type" => "account",
+                "role" => "user",
+                "permissions" => [
+                    "campaignsEnabled" => true,
+                    "contactsEnabled" => true,
+                    // ... rest of permissions ...
+                ]
+            ];
+    
+            $user_response = $this->send_api_request("/v1/users/", $user_data);
+            
+            if (!$user_response) {
+                throw new RuntimeException("Failed to create admin user via API");
+            }
+    
+            error_log("Success: Order $order_id processed successfully. Sub-Account and Admin User Created.");
+            return true;
+    
+        } catch (Exception $e) {
+            error_log("Error processing order $order_id: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    private function processDealerCommissions($child, $order, $level = 1, $downline_limit = 5) {
+		
+		global $wpdb;
+	
+		// Base case: Stop recursion if the level exceeds the downline limit
+		if ($level > $downline_limit) {
+			return;
+		}
+	
+		// Fetch dealers for the current child
+		$dealers = $wpdb->get_results($wpdb->prepare(
+			"SELECT * FROM {$wpdb->prefix}bmlm_gtree_nodes 
+			WHERE child = %d 
+			AND (limit_commissions < %d OR limit_commissions IS NULL)",
+			$child,
+			$downline_limit
+		));
+		
+		// If no dealers are found, stop recursion
+		if (empty($dealers)) {
+			return;
+		}
+	
+		// Process each dealer
+		foreach ($dealers as $dealer) {
+			// Insert a commission if the count is less than the downline limit
+			$result = $wpdb->insert($wpdb->prefix . 'bmlm_commission', [
+					'user_id' => $dealer->parent,
+					'type' => 'joining',
+					'description' => '',
+					'commission' => $order->get_total() * self::COMMISSION_RATE_TWO_PERCENT,
+					'date' => current_time('mysql'),
+					'paid' => 'unpaid'
+			]);
+
+			$this->updateLimitColumn($dealer->parent,$child);
+			if (!$result) {
+				error_log("Failed to insert commission for dealer ID: {$dealer->parent}");
+			}
+			// Recursively process the next level (parent of the current dealer)
+			$this->processDealerCommissions($dealer->parent, $order, $level + 1, $downline_limit);
+		}
+
+	}
 
     public function process_order_form_callback() {
         try {
@@ -182,6 +388,8 @@ class RealCallerAiExtension {
                 // Get the order edit URL for admin
                 $order_edit_url = admin_url('post.php?post=' . $order->get_id() . '&action=edit');
                 
+
+              //  add_post_meta($order->get_id, 'dealer_user_id', $dealer_user_id);
                 // Create email content
                 $message = '<h2>New Invoice</h2>';
                 $message .= '<p>Hello ' . $customer_name . ',</p>';
@@ -214,67 +422,6 @@ class RealCallerAiExtension {
             wp_send_json_error($e->getMessage());
         }
     }
-
-    /*public function send_order_email($customer_name, $customer_email, $order_id, $checkout_url) {
-        // Get order object
-        $order = wc_get_order($order_id);
-        
-        // Build email content
-        $message = '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">';
-        $message .= '<h2 style="color: #333;">Order #' . $order_id . '</h2>';
-        $message .= '<p><strong>Customer:</strong> ' . $customer_name . '</p>';
-        $message .= '<p><strong>Email:</strong> ' . $customer_email . '</p>';
-        
-        $message .= '<h3 style="color: #333; margin-top: 20px;">Order Items</h3>';
-        $message .= '<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">';
-        $message .= '<tr style="background-color: #f5f5f5;">';
-        $message .= '<th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Product</th>';
-        $message .= '<th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Quantity</th>';
-        $message .= '<th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Price</th>';
-        $message .= '<th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Subtotal</th>';
-        $message .= '</tr>';
-        
-        foreach ($order->get_items() as $item) {
-            $message .= '<tr>';
-            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . $item->get_name() . '</td>';
-            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . $item->get_quantity() . '</td>';
-            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . wc_price($item->get_subtotal() / $item->get_quantity()) . '</td>';
-            $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . wc_price($item->get_subtotal()) . '</td>';
-            $message .= '</tr>';
-        }
-        
-        $message .= '</table>';
-        $message .= '<h3 style="color: #333;">Total: ' . wc_price($order->get_total()) . '</h3>';
-        
-        // Add checkout button
-        $message .= '<div style="margin: 30px 0; text-align: center;">';
-        $message .= '<a href="' . esc_url($checkout_url) . '" style="';
-        $message .= 'display: inline-block; padding: 12px 24px; background-color: #0073aa; ';
-        $message .= 'color: #fff; text-decoration: none; border-radius: 4px; font-weight: bold;">';
-        $message .= 'Proceed to Checkout</a>';
-        $message .= '</div>';
-        
-        $message .= '<p>If you have any questions, please reply to this email.</p>';
-        $message .= '</div>';
-    
-        // Set HTML content type
-        add_filter('wp_mail_content_type', function() { return 'text/html'; });
-        
-        // Send to admin
-        $admin_email = get_option('admin_email');
-        $admin_subject = 'New Order #' . $order_id . ': ' . $customer_name;
-        $admin_sent = wp_mail($admin_email, $admin_subject, $message);
-        
-        // Send to customer
-        $customer_subject = 'Your Order #' . $order_id . ' Confirmation';
-        $headers = ['From: ' . get_bloginfo('name') . ' <noreply@' . $_SERVER['HTTP_HOST'] . '>'];
-        $customer_sent = wp_mail($customer_email, $customer_subject, $message, $headers);
-        
-        // Reset content type
-        remove_filter('wp_mail_content_type', 'set_html_content_type');
-        
-        return $admin_sent && $customer_sent;
-    }*/
 }
 
 // Initialize the plugin class
