@@ -151,24 +151,59 @@ class RealCallerAiExtension {
             $order->set_shipping_first_name($customer_name);
             $order->set_shipping_address_1('Not provided');
     
-            // Set payment method (important for invoice)
-            $order->set_payment_method('bacs'); // Bank transfer - common for invoices
+            // Set payment method
+            $order->set_payment_method('bacs');
             $order->set_payment_method_title('Invoice Payment');
     
             // Calculate and save
             $order->calculate_totals();
             $order->save();
     
-            // Set order status to "Pending payment" (customer will pay later)
+            // Set order status to "Pending payment"
             $order->update_status('pending', __('Awaiting invoice payment', 'your-text-domain'));
     
-            // Send the invoice email to customer
-            WC()->mailer()->emails['WC_Email_Customer_Invoice']->trigger($order->get_id(), $order, true);
+            // 1. First try WooCommerce's built-in invoice email
+            $mailer = WC()->mailer();
+            $email = $mailer->emails['WC_Email_Customer_Invoice'];
+            
+            if (is_a($email, 'WC_Email')) {
+                $email->trigger($order->get_id(), $order, true);
+                $email_sent = true;
+            } else {
+                $email_sent = false;
+                error_log('WooCommerce invoice email class not found');
+            }
     
-            // Return success response
+            // 2. Fallback: Send custom email if WooCommerce email fails
+            if (!$email_sent) {
+                $subject = 'Invoice #' . $order->get_id() . ' from ' . get_bloginfo('name');
+                $headers = array('Content-Type: text/html; charset=UTF-8');
+                
+                // Get the order edit URL for admin
+                $order_edit_url = admin_url('post.php?post=' . $order->get_id() . '&action=edit');
+                
+                // Create email content
+                $message = '<h2>New Invoice</h2>';
+                $message .= '<p>Hello ' . $customer_name . ',</p>';
+                $message .= '<p>Your invoice #' . $order->get_id() . ' has been created.</p>';
+                $message .= '<p>Total Amount: ' . $order->get_formatted_order_total() . '</p>';
+                $message .= '<p>Please make payment at your earliest convenience.</p>';
+                $message .= '<p><a href="' . $order->get_checkout_payment_url() . '">Pay Now</a></p>';
+                $message .= '<p>Thank you for your business!</p>';
+                
+                // Send using wp_mail
+                $email_sent = wp_mail($customer_email, $subject, $message, $headers);
+                
+                if (!$email_sent) {
+                    error_log('Failed to send fallback invoice email for order #' . $order->get_id());
+                }
+            }
+    
+            // Return success response 
             wp_send_json_success([
-                'message' => 'Invoice created successfully. The customer will receive an email with payment instructions.',
-                'order_id' => $order->get_id()
+                'message' => 'Invoice created successfully. ' . ($email_sent ? 'Email notification sent.' : 'Email notification could not be sent.'),
+                'order_id' => $order->get_id(),
+                'email_sent' => $email_sent
             ]);
     
         } catch (Exception $e) {
@@ -179,6 +214,7 @@ class RealCallerAiExtension {
             wp_send_json_error($e->getMessage());
         }
     }
+
     /*public function send_order_email($customer_name, $customer_email, $order_id, $checkout_url) {
         // Get order object
         $order = wc_get_order($order_id);
