@@ -118,12 +118,6 @@ class RealCallerAiExtension {
                 throw new Exception('Please fill all required fields');
             }
     
-            // Initialize WooCommerce cart if not already loaded
-            if (!WC()->cart) {
-                WC()->frontend_includes();
-                wc_load_cart();
-            }
-    
             // Create order
             $order = wc_create_order();
             if (is_wp_error($order)) {
@@ -142,58 +136,50 @@ class RealCallerAiExtension {
                 $order->add_product($product, $quantity);
             }
     
-             // CORRECT WAY TO SET CUSTOMER DETAILS:
+            // Set customer details
             $order->set_customer_id(0); // 0 for guests
             $order->set_billing_first_name($customer_name);
             $order->set_billing_email($customer_email);
             
-            // Set required address fields (minimum for most stores)
+            // Set required address fields
             $order->set_billing_address_1('Not provided');
             $order->set_billing_city('Not provided');
             $order->set_billing_country('US'); // Default country
             $order->set_billing_postcode('00000');
-
+    
             // Copy billing to shipping if needed
             $order->set_shipping_first_name($customer_name);
             $order->set_shipping_address_1('Not provided');
-
-            // Set payment method (required for some gateways)
-            $order->set_payment_method('cod'); // 'cod' = Cash on Delivery
-            $order->set_payment_method_title('Cash on Delivery');
-
+    
+            // Set payment method (important for invoice)
+            $order->set_payment_method('bacs'); // Bank transfer - common for invoices
+            $order->set_payment_method_title('Invoice Payment');
+    
             // Calculate and save
             $order->calculate_totals();
             $order->save();
     
-            // Prepare cart and checkout
-             WC()->cart->empty_cart();
-            foreach ($products as $index => $product_id) {
-                $quantity = $quantities[$index] ?? 1;
-                WC()->cart->add_to_cart($product_id, $quantity);
-            }
+            // Set order status to "Pending payment" (customer will pay later)
+            $order->update_status('pending', __('Awaiting invoice payment', 'your-text-domain'));
     
-            // Generate checkout URL
-            $checkout_url = wc_get_checkout_url();
-    
-            // Send email notification
-            $this->send_order_email($customer_name, $customer_email, $order->get_id(), $checkout_url);
+            // Send the invoice email to customer
+            WC()->mailer()->emails['WC_Email_Customer_Invoice']->trigger($order->get_id(), $order, true);
     
             // Return success response
             wp_send_json_success([
-                'message' => 'Order processed successfully',
-                'redirect_url' => $checkout_url,
+                'message' => 'Invoice created successfully. The customer will receive an email with payment instructions.',
                 'order_id' => $order->get_id()
             ]);
     
         } catch (Exception $e) {
             // Log the error
-            error_log('Order processing error: ' . $e->getMessage());
+            error_log('Invoice processing error: ' . $e->getMessage());
             
             // Return error response
             wp_send_json_error($e->getMessage());
         }
     }
-    public function send_order_email($customer_name, $customer_email, $order_id, $checkout_url) {
+    /*public function send_order_email($customer_name, $customer_email, $order_id, $checkout_url) {
         // Get order object
         $order = wc_get_order($order_id);
         
@@ -252,7 +238,7 @@ class RealCallerAiExtension {
         remove_filter('wp_mail_content_type', 'set_html_content_type');
         
         return $admin_sent && $customer_sent;
-    }
+    }*/
 }
 
 // Initialize the plugin class
