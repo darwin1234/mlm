@@ -406,7 +406,6 @@ if ( ! class_exists( 'BMLM_Statistics' ) ) {
 								<thead>
 									<tr>
 										<th scope="col" style="font-weight: 100;">Name</th>
-										<th scope="col" style="font-weight: 100;">Products</th>
 										<th scope="col" style="font-weight: 100;">Business Name</th>
 										<th scope="col" style="font-weight: 100;">Address</th>
 										<th scope="col" style="font-weight: 100;">Email Address</th>
@@ -419,15 +418,6 @@ if ( ! class_exists( 'BMLM_Statistics' ) ) {
 									?>
 									<tr>
 										<td><strong><?php echo  $order->get_billing_first_name() ;?> <?php echo  $order->get_billing_last_name() ;?></strong></td>
-										<td>
-									 	<?php 
-											 foreach ($order->get_items() as $item) {
-												echo $item->get_id(); // Get product name
-												
-											}
-										?>
-										</td>
-										
 										<td><?php echo get_post_meta($client->order_id, '_business_name',true);   ?></td>
 										<td><?php echo get_post_meta($client->order_id, '_billing_address_1',true);   ?></td>
 										<td><?php echo $order->get_billing_email();?></td>
