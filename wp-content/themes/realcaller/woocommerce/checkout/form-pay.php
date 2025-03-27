@@ -38,7 +38,7 @@ $totals = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.GlobalVa
 	</div>
 	<div class="row">
 		<div class="col-md-6">
-			<img style="width:200px;" src="https://msgsndr-private.storage.googleapis.com/locationPhotos/d0e7e13b-90c1-4d7d-9a30-5ed4a598c9ee.png">
+			<img style="width:200px;" src="<?php echo bloginfo('template_url'); ?>/assets/images/logo.png">
 		</div>
 		<div class="col-md-6">
 			 <p  class="text-end">Dealsdpt inc. O/A MarketingDPT</p>
@@ -52,28 +52,34 @@ $totals = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.GlobalVa
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-8">
-			<table class="table">
-				<tr>
-					<td><strong>Billed to</strong<</td>
-					<td><strong>Invoice No</strong></td>
-					<td><strong>Issue Date</strong></td>
-				</tr>
-				<tr>
-					<td>
-						<p>Darwin Sese</p>
-						<p>darwinsese@gmail.com</p>
-						<p>Canada</p>
-					</td>
-					<td>
-						INV-000040
-					</td>
-					<td>
-					March 27, 2025
-					</td>
-				</tr>
-			</table>
-		</div>
+	<div class="col-md-8">
+    <table class="table">
+        <tr>
+            <td><strong>Billed to</strong></td>
+            <td><strong>Invoice No</strong></td>
+            <td><strong>Issue Date</strong></td>
+        </tr>
+        <tr>
+            <td>
+                <?php 
+                // Get customer details from order
+                $billing_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
+                $billing_email = $order->get_billing_email();
+                $billing_country = WC()->countries->countries[$order->get_billing_country()] ?? $order->get_billing_country();
+                ?>
+                <p><?php echo esc_html($billing_name); ?></p>
+                <p><?php echo esc_html($billing_email); ?></p>
+                <p><?php echo esc_html($billing_country); ?></p>
+            </td>
+            <td>
+                INV-<?php echo str_pad($order->get_id(), 6, '0', STR_PAD_LEFT); ?>
+            </td>
+            <td>
+                <?php echo date_i18n('F j, Y', strtotime($order->get_date_created())); ?>
+            </td>
+        </tr>
+    </table>
+</div>
 		<div class="col-md-4">
 			
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100%; background-color:#2EAD2E; border-color:#2EAD2E;">
