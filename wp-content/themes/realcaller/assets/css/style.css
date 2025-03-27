@@ -1276,3 +1276,49 @@ body.my-account  #dsfooter {
   border-top: 2px solid #ccc;
   border-radius: 0!important;
 } 
+
+.card {
+		border-radius: 10px;
+		overflow: hidden;
+}
+.card-header {
+		padding: 1rem;
+}
+.form-control, .form-select {
+		padding: 10px 15px;
+		border-radius: 8px;
+}
+.btn {
+		border-radius: 8px;
+		padding: 10px 20px;
+}
+#order-total{
+		font-size: 1rem;
+}
+.order-item {
+		transition: all 0.3s ease;
+}
+.remove-item {
+		transition: all 0.2s ease;
+}
+.remove-item:hover {
+	transform: translateY(-2px);
+}
+#order_header{
+  padding:0; 
+  margin:0;
+}
+
+#order_header .card-header{
+  width:100%;
+  padding:10px;
+}
+#order_header .btn-close{
+  float:right;
+  font-size:15px;
+}
+
+#order_form_frm .modal-body{
+  padding:0;
+  margin:0;
+}

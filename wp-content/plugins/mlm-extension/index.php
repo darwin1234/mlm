@@ -154,26 +154,26 @@ class RealCallerAiExtension {
             }
     
             // Get parent dealer ID
-            $parent_id =  134;
+            $parent_id = get_post_meta($order_id, 'dealer_user_id', true);
+            
             if (empty($parent_id)) {
                 throw new RuntimeException("No dealer user ID found for order");
             }
     
             // Get customer data from the order
             $customer_data = [
-                'first_name' => "Darwin",
-                'last_name' => "Sese",
-                'email' => "darwinsese@gmail.com",
-                'phone' =>"09611372663",
-                'address' => "1255 Mabini Street",
-                'address_2' => "1255 Mabini Street",
-                'city' => "San Fernando",
-                'state' => "25000",
-                'postal_code' =>"25000",
-                'country' => "PH",
-                // For business name, we'll use first name + last name if no company name exists
-                'business_name' => "Darwin ABC",
-                'company_name' => "Darwin ABC",
+                'first_name' => $order->get_billing_first_name(),
+                'last_name' => $order->get_billing_last_name(),
+                'email' => $order->get_billing_email(),
+                'phone' => $order->get_billing_phone(),
+                'address' => $order->get_billing_address_1(),
+                'address_2' => $order->get_billing_address_2(),
+                'city' => $order->get_billing_city(),
+                'state' => $order->get_billing_state(),
+                'postal_code' => $order->get_billing_postcode(),
+                'country' => $order->get_billing_country(),
+                'business_name' => $order->get_billing_company() ?: $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
+                'company_name' => $order->get_billing_company() ?: $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
             ];
     
             // Insert into ds_clients table
@@ -201,10 +201,9 @@ class RealCallerAiExtension {
                 throw new RuntimeException("Failed to insert commission record");
             }
     
-            
             $this->processDealerCommissions($parent_id, $order);
             
-             // Create business sub-account via API
+            // Create business sub-account via API
             $business_data = [
                 "businessName" => sanitize_text_field($customer_data['business_name']),
                 "companyName" => sanitize_text_field($customer_data['company_name']),
@@ -237,7 +236,6 @@ class RealCallerAiExtension {
                 "permissions" => [
                     "campaignsEnabled" => true,
                     "contactsEnabled" => true,
-                    // ... rest of permissions ...
                 ]
             ];
     
@@ -314,13 +312,17 @@ class RealCallerAiExtension {
             }
     
             // Sanitize data
-            $customer_name = sanitize_text_field($_POST['customer_name']);
+            $customer_first_name = sanitize_text_field($_POST['customer_first_name']);
+            $customer_last_name = sanitize_text_field($_POST['customer_last_name']);
             $customer_email = sanitize_email($_POST['customer_email']);
-            $products = isset($_POST['product']) ? array_map('sanitize_text_field', $_POST['product']) : [];
-            $quantities = isset($_POST['quantity']) ? array_map('intval', $_POST['quantity']) : [];
+            $customer_business = sanitize_text_field($_POST['customer_business']);
+            
+            // Since it's a single product now, we can simplify this
+            $product_id = 76; // Your fixed product ID
+            $quantity = 1;    // Fixed quantity
     
             // Validate required fields
-            if (empty($customer_name) || empty($customer_email) || empty($products)) {
+            if (empty($customer_first_name) || empty($customer_last_name) || empty($customer_email) || empty($customer_business)) {
                 throw new Exception('Please fill all required fields');
             }
     
@@ -330,21 +332,18 @@ class RealCallerAiExtension {
                 throw new Exception('Failed to create order: ' . $order->get_error_message());
             }
     
-            // Add products to order
-            foreach ($products as $index => $product_id) {
-                $quantity = $quantities[$index] ?? 1;
-                $product = wc_get_product($product_id);
-                
-                if (!$product) {
-                    throw new Exception('Invalid product ID: ' . $product_id);
-                }
-                
-                $order->add_product($product, $quantity);
+            // Add product to order
+            $product = wc_get_product($product_id);
+            if (!$product) {
+                throw new Exception('Invalid product ID: ' . $product_id);
             }
+            $order->add_product($product, $quantity);
     
             // Set customer details
             $order->set_customer_id(0); // 0 for guests
-            $order->set_billing_first_name($customer_name);
+            $order->set_billing_first_name($customer_first_name);
+            $order->set_billing_last_name($customer_last_name);
+            $order->set_billing_company($customer_business);
             $order->set_billing_email($customer_email);
             
             // Set required address fields
@@ -354,7 +353,8 @@ class RealCallerAiExtension {
             $order->set_billing_postcode('00000');
     
             // Copy billing to shipping if needed
-            $order->set_shipping_first_name($customer_name);
+            $order->set_shipping_first_name($customer_first_name);
+            $order->set_shipping_last_name($customer_last_name);
             $order->set_shipping_address_1('Not provided');
     
             // Set payment method
@@ -387,13 +387,12 @@ class RealCallerAiExtension {
                 
                 // Get the order edit URL for admin
                 $order_edit_url = admin_url('post.php?post=' . $order->get_id() . '&action=edit');
-                
-
-              //  add_post_meta($order->get_id, 'dealer_user_id', $dealer_user_id);
+                  
                 // Create email content
                 $message = '<h2>New Invoice</h2>';
-                $message .= '<p>Hello ' . $customer_name . ',</p>';
+                $message .= '<p>Hello ' . $customer_first_name . ' ' . $customer_last_name . ',</p>';
                 $message .= '<p>Your invoice #' . $order->get_id() . ' has been created.</p>';
+                $message .= '<p>Product: RealCallerAI</p>';
                 $message .= '<p>Total Amount: ' . $order->get_formatted_order_total() . '</p>';
                 $message .= '<p>Please make payment at your earliest convenience.</p>';
                 $message .= '<p><a href="' . $order->get_checkout_payment_url() . '">Pay Now</a></p>';
@@ -406,6 +405,11 @@ class RealCallerAiExtension {
                     error_log('Failed to send fallback invoice email for order #' . $order->get_id());
                 }
             }
+
+
+            $dealer_user_id = get_current_user_id();
+    
+            add_post_meta($order->get_id(), 'dealer_user_id', $dealer_user_id);
     
             // Return success response 
             wp_send_json_success([

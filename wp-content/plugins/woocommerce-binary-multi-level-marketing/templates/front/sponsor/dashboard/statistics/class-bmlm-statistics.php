@@ -246,220 +246,155 @@ if ( ! class_exists( 'BMLM_Statistics' ) ) {
 											<h3>Client list</h3>
 										</td>
 										<td>
-										<button style="float:right;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Create Invoice</button>
+										<button style="float:right;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#order_form_frm">Create Invoice</button>
 
 											<!-- Modal -->
-											<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal fade" id="order_form_frm" tabindex="-1" aria-labelledby="order_form_frm" aria-hidden="true">
 												<div class="modal-dialog modal-lg"> <!-- Added modal-lg here -->
 													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="exampleModalLabel">Invoice</h5>
-															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+														<div id="order_header" class="modal-header">
+															<div class="card-header bg-primary text-white">
+																<h3 class="mb-0"><i class="fas fa-shopping-bag me-2"></i> RealCallerAI Order Form
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</h3>
+															</div>
 														</div>
 														<div class="modal-body">
-														<form id="order-form" method="post" class="container mt-5">
-																<?php wp_nonce_field('order_form_action', 'order_form_nonce'); ?>
-																<input type="hidden" name="action" value="process_order_form">
+														<form id="order-form" method="post" class="container mt-4">
+															<?php wp_nonce_field('order_form_action', 'order_form_nonce'); ?>
+															<input type="hidden" name="action" value="process_order_form">
+															<input type="hidden" name="product[]" value="76">
+															<input type="hidden" name="quantity[]" value="1">
+															<div class="card shadow-lg border-0">
+																<div class="card-body">
+																	<!-- Product Summary -->
+																	<div class="row mb-4 align-items-center">
+																		<div class="col-md-8">
+																			<h4 class="text-primary">RealCallerAI</h4>
+																			<p class="text-muted mb-0">Advanced caller identification solution for your business</p>
+																		</div>
+																		<div class="col-md-4 text-end">
+																			<h3 class="text-success">$1,000.00</h3>
+																		</div>
+																	</div>
+																	
+																	<hr class="my-4">
+																	
+																	<!-- Customer Information -->
+																	<h4 class="mb-4 text-primary"><i class="fas fa-user-circle me-2"></i> Customer Information</h4>
+																	<div class="row g-3 mb-4">
+																		<div class="col-md-6">
+																			<label for="customer_first_name" class="form-label">First Name*</label>
+																			<input type="text" class="form-control form-control-lg" id="customer_first_name" name="customer_first_name" required placeholder="John">
+																		</div>
+																		<div class="col-md-6">
+																			<label for="customer_last_name" class="form-label">Last Name*</label>
+																			<input type="text" class="form-control form-control-lg" id="customer_last_name" name="customer_last_name" required placeholder="Doe">
+																		</div>
+																		<div class="col-md-6">
+																			<label for="customer_email" class="form-label">Email*</label>
+																			<input type="email" class="form-control form-control-lg" id="customer_email" name="customer_email" required placeholder="john@example.com">
+																		</div>
+																		<div class="col-md-6">
+																			<label for="customer_business" class="form-label">Business Name*</label>
+																			<input type="text" class="form-control form-control-lg" id="customer_business" name="customer_business" required placeholder="Your Company Inc.">
+																		</div>
+																	</div>
+																	
+																	<!-- Payment Summary -->
+																	<div class="row mt-5">
+																		<div class="col-md-6 offset-md-6">
+																			<div class="p-4 bg-light rounded-3 border">
+																				<h5 class="d-flex justify-content-between align-items-center mb-3">
+																					<span>Subtotal:</span>
+																					<span>$1,000.00</span>
+																				</h5>
+																				<h4 class="d-flex justify-content-between align-items-center mb-0">
+																					<span class="fw-bold">Total:</span>
+																					<span class="text-success fw-bold">$1,000.00</span>
+																				</h4>
+																			</div>
+																		</div>
+																	</div>
+																</div>
 																
-																<div class="card shadow">
-																	<div class="card-header bg-primary text-white">
-																		<h3 class="mb-0">Order Form</h3>
-																	</div>
-																	
-																	<div class="card-body">
-																		<!-- Customer Information -->
-																		<h4 class="mb-4 text-primary"><i class="fas fa-user-circle me-2"></i>Customer Information</h4>
-																		<div class="row g-3 mb-4">
-																			<div class="col-md-6">
-																				<label for="customer_name" class="form-label">Full Name</label>
-																				<input type="text" class="form-control" id="customer_name" name="customer_name" required placeholder="John Smith">
-																			</div>
-																			<div class="col-md-6">
-																				<label for="customer_email" class="form-label">Email</label>
-																				<input type="email" class="form-control" id="customer_email" name="customer_email" required placeholder="john@example.com">
-																			</div>
-																		</div>
-																		
-																		<!-- Order Details -->
-																		<h4 class="mb-4 text-primary"><i class="fas fa-shopping-cart me-2"></i>Order Details</h4>
-																		<div id="order-items" class="mb-4">
-																			<div class="order-item row g-3 align-items-end mb-3">
-																				<div class="col-md-6">
-																					<label class="form-label">Product</label>
-																					<select class="form-select product-select" name="product[]" required>
-																						<option value="">Select Product</option>
-																						<option value="76" data-price="1000">RealCallerAI - $1000</option>
-																					</select>
-																				</div>
-																				<div class="col-md-3">
-																					<label class="form-label">Quantity</label>
-																					<input type="number" class="form-control quantity" name="quantity[]" min="1" value="1" required>
-																				</div>
-																				<div class="col-md-3">
-																					<button type="button" class="btn btn-outline-danger remove-item w-100">
-																						<i class="fas fa-trash-alt me-1"></i> Remove
-																					</button>
-																				</div>
-																			</div>
-																		</div>
-																		
-																		<button type="button" id="add-item" class="btn btn-outline-primary mb-4">
-																			<i class="fas fa-plus-circle me-1"></i> Add Another Item
-																		</button>
-																		
-																		<!-- Payment Information -->
-																		<h4 class="mb-4 text-primary"><i class="fas fa-credit-card me-2"></i>Payment Information</h4>
-																		<div class="row">
-																			<div class="col-md-6">
-																				<div class="p-3 bg-light rounded">
-																					<h5 class="d-flex justify-content-between align-items-center">
-																						<span>Total Amount:</span>
-																						<span id="order-total" class="badge bg-success fs-5">$0.00</span>
-																					</h5>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	
-																	<div class="card-footer bg-light">
-																		<button type="submit" name="submit_order" class="btn btn-primary btn-lg w-100">
+																<div class="card-footer bg-light">
+																	<div class="d-grid">
+																		<button type="submit" name="submit_order" class="btn btn-primary btn-lg py-3">
 																			<i class="fas fa-paper-plane me-2"></i> Place Order & Send Invoice
 																		</button>
 																	</div>
-																</div>
-															</form>
-
-															<!-- Success Message -->
-															<div id="order-success" class="toast position-fixed top-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="display: none;">
-																<div class="toast-header bg-success text-white">
-																	<strong class="me-auto">Order Successful</strong>
-																	<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
-																</div>
-																<div class="toast-body">
-																	Thank you! Your order has been received. We've sent the invoice to your email.
+																	<p class="text-muted text-center mt-3 mb-0 small">
+																		<i class="fas fa-lock me-1"></i> Your information is secure and will not be shared
+																	</p>
 																</div>
 															</div>
-															<script>
-																jQuery(document).ready(function($) {
-																	// Initialize ajaxurl if not defined
-																	if (typeof ajaxurl === 'undefined') {
-																		ajaxurl = '<?php echo admin_url("admin-ajax.php"); ?>';
-																	}
+														</form>
 
-																	// Add item row
-																	$('#add-item').click(function() {
-																		const newItem = `
-																		<div class="order-item row g-3 align-items-end mb-3">
-																			<div class="col-md-6">
-																				<label class="form-label">Product</label>
-																				<select class="form-select product-select" name="product[]" required>
-																					<option value="">Select Product</option>
-																					<option value="76" data-price="1000">RealCallerAI - $1000</option>
-																				</select>
-																			</div>
-																			<div class="col-md-3">
-																				<label class="form-label">Quantity</label>
-																				<input type="number" class="form-control quantity" name="quantity[]" min="1" value="1" required>
-																			</div>
-																			<div class="col-md-3">
-																				<button type="button" class="btn btn-outline-danger remove-item w-100">
-																					<i class="fas fa-trash-alt me-1"></i> Remove
-																				</button>
-																			</div>
-																		</div>`;
-																		$('#order-items').append(newItem);
-																	});
-																	
-																	// Remove item row
-																	$(document).on('click', '.remove-item', function() {
-																		$(this).closest('.order-item').remove();
-																		calculateTotal();
-																	});
-																	
-																	// Calculate total
-																	function calculateTotal() {
-																		let total = 0;
-																		$('.order-item').each(function() {
-																			const price = parseFloat($(this).find('.product-select option:selected').data('price')) || 0;
-																			const qty = parseInt($(this).find('.quantity').val()) || 0;
-																			total += price * qty;
-																		});
-																		$('#order-total').text('$' + total.toFixed(2));
+														<!-- Success Message -->
+														<div id="order-success" class="toast position-fixed top-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="display: none;">
+															<div class="toast-header bg-success text-white">
+																<strong class="me-auto">Order Successful</strong>
+																<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+															</div>
+															<div class="toast-body">
+																<div class="d-flex align-items-center">
+																	<i class="fas fa-check-circle fa-2x text-success me-3"></i>
+																	<div>
+																		<h5 class="mb-1">Thank you for your order!</h5>
+																		<p class="mb-0">We've sent the invoice to your email address.</p>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+														<script>
+														jQuery(document).ready(function($) {
+															// Initialize ajaxurl if not defined
+															if (typeof ajaxurl === 'undefined') {
+																ajaxurl = '<?php echo admin_url("admin-ajax.php"); ?>';
+															}
+
+															// Form submission
+															$('#order-form').on('submit', function(e) {
+																e.preventDefault();
+																
+																// Disable submit button
+																const submitBtn = $(this).find('[type="submit"]');
+																submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i> Processing...');
+																
+																// Serialize form data
+																const formData = $(this).serialize();
+																
+																// AJAX request
+																$.ajax({
+																	url: ajaxurl,
+																	type: 'POST',
+																	data: formData,
+																	dataType: 'json',
+																	success: function(response) {
+																		if (response.success) {
+																			// Show success toast
+																			const toast = new bootstrap.Toast(document.getElementById('order-success'));
+																			toast.show();
+																			
+																			// Reset form
+																			$('#order-form')[0].reset();
+																		} else {
+																			alert('Error: ' + response.data);
+																		}
+																	},
+																	error: function(xhr, status, error) {
+																		alert('Error: ' + error);
+																	},
+																	complete: function() {
+																		submitBtn.prop('disabled', false).html('<i class="fas fa-paper-plane me-2"></i> Place Order & Send Invoice');
 																	}
-																	
-																	$(document).on('change', '.product-select, .quantity', calculateTotal);
-																	
-																	// Form submission
-																	$('#order-form').on('submit', function(e) {
-																		e.preventDefault();
-																		
-																		// Disable submit button
-																		const submitBtn = $(this).find('[type="submit"]');
-																		submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i> Processing...');
-																		
-																		// Serialize form data
-																		const formData = $(this).serialize();
-																		
-																		// AJAX request
-																		$.ajax({
-																			url: ajaxurl,
-																			type: 'POST',
-																			data: formData,
-																			dataType: 'json',
-																			success: function(response) {
-																				if (response.success) {
-																					// Show success toast
-																					const toast = new bootstrap.Toast(document.getElementById('order-success'));
-																					toast.show();
-																					
-																					// Reset form
-																					$('#order-form')[0].reset();
-																					calculateTotal();
-																				} else {
-																					alert('Error: ' + response.data);
-																				}
-																			},
-																			error: function(xhr, status, error) {
-																				alert('Error: ' + error);
-																			},
-																			complete: function() {
-																				submitBtn.prop('disabled', false).html('<i class="fas fa-paper-plane me-2"></i> Place Order & Send Invoice');
-																			}
-																		});
-																	});
 																});
-																															</script>
-													<style>
-														.card {
-															border-radius: 10px;
-															overflow: hidden;
-														}
-														.card-header {
-															padding: 1.5rem;
-														}
-														.form-control, .form-select {
-															padding: 10px 15px;
-															border-radius: 8px;
-														}
-														.btn {
-															border-radius: 8px;
-															padding: 10px 20px;
-														}
-														#order-total {
-															font-size: 1.5rem;
-														}
-														.order-item {
-															transition: all 0.3s ease;
-														}
-														.remove-item {
-															transition: all 0.2s ease;
-														}
-														.remove-item:hover {
-															transform: translateY(-2px);
-														}
-													</style>
-																																		
-													</div>
+															});
+														});
+														</script>																		
+														 </div>
 													</div>
 												</div>
 											</div>										
