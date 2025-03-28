@@ -30,12 +30,12 @@ if ( ! class_exists( 'BMLM_Scripts' ) ) {
 
 		function ajax_dscript() {
 			// Enqueue the ds-script.js file
-			wp_enqueue_script( 'ajax-script', plugin_dir_url( __FILE__ ) . 'assets/js/ds-script.js', array('jquery'), null, true );
+			//wp_enqueue_script( 'ajax-script', plugin_dir_url( __FILE__ ) . 'assets/js/ds-script.js', array('jquery'), null, true );
 		
 			// Localize the script with AJAX URL
-			wp_localize_script( 'ajax-script', 'ds_bmlm', array(
+			/*wp_localize_script( 'ajax-script', 'ds_bmlm', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-			));
+			));*/
 		}
 
 		/**

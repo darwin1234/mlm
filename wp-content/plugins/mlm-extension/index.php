@@ -54,7 +54,15 @@ class RealCallerAiExtension {
          // Register AJAX handler
         add_action('wp_ajax_process_order_form', array($this,'process_order_form_callback'));
         add_action('wp_ajax_nopriv_process_order_form', array($this,'process_order_form_callback'));
+
+        add_action('wp_enqueue_scripts', array($this,'enqueue_bootstrap_js'));
      
+    }
+    
+            // In your theme's functions.php or plugin file
+    public function enqueue_bootstrap_js() {
+        // Enqueue Bootstrap JS
+        wp_enqueue_script('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', array(), '5.3.0', true);
     }
     
     public function mlm_rewrite_rule() {

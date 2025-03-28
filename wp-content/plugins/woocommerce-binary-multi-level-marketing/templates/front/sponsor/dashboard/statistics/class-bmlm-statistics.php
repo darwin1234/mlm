@@ -320,7 +320,7 @@ if ( ! class_exists( 'BMLM_Statistics' ) ) {
 																
 																<div class="card-footer bg-light">
 																	<div class="d-grid">
-																		<button type="submit" name="submit_order" class="btn btn-primary btn-lg py-3">
+																		<button id="submit_order" type="submit" name="submit_order" class="btn btn-primary btn-lg py-3">
 																			<i class="fas fa-paper-plane me-2"></i> Place Order & Send Invoice
 																		</button>
 																	</div>
@@ -330,23 +330,6 @@ if ( ! class_exists( 'BMLM_Statistics' ) ) {
 																</div>
 															</div>
 														</form>
-
-														<!-- Success Message -->
-														<div id="order-success" class="toast position-fixed top-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="display: none;">
-															<div class="toast-header bg-success text-white">
-																<strong class="me-auto">Order Successful</strong>
-																<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
-															</div>
-															<div class="toast-body">
-																<div class="d-flex align-items-center">
-																	<i class="fas fa-check-circle fa-2x text-success me-3"></i>
-																	<div>
-																		<h5 class="mb-1">Thank you for your order!</h5>
-																		<p class="mb-0">We've sent the invoice to your email address.</p>
-																	</div>
-																</div>
-															</div>
-														</div>
 
 														<script>
 														jQuery(document).ready(function($) {
@@ -374,16 +357,24 @@ if ( ! class_exists( 'BMLM_Statistics' ) ) {
 																	dataType: 'json',
 																	success: function(response) {
 																		if (response.success) {
-																			// Show success toast
-																			const toast = new bootstrap.Toast(document.getElementById('order-success'));
-																			toast.show();
+																			alert("Invoice Successfully Sent");
 																			
-																			// Reset form
-																			$('#order-form')[0].reset();
+																			// Get modal instance
+																			var modal = $('#order_form_frm');
+																			
+																			// Set up handler for when modal finishes closing
+																			modal.on('hidden.bs.modal', function () {
+																				// Reload the page after modal closes
+																				location.reload();
+																			});
+																			
+																			// Trigger modal close
+																			modal.modal('hide');
+																			
 																		} else {
-																			alert('Error: ' + response.data);
+																			alert('Error: ' + (response.data || 'Unknown error occurred'));
 																		}
-																	},
+																																													},
 																	error: function(xhr, status, error) {
 																		alert('Error: ' + error);
 																	},
