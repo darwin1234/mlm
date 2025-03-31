@@ -441,7 +441,7 @@ class mlmregistration
 	
 		// Prepare API data for admin user creation
 		$user_data = [
-			"locationIds" => [$location_id, 'VxgP7Rj68WYNIXhMQsb5'],
+			"locationIds" => [$location_id],
 			"firstName" => $user_meta['first_name'],
 			"lastName" => $user_meta['last_name'],
 			"email" => $user_meta['email'],
@@ -470,16 +470,32 @@ class mlmregistration
 			]
 		];
 	
+		$this->save_data_for_cron($user_data,$location_id, $user_meta['email']);
 		// Send API request to create admin user
-		$user_response = $this->send_api_request("/v1/users/", $user_data);
+		/*$user_response = $this->send_api_request("/v1/users/", $user_data);
 		if ($user_response) {
 			error_log("Success: Sub-Account and Admin User Created Successfully for order $order_id.");
 		} else {
 			error_log("Failed: Admin user creation failed for order $order_id.");
-		}
+		}*/
 	}
 
 	
+	public function save_data_for_cron($user_data,$location_id,$email) {
+        global $wpdb;
+        
+        $wpdb->insert($wpdb->prefix . "ghl_locations",[
+            'location_id' => $location_id,
+            'user_meta' => json_encode($user_data),
+            'user_email' => $email
+        ],[
+            '%s',
+            '%s',
+            '%s'
+        ]);
+
+    }
+
 
 	/**
 	 * Helper function to send API requests

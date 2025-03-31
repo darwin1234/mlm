@@ -45,7 +45,7 @@ class RealCallerAiExtension {
         add_action('init', array(new mlmregistration, 'ProcessRegistration'));
         add_action('init', array(new mlmregistration ,'register_dealer_no_tree'));
         add_action( 'admin_menu', array(new MLMExtensionAdminMenu,'mlm_admin_control_menu'), 60);
-       // add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount'));
+        add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount'));
         add_action('woocommerce_order_status_completed', array($this, 'process_client_order'),10,3);
         
         add_action( 'add_meta_boxes', array(new MLMExtensionAdminMenu,'stripe_product_ids'));
@@ -238,22 +238,40 @@ class RealCallerAiExtension {
                     "firstName" => sanitize_text_field($customer_data['first_name']),
                     "lastName" => sanitize_text_field($customer_data['last_name']),
                     "email" => sanitize_email($customer_data['email']),
-                    "password" => wp_generate_password(), // Generate a random password
                     "type" => "account",
                     "role" => "user",
                     "permissions" => [
                         "campaignsEnabled" => true,
                         "contactsEnabled" => true,
+                        "workflowsEnabled" => true,
+                        "triggersEnabled" => true,
+                        "funnelsEnabled" => true,
+                        "opportunitiesEnabled" => true,
+                        "dashboardStatsEnabled" => true,
+                        "bulkRequestsEnabled" => true,
+                        "appointmentsEnabled" => true,
+                        "reviewsEnabled" => true,
+                        "onlineListingsEnabled" => true,
+                        "phoneCallEnabled" => true,
+                        "conversationsEnabled" => true,
+                        "assignedDataOnly" => false,
+                        "settingsEnabled" => true,
+                        "tagsEnabled" => true,
+                        "leadValueEnabled" => true,
+                        "marketingEnabled" => true
                     ]
                 ];
-        
-                $user_response = $this->send_api_request("/v1/users/", $user_data);
+                
+                $this->save_data_for_cron($user_data,$location_id,$customer_data['email']);
+
+                /*$user_response = $this->send_api_request("/v1/users/", $user_data);
                 
                 if (!$user_response) {
                     throw new RuntimeException("Failed to create admin user via API");
                 }
         
-                error_log("Success: Order $order_id processed successfully. Sub-Account and Admin User Created.");
+                error_log("Success: Order $order_id processed successfully. Sub-Account and Admin User Created.");*/
+
                 return true;
         
             } catch (Exception $e) {
@@ -262,6 +280,21 @@ class RealCallerAiExtension {
             }
         }
      
+    }
+
+    public function save_data_for_cron($user_data,$location_id,$email) {
+        global $wpdb;
+
+        $wpdb->insert($wpdb->prefix . "ghl_locations",[
+            'location_id' => $location_id,
+            'user_meta' => json_encode($user_data),
+            'user_email' => $email
+        ],[
+            '%s',
+            '%s',
+            '%s'
+        ]);
+
     }
 
     private function processDealerCommissions($child, $order, $level = 1, $downline_limit = 5) {
