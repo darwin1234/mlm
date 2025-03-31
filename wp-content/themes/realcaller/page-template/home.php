@@ -58,8 +58,8 @@ get_header();
         <div  class="row align-items-md-stretch">
         <div class="col-md-12">
           <h1 class="text-center text-white">Welcome to RealCaller AI!</h1>
-          <h2 class="text-center text-white">Talk to Lisa</h2>
-          <a href="#" id="custom-vapi-button">
+          <h2 class="text-center text-white" style="display:none">Talk to Lisa</h2>
+          <a href="#" id="custom-vapi-button" style="display:none">
             <span class="microphone"></span>   
           </a>
           <script>
@@ -107,8 +107,9 @@ get_header();
               };
             })(document, "script");
          </script>
-          <p class="text-center text-white">Ready to Transform Your Business with RealCaller AI?</p>
+          <p class="text-center text-white" style="display:none">Ready to Transform Your Business with RealCaller AI?</p>
           <p class="text-center text-white">Join Our Free Demo and Discover How to Automate Your Business Communication—No Tech Expertise Needed!</p>
+          <br><br>
           <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="<?php echo bloginfo('template_url');?>/assets/images/book-now-2.png" class="d-block mx-auto"></a>
       </div>
 
