@@ -45,7 +45,7 @@ class RealCallerAiExtension {
         add_action('init', array(new mlmregistration, 'ProcessRegistration'));
         add_action('init', array(new mlmregistration ,'register_dealer_no_tree'));
         add_action( 'admin_menu', array(new MLMExtensionAdminMenu,'mlm_admin_control_menu'), 60);
-        add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount'));
+       // add_action('woocommerce_order_status_completed', array(new mlmregistration, 'processGHLAccount'));
         add_action('woocommerce_order_status_completed', array($this, 'process_client_order'),10,3);
         
         add_action( 'add_meta_boxes', array(new MLMExtensionAdminMenu,'stripe_product_ids'));
@@ -148,118 +148,120 @@ class RealCallerAiExtension {
 
     public function process_client_order($order_id) {
         global $wpdb;
-    
-        try {
-            // Validate order ID
-            if (!is_numeric($order_id) || $order_id <= 0) {
-                throw new InvalidArgumentException("Invalid order ID");
+        if(get_post_meta($order_id, 'dealer_user_id', true))
+        {
+            try {
+                // Validate order ID
+                if (!is_numeric($order_id) || $order_id <= 0) {
+                    throw new InvalidArgumentException("Invalid order ID");
+                }
+        
+                // Get the WooCommerce order object
+                $order = wc_get_order($order_id);
+                if (!$order) {
+                    throw new RuntimeException("Order not found");
+                }
+        
+                // Get parent dealer ID
+                $parent_id = get_post_meta($order_id, 'dealer_user_id', true);
+                
+                if (empty($parent_id)) {
+                    throw new RuntimeException("No dealer user ID found for order");
+                }
+        
+                // Get customer data from the order
+                $customer_data = [
+                    'first_name' => $order->get_billing_first_name(),
+                    'last_name' => $order->get_billing_last_name(),
+                    'email' => $order->get_billing_email(),
+                    'phone' => $order->get_billing_phone(),
+                    'address' => $order->get_billing_address_1(),
+                    'address_2' => $order->get_billing_address_2(),
+                    'city' => $order->get_billing_city(),
+                    'state' => $order->get_billing_state(),
+                    'postal_code' => $order->get_billing_postcode(),
+                    'country' => $order->get_billing_country(),
+                    'business_name' => $order->get_billing_company() ?: $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
+                    'company_name' => $order->get_billing_company() ?: $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
+                ];
+        
+                // Insert into ds_clients table
+                $client_inserted = $wpdb->insert($wpdb->prefix . 'ds_clients', [
+                    'child' => 0,
+                    'parent' => $parent_id,
+                    'order_id' => $order_id,
+                ]);
+        
+                if (!$client_inserted) {
+                    throw new RuntimeException("Failed to insert client record");
+                }
+        
+                // Insert initial commission for the parent
+                $commission_inserted = $wpdb->insert($wpdb->prefix . 'bmlm_commission', [
+                    'user_id' => $parent_id,
+                    'type' => 'joining',
+                    'description' => 'Commission for client ' . $customer_data['first_name'] . ' ' . $customer_data['last_name'],
+                    'commission' => $order->get_total() * self::COMMISSION_RATE,
+                    'date' => current_time('mysql'),
+                    'paid' => 'unpaid'
+                ]);
+        
+                if (!$commission_inserted) {
+                    throw new RuntimeException("Failed to insert commission record");
+                }
+        
+                $this->processDealerCommissions($parent_id, $order);
+                
+                // Create business sub-account via API
+                $business_data = [
+                    "businessName" => sanitize_text_field($customer_data['business_name']),
+                    "companyName" => sanitize_text_field($customer_data['company_name']),
+                    "email" => sanitize_email($customer_data['email']),
+                    "phone" => sanitize_text_field($customer_data['phone']),
+                    "address" => sanitize_text_field($customer_data['address']),
+                    "city" => sanitize_text_field($customer_data['city']),
+                    "state" => sanitize_text_field($customer_data['state']),
+                    "postalCode" => sanitize_text_field($customer_data['postal_code']),
+                    "country" => sanitize_text_field($customer_data['country'])
+                ];
+        
+                $response = $this->send_api_request("/v1/locations/", $business_data);
+                
+                if (!$response || empty($response['id'])) {
+                    throw new RuntimeException("Failed to create sub-account via API");
+                }
+        
+                $location_id = $response['id'];
+                // Create admin user via API
+                $user_data = [
+                    "locationIds" => [$location_id], // Consider making this configurable
+                    "firstName" => sanitize_text_field($customer_data['first_name']),
+                    "lastName" => sanitize_text_field($customer_data['last_name']),
+                    "email" => sanitize_email($customer_data['email']),
+                    "password" => wp_generate_password(), // Generate a random password
+                    "type" => "account",
+                    "role" => "user",
+                    "permissions" => [
+                        "campaignsEnabled" => true,
+                        "contactsEnabled" => true,
+                    ]
+                ];
+        
+                $user_response = $this->send_api_request("/v1/users/", $user_data);
+                
+                if (!$user_response) {
+                    throw new RuntimeException("Failed to create admin user via API");
+                }
+        
+                error_log("Success: Order $order_id processed successfully. Sub-Account and Admin User Created.");
+                return true;
+        
+            } catch (Exception $e) {
+                error_log("Error processing order $order_id: " . $e->getMessage());
+                return false;
             }
-    
-            // Get the WooCommerce order object
-            $order = wc_get_order($order_id);
-            if (!$order) {
-                throw new RuntimeException("Order not found");
-            }
-    
-            // Get parent dealer ID
-            $parent_id = get_post_meta($order_id, 'dealer_user_id', true);
-            
-            if (empty($parent_id)) {
-                throw new RuntimeException("No dealer user ID found for order");
-            }
-    
-            // Get customer data from the order
-            $customer_data = [
-                'first_name' => $order->get_billing_first_name(),
-                'last_name' => $order->get_billing_last_name(),
-                'email' => $order->get_billing_email(),
-                'phone' => $order->get_billing_phone(),
-                'address' => $order->get_billing_address_1(),
-                'address_2' => $order->get_billing_address_2(),
-                'city' => $order->get_billing_city(),
-                'state' => $order->get_billing_state(),
-                'postal_code' => $order->get_billing_postcode(),
-                'country' => $order->get_billing_country(),
-                'business_name' => $order->get_billing_company() ?: $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
-                'company_name' => $order->get_billing_company() ?: $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
-            ];
-    
-            // Insert into ds_clients table
-            $client_inserted = $wpdb->insert($wpdb->prefix . 'ds_clients', [
-                'child' => 0,
-                'parent' => $parent_id,
-                'order_id' => $order_id,
-            ]);
-    
-            if (!$client_inserted) {
-                throw new RuntimeException("Failed to insert client record");
-            }
-    
-            // Insert initial commission for the parent
-            $commission_inserted = $wpdb->insert($wpdb->prefix . 'bmlm_commission', [
-                'user_id' => $parent_id,
-                'type' => 'joining',
-                'description' => 'Commission for client ' . $customer_data['first_name'] . ' ' . $customer_data['last_name'],
-                'commission' => $order->get_total() * self::COMMISSION_RATE,
-                'date' => current_time('mysql'),
-                'paid' => 'unpaid'
-            ]);
-    
-            if (!$commission_inserted) {
-                throw new RuntimeException("Failed to insert commission record");
-            }
-    
-            $this->processDealerCommissions($parent_id, $order);
-            
-            // Create business sub-account via API
-            $business_data = [
-                "businessName" => sanitize_text_field($customer_data['business_name']),
-                "companyName" => sanitize_text_field($customer_data['company_name']),
-                "email" => sanitize_email($customer_data['email']),
-                "phone" => sanitize_text_field($customer_data['phone']),
-                "address" => sanitize_text_field($customer_data['address']),
-                "city" => sanitize_text_field($customer_data['city']),
-                "state" => sanitize_text_field($customer_data['state']),
-                "postalCode" => sanitize_text_field($customer_data['postal_code']),
-                "country" => sanitize_text_field($customer_data['country'])
-            ];
-    
-            $response = $this->send_api_request("/v1/locations/", $business_data);
-            
-            if (!$response || empty($response['id'])) {
-                throw new RuntimeException("Failed to create sub-account via API");
-            }
-    
-            $location_id = $response['id'];
-    
-            // Create admin user via API
-            $user_data = [
-                "locationIds" => [$location_id, 'VxgP7Rj68WYNIXhMQsb5'], // Consider making this configurable
-                "firstName" => sanitize_text_field($customer_data['first_name']),
-                "lastName" => sanitize_text_field($customer_data['last_name']),
-                "email" => sanitize_email($customer_data['email']),
-                "password" => wp_generate_password(), // Generate a random password
-                "type" => "account",
-                "role" => "user",
-                "permissions" => [
-                    "campaignsEnabled" => true,
-                    "contactsEnabled" => true,
-                ]
-            ];
-    
-            $user_response = $this->send_api_request("/v1/users/", $user_data);
-            
-            if (!$user_response) {
-                throw new RuntimeException("Failed to create admin user via API");
-            }
-    
-            error_log("Success: Order $order_id processed successfully. Sub-Account and Admin User Created.");
-            return true;
-    
-        } catch (Exception $e) {
-            error_log("Error processing order $order_id: " . $e->getMessage());
-            return false;
         }
+     
     }
 
     private function processDealerCommissions($child, $order, $level = 1, $downline_limit = 5) {
