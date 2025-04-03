@@ -502,7 +502,7 @@ class RealCallerAiExtension {
         // Check if any products were found
         if ($loop->have_posts()) :
         ?>
-            <div class="container mt-5">
+            <div class="container">
                 <h2 class="text-center mb-4">Featured Products in RealCaller</h2>
                 <div class="row">
                     <?php while ($loop->have_posts()) : $loop->the_post(); 
@@ -516,7 +516,7 @@ class RealCallerAiExtension {
                                 <img src="<?php echo wp_get_attachment_url($product->get_image_id()); ?>" class="card-img-top" alt="<?php the_title(); ?>" style="object-fit:cover; width:120px; display:block; margin:auto; border-bottom: 1px solid #ddd;">
                             </a>
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title" style="font-size:16px; font-weight: 600;"><?php the_title(); ?></h5>
+                                <h5 class="card-title" style="font-size:14px; font-weight: 600;"><?php the_title(); ?></h5>
                                 <p class="card-text" style="font-size:14px; color:#777;"><?php echo wp_trim_words($product->get_short_description(), 15); ?></p>
                                 <p class="card-text"><strong><?php echo $product->get_price_html(); ?></strong></p>
                                 
@@ -524,9 +524,7 @@ class RealCallerAiExtension {
                                 <div class="mt-auto">
                                     <label for="sponsor-id" class="small text-muted hidden"><?php esc_html_e( 'Sponsor ID', 'binary-mlm' ); ?></label>
                                     <input type="hidden" id="sponsor-id-<?php the_ID(); ?>" value="<?php echo esc_url( $p_url ); ?>" class="bmlm-input form-control" readonly>
-                                   
                                         <button class="btn btn-primary w-100" style="width:100%; font-size:14px;" type="button" data-clipboard-target="#sponsor-id-<?php the_ID(); ?>">
-                                            <?php esc_html_e( 'Copy Affiliate Link', 'binary-mlm' ); ?>
                                             <span class="bmlm-tooltiptext"><?php esc_html_e( 'Copy to clipboard', 'binary-mlm' ); ?></span>
                                         </button>
                                     
