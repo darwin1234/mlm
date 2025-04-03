@@ -1,0 +1,18 @@
+Country Code,State Code,ZIP/Postcode,City,Rate %,Tax Name,Priority,Compound,Shipping,Tax Class
+Canada,Alberta,*,5,GST,1,no,no
+Canada,British Columbia,*,7,PST,1,no,no
+Canada,British Columbia,*,5,GST,1,no,no
+Canada,Manitoba,*,7,PST,1,no,no
+Canada,Manitoba,*,5,GST,1,no,no
+Canada,New Brunswick,*,15,HST,1,no,no
+Canada,Newfoundland and Labrador,*,15,HST,1,no,no
+Canada,Nova Scotia,*,15,HST,1,no,no
+Canada,Ontario,*,13,HST,1,no,no
+Canada,Prince Edward Island,*,15,HST,1,no,no
+Canada,Quebec,*,5,GST,1,no,no
+Canada,Quebec,*,9.975,QST,1,no,no
+Canada,Saskatchewan,*,6,PST,1,no,no
+Canada,Saskatchewan,*,5,GST,1,no,no
+Canada,Northwest Territories,*,5,GST,1,no,no
+Canada,Nunavut,*,5,GST,1,no,no
+Canada,Yukon,*,5,GST,1,no,no

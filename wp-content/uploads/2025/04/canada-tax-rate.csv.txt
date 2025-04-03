@@ -1,0 +1,18 @@
+Country,State,Postcode,Rate,Tax Name,Tax Class
+Canada,Alberta,,5,GST,Standard
+Canada,British Columbia,,7,PST,Standard
+Canada,British Columbia,,5,GST,Standard
+Canada,Manitoba,,7,PST,Standard
+Canada,Manitoba,,5,GST,Standard
+Canada,New Brunswick,,15,HST,Standard
+Canada,Newfoundland and Labrador,,15,HST,Standard
+Canada,Nova Scotia,,15,HST,Standard
+Canada,Ontario,,13,HST,Standard
+Canada,Prince Edward Island,,15,HST,Standard
+Canada,Quebec,,5,GST,Standard
+Canada,Quebec,,9.975,QST,Standard
+Canada,Saskatchewan,,6,PST,Standard
+Canada,Saskatchewan,,5,GST,Standard
+Canada,Northwest Territories,,5,GST,Standard
+Canada,Nunavut,,5,GST,Standard
+Canada,Yukon,,5,GST,Standard

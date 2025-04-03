@@ -42,14 +42,18 @@ if ( ! class_exists( 'BMLM_ClientRefferal' ) ) {
 			$sponsor_id = get_user_meta( $sponsor->ID, 'bmlm_sponsor_id', true );
 			$sponsor_id = ! empty( $sponsor_id ) ? $sponsor_id : 'N/A';
 			$terms_link = get_privacy_policy_url();
+		
 			?>
 
 
 				<div class="woocommerce-account woocommerce">
 				<?php do_action( 'bmlm_wc_account_menu' ); ?>
 				<div class="woocommerce-MyAccount-content">
-					<div class="container">
-						<div class="row">
+				<?php echo 	do_action('ds_woocommerce_products'); ?>	
+				<div class="container" style="display:none;">
+						
+					<div class="row">
+						
 							<div class="col-md-6">
 								<div class="card" style="width:300px;">
 								<img src="https://karanzi.websites.co.in/obaju-turquoise/img/product-placeholder.png" class="card-img-top" style="width:100%;" alt="...">
