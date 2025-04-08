@@ -337,6 +337,7 @@
                             
                             </div>
                             <input type="hidden" name="role" value="bmlm_sponsor">
+                            <input type="text" name="product_id" value="<?php echo (int)$_GET['product'];?>"
                         </div>
                         <div class="woocommerce-form-row form-row">
                             <button type="submit" name="submit" class="woocommerce-Button woocommerce-button button woocommerce-form-register__submit">Register Now</button>

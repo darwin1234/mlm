@@ -611,4 +611,17 @@ class mlmInvoice
 		$subscriptionID = $subscriptionBody["id"];
 
 	}
+	
+	/**
+	 * Add data attributes to state options
+	 */
+	public function modify_checkout_state_options($fields) {
+		
+		// Replace the original fields
+		$fields['billing']['billing_state']['field'] = $billing_state_field;
+		$fields['shipping']['shipping_state']['field'] = $shipping_state_field;
+		
+		return $fields;
+	}
+
 }

@@ -73,11 +73,11 @@ class dsMLM {
 		
 		add_filter( 'woocommerce_account_menu_items', array($this, 'ak_remove_my_account_links' ));
 	
-		add_filter('woocommerce_checkout_fields', array($this, 'addBootstrapToCheckoutFields' ));
+		//add_filter('woocommerce_checkout_fields', array($this, 'addBootstrapToCheckoutFields' ));
 
-		add_filter('woocommerce_checkout_fields', array($this,  'custom_reorder_checkout_fields'));
+		//add_filter('woocommerce_checkout_fields', array($this,  'custom_reorder_checkout_fields'));
 
-		add_filter( 'woocommerce_checkout_fields', array($this,'custom_remove_woocommerce_checkout_fields'));
+		//add_filter( 'woocommerce_checkout_fields', array($this,'custom_remove_woocommerce_checkout_fields'));
 
 		add_action('admin_menu', array($this,'ghl_plugin_menu'));
 		if(!is_front_page()){

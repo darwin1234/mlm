@@ -50,7 +50,6 @@ class RealCallerAiExtension {
         
         add_action( 'add_meta_boxes', array(new MLMExtensionAdminMenu,'stripe_product_ids'));
         add_action( 'save_post',  array(new MLMExtensionAdminMenu,'save_product_id'), 10, 3 );
-        add_shortcode('ds_invoice_form' , array($this, 'ds_invoice_form'));
          // Register AJAX handler
         add_action('wp_ajax_process_order_form', array($this,'process_order_form_callback'));
         add_action('wp_ajax_nopriv_process_order_form', array($this,'process_order_form_callback'));
@@ -58,6 +57,11 @@ class RealCallerAiExtension {
         add_action('wp_enqueue_scripts', array($this,'enqueue_bootstrap_js'));
 
         add_action('ds_woocommerce_products', array($this, 'woocommerce_products'));
+
+
+        add_action('ds_invoice_form', array($this, 'ds_invoice_form'));
+
+        //add_filter('woocommerce_checkout_fields', 'modify_checkout_state_options');
 
        
      
@@ -68,7 +72,6 @@ class RealCallerAiExtension {
     public function enqueue_bootstrap_js() {
         // Enqueue Bootstrap JS
         wp_enqueue_script('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', array(), '5.3.0', true);
-        wp_enqueue_script('clipboard-js', 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js', array(), null, true);
     }
     
     public function mlm_rewrite_rule() {
@@ -121,15 +124,7 @@ class RealCallerAiExtension {
         return $template;
     }
 
-    public function ds_invoice_form(){
-          // Load custom page template for dealers
-          $new_template = plugin_dir_path( __FILE__ ) . 'templates/invoice.php';
-          if ( file_exists( $new_template ) ) {
-              return $new_template;
-          }
-    }
-
-    	/**
+    /**
 	 * Helper function to send API requests
 	 */
 	private function send_api_request($endpoint, $data)
@@ -351,215 +346,197 @@ class RealCallerAiExtension {
     public function process_order_form_callback() {
         try {
             // Verify nonce
-            if (!isset($_POST['order_form_nonce']) || !wp_verify_nonce($_POST['order_form_nonce'], 'order_form_action')) {
-                throw new Exception('Security check failed');
+            if (!isset($_POST['order_form_nonce'])) {
+                throw new Exception(__('Security token missing', 'your-text-domain'));
+            }
+            
+            if (!wp_verify_nonce($_POST['order_form_nonce'], 'order_form_action')) {
+                throw new Exception(__('Security check failed', 'your-text-domain'));
             }
     
             // Check if WooCommerce is active
             if (!function_exists('wc_create_order')) {
-                throw new Exception('WooCommerce is not active');
+                throw new Exception(__('WooCommerce is not active', 'your-text-domain'));
             }
     
-            // Sanitize data
-            $customer_first_name = sanitize_text_field($_POST['customer_first_name']);
-            $customer_last_name = sanitize_text_field($_POST['customer_last_name']);
-            $customer_email = sanitize_email($_POST['customer_email']);
-            $customer_business = sanitize_text_field($_POST['customer_business']);
-            
-            // Since it's a single product now, we can simplify this
-            $product_id = 76; // Your fixed product ID
-            $quantity = 1;    // Fixed quantity
+            // Sanitize and validate required fields
+            $required_fields = [
+                'customer_first_name' => sanitize_text_field($_POST['customer_first_name'] ?? ''),
+                'customer_last_name'  => sanitize_text_field($_POST['customer_last_name'] ?? ''),
+                'customer_email'      => sanitize_email($_POST['customer_email'] ?? ''),
+                'customer_business'   => sanitize_text_field($_POST['customer_business'] ?? ''),
+                'customer_address'    => sanitize_text_field($_POST['customer_address'] ?? ''),
+                'customer_city'       => sanitize_text_field($_POST['customer_city'] ?? ''),
+                'customer_zip'        => sanitize_text_field($_POST['customer_zip'] ?? ''),
+                'customer_country'    => sanitize_text_field($_POST['customer_country'] ?? ''),
+                'customer_state'      => sanitize_text_field($_POST['customer_state'] ?? '')
+            ];
     
-            // Validate required fields
-            if (empty($customer_first_name) || empty($customer_last_name) || empty($customer_email) || empty($customer_business)) {
-                throw new Exception('Please fill all required fields');
+            // Check for empty required fields
+            foreach ($required_fields as $field => $value) {
+                if (empty($value) && $field !== 'customer_address2') {
+                    throw new Exception(sprintf(__('%s is a required field', 'your-text-domain'), ucfirst(str_replace('customer_', '', $field))));
+                }
+            }
+    
+            // Validate email format
+            if (!is_email($required_fields['customer_email'])) {
+                throw new Exception(__('Please enter a valid email address', 'your-text-domain'));
+            }
+    
+            // Validate country and state
+            $countries = WC()->countries->get_countries();
+            if (!isset($countries[$required_fields['customer_country']])) {
+                throw new Exception(__('Please select a valid country', 'your-text-domain'));
+            }
+    
+            $states = WC()->countries->get_states($required_fields['customer_country']);
+            if (!empty($required_fields['customer_state']) && !empty($states) && !isset($states[$required_fields['customer_state']])) {
+                throw new Exception(__('Please select a valid state/province', 'your-text-domain'));
             }
     
             // Create order
             $order = wc_create_order();
             if (is_wp_error($order)) {
-                throw new Exception('Failed to create order: ' . $order->get_error_message());
+                throw new Exception(__('Failed to create order: ', 'your-text-domain') . $order->get_error_message());
             }
     
             // Add product to order
+            $product_id = 76; // Your fixed product ID
+            $quantity = 1;    // Fixed quantity
             $product = wc_get_product($product_id);
+            
             if (!$product) {
-                throw new Exception('Invalid product ID: ' . $product_id);
+                throw new Exception(__('Product not found', 'your-text-domain'));
             }
+            
             $order->add_product($product, $quantity);
     
             // Set customer details
             $order->set_customer_id(0); // 0 for guests
-            $order->set_billing_first_name($customer_first_name);
-            $order->set_billing_last_name($customer_last_name);
-            $order->set_billing_company($customer_business);
-            $order->set_billing_email($customer_email);
-            
-            // Set required address fields
-            $order->set_billing_address_1('Not provided');
-            $order->set_billing_city('Not provided');
-            $order->set_billing_country('US'); // Default country
-            $order->set_billing_postcode('00000');
+            $order->set_billing_first_name($required_fields['customer_first_name']);
+            $order->set_billing_last_name($required_fields['customer_last_name']);
+            $order->set_billing_company($required_fields['customer_business']);
+            $order->set_billing_email($required_fields['customer_email']);
     
-            // Copy billing to shipping if needed
-            $order->set_shipping_first_name($customer_first_name);
-            $order->set_shipping_last_name($customer_last_name);
-            $order->set_shipping_address_1('Not provided');
+            // Set complete address information
+            $order->set_billing_address_1($required_fields['customer_address']);
+            $order->set_billing_address_2(sanitize_text_field($_POST['customer_address2'] ?? ''));
+            $order->set_billing_city($required_fields['customer_city']);
+            $order->set_billing_postcode($required_fields['customer_zip']);
+            $order->set_billing_country($required_fields['customer_country']);
+            $order->set_billing_state($required_fields['customer_state']);
+    
+            // Copy billing to shipping
+            $order->set_shipping_first_name($required_fields['customer_first_name']);
+            $order->set_shipping_last_name($required_fields['customer_last_name']);
+            $order->set_shipping_company($required_fields['customer_business']);
+            $order->set_shipping_address_1($required_fields['customer_address']);
+            $order->set_shipping_address_2(sanitize_text_field($_POST['customer_address2'] ?? ''));
+            $order->set_shipping_city($required_fields['customer_city']);
+            $order->set_shipping_postcode($required_fields['customer_zip']);
+            $order->set_shipping_country($required_fields['customer_country']);
+            $order->set_shipping_state($required_fields['customer_state']);
     
             // Set payment method
             $order->set_payment_method('bacs');
-            $order->set_payment_method_title('Invoice Payment');
+            $order->set_payment_method_title(__('Invoice Payment', 'your-text-domain'));
     
             // Calculate and save
             $order->calculate_totals();
             $order->save();
     
-            // Set order status to "Pending payment"
+            // Set order status
             $order->update_status('pending', __('Awaiting invoice payment', 'your-text-domain'));
     
-            // 1. First try WooCommerce's built-in invoice email
+            // Send invoice email
+            $email_sent = false;
             $mailer = WC()->mailer();
-            $email = $mailer->emails['WC_Email_Customer_Invoice'];
             
-            if (is_a($email, 'WC_Email')) {
+            if (isset($mailer->emails['WC_Email_Customer_Invoice'])) {
+                $email = $mailer->emails['WC_Email_Customer_Invoice'];
                 $email->trigger($order->get_id(), $order, true);
                 $email_sent = true;
-            } else {
-                $email_sent = false;
-                error_log('WooCommerce invoice email class not found');
             }
     
-            // 2. Fallback: Send custom email if WooCommerce email fails
+            // Fallback email if WC email fails
             if (!$email_sent) {
-                $subject = 'Invoice #' . $order->get_id() . ' from ' . get_bloginfo('name');
-                $headers = array('Content-Type: text/html; charset=UTF-8');
+                $to = $required_fields['customer_email'];
+                $subject = sprintf(__('Invoice #%s from %s', 'your-text-domain'), $order->get_id(), get_bloginfo('name'));
                 
-                // Get the order edit URL for admin
-                $order_edit_url = admin_url('post.php?post=' . $order->get_id() . '&action=edit');
-                  
-                // Create email content
-                $message = '<h2>New Invoice</h2>';
-                $message .= '<p>Hello ' . $customer_first_name . ' ' . $customer_last_name . ',</p>';
-                $message .= '<p>Your invoice #' . $order->get_id() . ' has been created.</p>';
-                $message .= '<p>Product: RealCallerAI</p>';
-                $message .= '<p>Total Amount: ' . $order->get_formatted_order_total() . '</p>';
-                $message .= '<p>Please make payment at your earliest convenience.</p>';
-                $message .= '<p><a href="' . $order->get_checkout_payment_url() . '">Pay Now</a></p>';
-                $message .= '<p>Thank you for your business!</p>';
-                
-                // Send using wp_mail
-                $email_sent = wp_mail($customer_email, $subject, $message, $headers);
-                
-                if (!$email_sent) {
-                    error_log('Failed to send fallback invoice email for order #' . $order->get_id());
-                }
+                $message = sprintf(
+                    '<h2>%s</h2>
+                    <p>%s %s,</p>
+                    <p>%s #%s %s.</p>
+                    <p>%s: %s</p>
+                    <p>%s: %s</p>
+                    <p>%s</p>
+                    <p><a href="%s">%s</a></p>
+                    <p>%s</p>',
+                    __('New Invoice', 'your-text-domain'),
+                    __('Hello', 'your-text-domain'),
+                    $required_fields['customer_first_name'] . ' ' . $required_fields['customer_last_name'],
+                    __('Your invoice', 'your-text-domain'),
+                    $order->get_id(),
+                    __('has been created', 'your-text-domain'),
+                    __('Product', 'your-text-domain'),
+                    $product->get_name(),
+                    __('Total Amount', 'your-text-domain'),
+                    $order->get_formatted_order_total(),
+                    __('Please make payment at your earliest convenience.', 'your-text-domain'),
+                    $order->get_checkout_payment_url(),
+                    __('Pay Now', 'your-text-domain'),
+                    __('Thank you for your business!', 'your-text-domain')
+                );
+    
+                $headers = ['Content-Type: text/html; charset=UTF-8'];
+                $email_sent = wp_mail($to, $subject, $message, $headers);
             }
-
-
+    
+            // Store dealer information
             $dealer_user_id = get_current_user_id();
+            if ($dealer_user_id) {
+                update_post_meta($order->get_id(), 'dealer_user_id', $dealer_user_id);
+            }
     
-            add_post_meta($order->get_id(), 'dealer_user_id', $dealer_user_id);
-    
-            // Return success response 
+            // Return success response
             wp_send_json_success([
-                'message' => 'Invoice created successfully. ' . ($email_sent ? 'Email notification sent.' : 'Email notification could not be sent.'),
+                'message' => __('Invoice created successfully.', 'your-text-domain') . 
+                             ($email_sent ? __(' Email notification sent.', 'your-text-domain') : __(' Email notification could not be sent.', 'your-text-domain')),
                 'order_id' => $order->get_id(),
+                'order_number' => $order->get_order_number(),
+                'order_total' => $order->get_formatted_order_total(),
                 'email_sent' => $email_sent
             ]);
     
         } catch (Exception $e) {
-            // Log the error
             error_log('Invoice processing error: ' . $e->getMessage());
-            
-            // Return error response
-            wp_send_json_error($e->getMessage());
+            wp_send_json_error([
+                'message' => $e->getMessage(),
+                'code' => 'order_processing_error'
+            ]);
         }
     }
 
-    public function woocommerce_products(){
-      // Define the WooCommerce product category
-        $category_slug = 'realcaller'; // Replace with your desired category slug
-
-        // Set up the WP_Query to fetch products in that category
-        $args = array(
-            'post_type' => 'product', // We are querying products
-            'posts_per_page' => 12,   // Limit the number of products
-            'tax_query' => array(
-                array(
-                    'taxonomy' => 'product_cat',  // We are filtering by WooCommerce product categories
-                    'field'    => 'slug',         // Using the category slug
-                    'terms'    => $category_slug, // The category slug to filter by
-                    'operator' => 'IN',           // Filter by this category
-                ),
-            ),
-            'orderby' => 'date', // Order products by date
-            'order'   => 'DESC', // Descending order
-        );
-
-        // The Query
-        $loop = new WP_Query($args);
-
-        // Check if any products were found
-        if ($loop->have_posts()) :
-        ?>
-            <div class="container">
-                <h2 class="text-center mb-4">Featured Products in RealCaller</h2>
-                <div class="row">
-                    <?php while ($loop->have_posts()) : $loop->the_post(); 
-                        global $product; 
-                        $user_id = get_current_user_id();
-                        $p_url = site_url('/client/clients-form/?sponsor=' . $user_id); 
-                    ?>
-                    <div class="col-md-3 col-sm-6 mb-4">
-                        <div class="card shadow-sm h-100">
-                            <a href="<?php the_permalink(); ?>" class="d-block">
-                                <img src="<?php echo wp_get_attachment_url($product->get_image_id()); ?>" class="card-img-top" alt="<?php the_title(); ?>" style="object-fit:cover; width:120px; display:block; margin:auto; border-bottom: 1px solid #ddd;">
-                            </a>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title" style="font-size:14px; font-weight: 600;"><?php the_title(); ?></h5>
-                                <p class="card-text" style="font-size:14px; color:#777;"><?php echo wp_trim_words($product->get_short_description(), 15); ?></p>
-                                <p class="card-text"><strong><?php echo $product->get_price_html(); ?></strong></p>
-                                
-                                <!-- Sponsor ID Form -->
-                                <div class="mt-auto">
-                                    <label for="sponsor-id" class="small text-muted hidden"><?php esc_html_e( 'Sponsor ID', 'binary-mlm' ); ?></label>
-                                    <input type="hidden" id="sponsor-id-<?php the_ID(); ?>" value="<?php echo esc_url( $p_url ); ?>" class="bmlm-input form-control" readonly>
-                                        <button class="btn btn-primary w-100" style="width:100%; font-size:14px;" type="button" data-clipboard-target="#sponsor-id-<?php the_ID(); ?>">
-                                            <span class="bmlm-tooltiptext"><?php esc_html_e( 'Copy to clipboard', 'binary-mlm' ); ?></span>
-                                        </button>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endwhile; ?>
-                </div>
-            </div>
-
-            <script>
-                // Initialize Clipboard.js
-                var clipboard = new ClipboardJS('[data-clipboard-target]');
-
-                clipboard.on('success', function(e) {
-                    // Provide feedback when the link is copied
-                    alert('Affiliate link copied to clipboard!');
-                    e.clearSelection();
-                });
-
-                clipboard.on('error', function(e) {
-                    alert('Failed to copy the affiliate link. Please try again.');
-                });
-            </script>
-
-        <?php
-        else :
-            echo '<p class="text-center">No products found in this category.</p>';
-        endif;
-
-        // Reset Post Data
-        wp_reset_postdata();
-
+    public function woocommerce_products()
+    {
+       
+        if (!file_exists(plugin_dir_path(__FILE__) . 'templates/products.php')) {
+            return;
+        }
+        load_template(plugin_dir_path(__FILE__) . 'templates/products.php');
     }
+
+    public function ds_invoice_form()
+    {
+        if (!file_exists(plugin_dir_path(__FILE__) . 'templates/invoice.php')) {
+            return;
+        }
+        load_template(plugin_dir_path(__FILE__) . 'templates/invoice.php');
+    }
+    
+        
+
 }
 
 // Initialize the plugin class
