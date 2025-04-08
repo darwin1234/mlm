@@ -240,7 +240,7 @@ class mlmInvoice
 
         if($membership_type==="ds_client"){
 			$quantity = 1;
-			$client_product_id = get_option('mlm_client_product');
+			$client_product_id = (int)$_POST['product'];//get_option('mlm_client_product');
 			
 			WC()->cart->empty_cart();	
 			// Add product to the cart
@@ -612,16 +612,5 @@ class mlmInvoice
 
 	}
 	
-	/**
-	 * Add data attributes to state options
-	 */
-	public function modify_checkout_state_options($fields) {
-		
-		// Replace the original fields
-		$fields['billing']['billing_state']['field'] = $billing_state_field;
-		$fields['shipping']['shipping_state']['field'] = $shipping_state_field;
-		
-		return $fields;
-	}
 
 }

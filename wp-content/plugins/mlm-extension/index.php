@@ -61,12 +61,33 @@ class RealCallerAiExtension {
 
         add_action('ds_invoice_form', array($this, 'ds_invoice_form'));
 
-        //add_filter('woocommerce_checkout_fields', 'modify_checkout_state_options');
 
-       
+        add_action('wp_ajax_get_product_details', array($this,'get_product_details_callback'));
+        add_action('wp_ajax_nopriv_get_product_details', array($this,'get_product_details_callback'));
      
     }
-
+    
+    
+    public function get_product_details_callback() {
+        if (!isset($_POST['product_id'])) {
+            wp_send_json_error('Product ID missing');
+        }
+    
+        $product_id = intval($_POST['product_id']);
+        $product = wc_get_product($product_id);
+    
+        if (!$product) {
+            wp_send_json_error('Product not found');
+        }
+    
+        wp_send_json_success([
+            'name' => $product->get_name(),
+            'description' => $product->get_short_description(),
+            'price' => $product->get_price(),
+            'price_html' => $product->get_price_html(),
+            'type' => $product->get_type()
+        ]);
+    }
 
             // In your theme's functions.php or plugin file
     public function enqueue_bootstrap_js() {
@@ -402,7 +423,7 @@ class RealCallerAiExtension {
             }
     
             // Add product to order
-            $product_id = 76; // Your fixed product ID
+            $product_id = $_POST['product'] ?? 76; // Your fixed product ID
             $quantity = 1;    // Fixed quantity
             $product = wc_get_product($product_id);
             

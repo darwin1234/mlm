@@ -1,88 +1,151 @@
 <?php 
 /**
- * Invoice Form Template - Enhanced Design
+ * Invoice Form Template - Product Selection + Order Form (Two-Step Process)
  */
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 } 
 ?>
 <div class="ds-invoice-wrapper">
-    <form id="order-form" method="post" class="container mt-4">
-        <?php wp_nonce_field('order_form_action', 'order_form_nonce'); ?>
-        <input type="hidden" name="action" value="process_order_form">
-        <input type="hidden" name="product[]" value="76">
-        <input type="hidden" name="quantity[]" value="1">
+    <?php 
+    // Define the WooCommerce product category
+    $category_slug = 'realcaller'; // Replace with your desired category slug
         
-        <div class="card shadow-lg border-0 overflow-hidden">
+    // Set up the WP_Query to fetch products in that category
+    $args = array(
+        'post_type' => 'product',
+        'posts_per_page' => 12,
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'product_cat',
+                'field'    => 'slug',
+                'terms'    => $category_slug,
+                'operator' => 'IN',
+            ),
+        ),
+        'orderby' => 'date',
+        'order'   => 'DESC',
+    );
+
+    // The Query
+    $loop = new WP_Query($args);
+    ?>
+
+    <!-- Step 1: Product Selection -->
+    <div class="product-selection-step" id="step1">
+        <div class="container">
+            <h2 class="text-center mb-4">Select Your Product</h2>
+            <div class="row">
+                <?php if ($loop->have_posts()) : 
+                    while ($loop->have_posts()) : $loop->the_post(); 
+                        global $product; 
+                        $product_id = $product->get_id();
+                ?>
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card product-card shadow-sm h-100" data-product-id="<?php echo $product_id; ?>">
+                        <div class="card-body d-flex flex-column">
+                            <div class="text-center mb-3">
+                                <?php echo $product->get_image('small', ['class' => 'img-fluid', 'style' => 'max-height: 150px; width:100px; margin:auto; display:block;']); ?>
+                            </div>
+                            <h5 class="card-title" style="font-size:12px;"><?php the_title(); ?></h5>
+                            <p class="card-text text-muted small"><?php echo wp_trim_words($product->get_short_description(), 15); ?></p>
+                            <div class="mt-auto">
+                                <p class="h5 text-primary mb-3" style="font-size:14px;"><?php echo $product->get_price_html(); ?></p>
+                                <button type="button" class="btn btn-primary w-100 select-product-btn" style="font-size:14px;">
+                                    Select Product
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endwhile; ?>
+                <?php else: ?>
+                    <div class="col-12">
+                        <p class="text-center">No products found in this category.</p>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 2: Order Form (Initially Hidden) -->
+    <div class="order-form-step" id="step2" style="display: none;">
+        <form id="order-form" method="post" class="container mt-4">
+            <?php wp_nonce_field('order_form_action', 'order_form_nonce'); ?>
+            <input type="hidden" name="action" value="process_order_form">
+            <input type="hidden" id="selected_product_id" name="product" value="">
+            <input type="hidden" name="quantity" value="1">
             
-            <div class="card-body">
-                <!-- Product Summary -->
-                <div class="product-summary bg-light p-4 rounded-3 mb-4">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h4 class="text-primary mb-2">
-                                <i class="fas fa-phone-alt me-2"></i> RealCallerAI
-                            </h4>
-                            <p class="text-muted mb-0">Advanced caller identification solution for your business</p>
-                        </div>
-                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                            <div class="d-inline-block bg-white p-3 rounded-3 shadow-sm">
-                                <h3 class="text-success mb-0">$1,000.00</h3>
-                                <small class="text-muted">one-time payment</small>
+            <div class="card shadow-lg border-0 overflow-hidden">
+                <div class="card-body">
+                    <!-- Product Summary -->
+                    <div class="product-summary bg-light p-4 rounded-3 mb-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h4 class="text-primary mb-2" id="selected-product-name">
+                                    <i class="fas fa-box me-2"></i> 
+                                </h4>
+                                <p class="text-muted mb-0" id="selected-product-description"></p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <div class="d-inline-block">
+                                    <button type="button" class="btn btn-primary btn-sm btn-outline-secondary back-to-products text-white">
+                                        <i class="fas fa-arrow-left me-1"></i> Change Product
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="progress mb-4" style="height: 6px;">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                
-                <!-- Customer Information -->
-                <div class="section-card mb-5">
-                    <h4 class="section-title">
-                        <span class="icon-circle bg-primary text-white me-2">
-                            <i class="fas fa-user"></i>
-                        </span>
-                        Customer Information
-                    </h4>
-                    <div class="row g-3 mt-3">
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="customer_first_name" name="customer_first_name" required placeholder="John">
-                                <label for="customer_first_name">First Name*</label>
+                    
+                    <div class="progress mb-4" style="height: 6px;">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    
+                    <!-- Customer Information -->
+                    <div class="section-card mb-5">
+                        <h4 class="section-title">
+                            <span class="icon-circle bg-primary text-white me-2">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            Customer Information
+                        </h4>
+                        <div class="row g-3 mt-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="customer_first_name" name="customer_first_name" required placeholder="John">
+                                    <label for="customer_first_name">First Name*</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="customer_last_name" name="customer_last_name" required placeholder="Doe">
-                                <label for="customer_last_name">Last Name*</label>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="customer_last_name" name="customer_last_name" required placeholder="Doe">
+                                    <label for="customer_last_name">Last Name*</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="email" class="form-control" id="customer_email" name="customer_email" required placeholder="john@example.com">
-                                <label for="customer_email">Email*</label>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="customer_email" name="customer_email" required placeholder="john@example.com">
+                                    <label for="customer_email">Email*</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="customer_business" name="customer_business" required placeholder="Your Company Inc.">
-                                <label for="customer_business">Business Name*</label>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="customer_business" name="customer_business" required placeholder="Your Company Inc.">
+                                    <label for="customer_business">Business Name*</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Address Information -->
-                <div class="section-card mb-5">
-                    <h4 class="section-title">
-                        <span class="icon-circle bg-primary text-white me-2">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </span>
-                        Address Information
-                    </h4>
-                    <div class="row g-3 mt-3">
+                    
+                    <!-- Address Information -->
+                    <div class="section-card mb-5">
+                        <h4 class="section-title">
+                            <span class="icon-circle bg-primary text-white me-2">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+                            Address Information
+                        </h4>
+                        <div class="row g-3 mt-3">
                         <div class="col-md-6">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="customer_address" name="customer_address" required placeholder="123 Main St">
@@ -213,51 +276,59 @@ if (!defined('ABSPATH')) {
                             </div>
                         </div>
                     </div>
+                    </div>
+                    
+                    <!-- Payment Summary -->
+                    <div class="payment-summary bg-light p-4 rounded-3 mb-4">
+                        <h5 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted">Subtotal:</span>
+                            <span id="order-subtotal">$0.00</span>
+                        </h5>
+                        <div class="d-flex justify-content-between align-items-center mb-2" style="display:none!important;">
+                            <span class="text-muted">Tax:</span>
+                            <span id="order-tax">$0.00</span>
+                        </div>
+                        <hr class="my-2">
+                        <h4 class="d-flex justify-content-between align-items-center mb-0">
+                            <span class="fw-bold">Total:</span>
+                            <span class="text-success fw-bold" id="order-total">$0.00</span>
+                        </h4>
+                    </div>
                 </div>
                 
-                <!-- Payment Summary -->
-                <div class="payment-summary bg-light p-4 rounded-3 mb-4">
-                    <h5 class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-muted">Subtotal:</span>
-                        <span>$1,000.00</span>
-                    </h5>
-                    <div class="d-flex justify-content-between align-items-center mb-2" style="display:none!important;">
-                        <span class="text-muted">Tax:</span>
-                        <span>$0.00</span>
+                <div class="card-footer bg-light pt-4 pb-3">
+                    <div class="d-grid">
+                        <button id="submit_order" type="submit" name="submit_order" class="btn btn-primary btn-lg py-3">
+                            <i class="fas fa-paper-plane me-2"></i> Place Order & Send Invoice
+                        </button>
                     </div>
-                    <hr class="my-2">
-                    <h4 class="d-flex justify-content-between align-items-center mb-0">
-                        <span class="fw-bold">Total:</span>
-                        <span class="text-success fw-bold">$1,000.00</span>
-                    </h4>
-                </div>
-            </div>
-            
-            <!-- Footer -->
-            <div class="card-footer bg-light pt-4 pb-3">
-                <div class="d-grid">
-                    <button id="submit_order" type="submit" name="submit_order" class="btn btn-primary btn-lg py-3">
-                        <i class="fas fa-paper-plane me-2"></i> Place Order & Send Invoice
-                    </button>
-                </div>
-                <div class="security-note text-center mt-3">
-                    <p class="text-muted small mb-1">
-                        <i class="fas fa-lock me-1"></i> Your information is secure and will not be shared
-                    </p>
-                    <div class="d-flex justify-content-center gap-3 mt-2">
-                        <img src="<?php echo esc_url(plugins_url('assets/ssl-secure.png', __FILE__)); ?>" alt="SSL Secure" height="30">
-                        <img src="<?php echo esc_url(plugins_url('assets/payment-methods.png', __FILE__)); ?>" alt="Payment Methods" height="30">
+                    <div class="security-note text-center mt-3">
+                        <p class="text-muted small mb-1">
+                            <i class="fas fa-lock me-1"></i> Your information is secure and will not be shared
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 <style>
 .ds-invoice-wrapper {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
+}
+
+.product-selection-step .product-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.product-selection-step .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: #4d90fe;
 }
 
 .section-card {
@@ -265,13 +336,6 @@ if (!defined('ABSPATH')) {
     border-radius: 10px;
     padding: 1.5rem;
     box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-}
-
-.section-title {
-    font-weight: 600;
-    color: #2c3e50;
-    display: flex;
-    align-items: center;
 }
 
 .icon-circle {
@@ -283,50 +347,25 @@ if (!defined('ABSPATH')) {
     justify-content: center;
 }
 
-.form-floating label {
-    color: #6c757d;
-}
-
-.form-control, .form-select {
-    height: calc(3rem + 2px);
-    border-radius: 8px;
-}
-
-.form-control:focus, .form-select:focus {
-    border-color: #4d90fe;
-    box-shadow: 0 0 0 2px rgba(77, 144, 254, 0.2);
-}
-
-.product-summary {
-    border-left: 4px solid #4d90fe;
-}
-
-.btn-primary {
-    background-color: #4d90fe;
-    border: none;
-    border-radius: 8px;
-    font-weight: 500;
+.back-to-products {
     transition: all 0.3s;
 }
 
-.btn-primary:hover {
-    background-color: #3a7bd5;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.security-note img {
-    opacity: 0.8;
-    transition: opacity 0.3s;
-}
-
-.security-note img:hover {
-    opacity: 1;
+.back-to-products:hover {
+    background-color: #f8f9fa;
 }
 
 @media (max-width: 768px) {
-    .ds-invoice-wrapper {
-        padding: 0 15px;
+    .product-selection-step .col-md-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-selection-step .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 }
 </style>
@@ -338,7 +377,62 @@ jQuery(document).ready(function($) {
         ajaxurl = '<?php echo admin_url("admin-ajax.php"); ?>';
     }
 
-    // Enhanced Country-State dynamic relationship
+    // Product selection handler
+    $('.select-product-btn').on('click', function() {
+        var productCard = $(this).closest('.product-card');
+        var productId = productCard.data('product-id');
+        // Get product details via AJAX
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'get_product_details',
+                product_id: productId
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    console.log(response.data.price);
+                    // Update order form with product details
+                    $('#selected_product_id').val(productId);
+                    $('#selected-product-name').html('<i class="fas fa-box me-2"></i>' + response.data.name);
+                    $('#selected-product-description').text(response.data.description);
+                    $('#selected-product-price').text(response.data.price_html);
+                    
+                    // Update payment summary
+                    updatePaymentSummary(response.data.price);
+                    
+                    // Switch to step 2
+                    $('#step1').hide();
+                    $('#step2').show();
+                    
+                    // Scroll to top
+                    $('html, body').animate({ scrollTop: 0 }, 'slow');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching product details:', error);
+            }
+        });
+    });
+
+    // Back to products button
+    $('.back-to-products').on('click', function() {
+        $('#step2').hide();
+        $('#step1').show();
+    });
+
+    // Function to update payment summary
+    function updatePaymentSummary(price) {
+        var tax = 0; // You can add tax calculation here if needed
+        var total = price + tax;
+        
+        $('#order-subtotal').text('$' + price);
+        $('#order-tax').text('$' + tax);
+        $('#order-total').text('$' + total);
+    }
+
+    // Country-State dynamic relationship
     $('#customer_country').change(function() {
         var country = $(this).val();
         $('#customer_state option').addClass('d-none');
@@ -351,9 +445,15 @@ jQuery(document).ready(function($) {
         $('#customer_state').val('');
     }).trigger('change');
 
-    // Enhanced form submission with better UX
+    // Form submission
     $('#order-form').on('submit', function(e) {
         e.preventDefault();
+        
+        // Validate product is selected
+        if (!$('#selected_product_id').val()) {
+            alert('Please select a product first');
+            return false;
+        }
         
         const form = $(this);
         const submitBtn = form.find('[type="submit"]');
@@ -363,9 +463,6 @@ jQuery(document).ready(function($) {
                 .html('<i class="fas fa-spinner fa-spin me-2"></i> Processing...')
                 .addClass('disabled');
         
-        // Add loading state to form
-        form.addClass('form-processing');
-        
         $.ajax({
             url: ajaxurl,
             type: 'POST',
@@ -373,32 +470,20 @@ jQuery(document).ready(function($) {
             dataType: 'json',
             success: function(response) {
                 if (response.success) {
-                    // Success animation
-                    form.addClass('form-success');
-                    setTimeout(function() {
-                        alert("Invoice Successfully Sent");
-                        var modal = $('#order_form_frm');
-                        modal.on('hidden.bs.modal', function() {
-                            location.reload();
-                        });
-                        modal.modal('hide');
-                    }, 500);
+                    // Success handling
+                    alert("Invoice Successfully Sent");
+                    // You can redirect or reset the form here
                 } else {
                     alert('Error: ' + (response.data || 'Unknown error occurred'));
-                    form.addClass('form-error');
-                    setTimeout(() => form.removeClass('form-error'), 1000);
                 }
             },
             error: function(xhr, status, error) {
                 alert('Error: ' + error);
-                form.addClass('form-error');
-                setTimeout(() => form.removeClass('form-error'), 1000);
             },
             complete: function() {
                 submitBtn.prop('disabled', false)
                         .html(originalText)
                         .removeClass('disabled');
-                form.removeClass('form-processing');
             }
         });
     });
